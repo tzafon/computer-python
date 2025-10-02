@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [tzafon.ai](http://tzafon.ai/support). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.tzafon.ai](http://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
