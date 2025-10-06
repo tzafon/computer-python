@@ -339,7 +339,7 @@ class TestComputer:
     def test_validate_headers(self) -> None:
         client = Computer(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == api_key
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(ComputerError):
             with update_env(**{"COMPUTER_API_KEY": Omit()}):
@@ -1144,7 +1144,7 @@ class TestAsyncComputer:
     def test_validate_headers(self) -> None:
         client = AsyncComputer(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == api_key
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(ComputerError):
             with update_env(**{"COMPUTER_API_KEY": Omit()}):
