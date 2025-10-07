@@ -1,4 +1,4 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-__title__ = "tzafon"
+__title__ = "tzafonComputer"
 __version__ = "1.0.1"  # x-release-please-version
