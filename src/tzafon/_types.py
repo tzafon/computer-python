@@ -92,7 +92,7 @@ HttpxRequestFiles = Union[Mapping[str, HttpxFileTypes], Sequence[Tuple[str, Http
 # This unfortunately means that you will either have
 # to import this type and pass it explicitly:
 #
-# from computer import NoneType
+# from tzafon import NoneType
 # client.get('/foo', cast_to=NoneType)
 #
 # or build it yourself:
