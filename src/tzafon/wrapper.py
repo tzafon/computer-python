@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ._client import Computer as TzafonClient
@@ -61,10 +61,10 @@ class ComputerWrapper:
             body={
                 "action": {
                     "type": "drag",
-                    "from_x": from_x,
-                    "from_y": from_y,
-                    "to_x": to_x,
-                    "to_y": to_y,
+                    "x1": from_x,
+                    "y1": from_y,
+                    "x2": to_x,
+                    "y2": to_y,
                 }
             },
         )
@@ -72,20 +72,20 @@ class ComputerWrapper:
     def hotkey(self, *keys: str) -> ActionResult:
         """Press a hotkey combination."""
         return self._client.computers.execute_action(
-            self.id, body={"action": {"type": "hotkey", "keys": list(keys)}}
+            self.id, body={"action": {"type": "keypress", "keys": list(keys)}}
         )
 
-    def scroll(self, direction: str, amount: Optional[int] = None) -> ActionResult:
+    def scroll(self, direction: str, amount: int = 500) -> ActionResult:
         """Scroll in a direction."""
-        action: Dict[str, Any] = {"type": "scroll", "direction": direction}
-        if amount is not None:
-            action["amount"] = amount
-        return self._client.computers.execute_action(self.id, body={"action": action})
+        dy = amount if direction == "down" else -amount
+        return self._client.computers.execute_action(
+            self.id, body={"action": {"type": "scroll", "x": 0, "y": 0, "dx": 0, "dy": dy}}
+        )
 
     def wait(self, seconds: float) -> ActionResult:
         """Wait for a specified time."""
         return self._client.computers.execute_action(
-            self.id, body={"action": {"type": "wait", "seconds": seconds}}
+            self.id, body={"action": {"type": "wait", "ms": int(seconds * 1000)}}
         )
 
     def terminate(self) -> None:

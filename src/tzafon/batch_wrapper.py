@@ -53,29 +53,27 @@ class BatchComputerWrapper:
         """Queue drag action."""
         self._actions.append({
             "type": "drag",
-            "from_x": from_x,
-            "from_y": from_y,
-            "to_x": to_x,
-            "to_y": to_y,
+            "x1": from_x,
+            "y1": from_y,
+            "x2": to_x,
+            "y2": to_y,
         })
         return self
 
     def hotkey(self, *keys: str) -> BatchComputerWrapper:
         """Queue hotkey action."""
-        self._actions.append({"type": "hotkey", "keys": list(keys)})
+        self._actions.append({"type": "keypress", "keys": list(keys)})
         return self
 
-    def scroll(self, direction: str, amount: int | None = None) -> BatchComputerWrapper:
+    def scroll(self, direction: str, amount: int = 500) -> BatchComputerWrapper:
         """Queue scroll action."""
-        action: Dict[str, Any] = {"type": "scroll", "direction": direction}
-        if amount is not None:
-            action["amount"] = amount
-        self._actions.append(action)
+        dy = amount if direction == "down" else -amount
+        self._actions.append({"type": "scroll", "x": 0, "y": 0, "dx": 0, "dy": dy})
         return self
 
     def wait(self, seconds: float) -> BatchComputerWrapper:
         """Queue wait action."""
-        self._actions.append({"type": "wait", "seconds": seconds})
+        self._actions.append({"type": "wait", "ms": int(seconds * 1000)})
         return self
 
     def execute(self) -> ComputerExecuteBatchResponse:
