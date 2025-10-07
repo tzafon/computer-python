@@ -5,10 +5,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ._client import AsyncComputer as AsyncTzafonClient
-    from ._client import Computer as TzafonClient
-    from .async_wrapper import AsyncComputerWrapper
+    from ._client import Computer as TzafonClient, AsyncComputer as AsyncTzafonClient
     from .wrapper import ComputerWrapper
+    from .async_wrapper import AsyncComputerWrapper
 
 __all__ = ["add_client_extensions", "add_async_client_extensions"]
 
