@@ -90,22 +90,16 @@ _setup_logging()
 
 # Apply custom extensions to client (protected from Stainless regeneration)
 from .wrapper import ComputerWrapper as ComputerWrapper
-from .async_wrapper import AsyncComputerWrapper as AsyncComputerWrapper
 from .batch_wrapper import BatchComputerWrapper as BatchComputerWrapper
-from .client_extensions import (
-    add_client_extensions,
-    add_async_client_extensions,
-    add_batch_client_extensions,
-)
+from .client_extensions import add_client_extensions, add_batch_client_extensions
 
 add_client_extensions(Computer)
-add_async_client_extensions(AsyncComputer)
 
 # Create asyncComputer alias for batch execution
 asyncComputer = _t.cast(_t.Type[Computer], type("asyncComputer", (Computer,), {}))
 add_batch_client_extensions(asyncComputer)
 
-__all__.extend(["ComputerWrapper", "AsyncComputerWrapper", "BatchComputerWrapper", "asyncComputer"])
+__all__.extend(["ComputerWrapper", "BatchComputerWrapper", "asyncComputer"])
 
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module

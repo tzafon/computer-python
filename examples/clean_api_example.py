@@ -1,8 +1,8 @@
-"""Clean OOP API for Tzafon browser automation."""
+"""Clean API examples for Tzafon browser automation."""
 
-from tzafon import Computer, AsyncComputer
+from tzafon import Computer, asyncComputer
 
-# Initialize client (auto-reads COMPUTER_API_KEY from env)
+# 1. IMMEDIATE EXECUTION (Computer)
 client = Computer()
 
 # Context manager (auto-cleanup)
@@ -26,15 +26,16 @@ with client.create(kind="browser") as computer:
     computer.drag(100, 100, 200, 200)
 
 
-# Async version
-async def async_example():
-    client = AsyncComputer()
-    async with client.create(kind="browser") as computer:
-        await computer.navigate("https://google.com")
-        await computer.type("Hello World")
-        screenshot = await computer.screenshot()
-        print(f"Screenshot: {screenshot.result['screenshot_url']}")
+# 2. BATCH EXECUTION (asyncComputer)
+batch_client = asyncComputer()
 
+computer = batch_client.create(kind="browser")
+computer.navigate("https://google.com")
+computer.type("Hello World")
+computer.click(100, 200)
 
-# import asyncio
-# asyncio.run(async_example())
+# Execute all queued actions
+result = computer.execute()
+print(f"Executed {len(result.results)} actions")
+
+computer.terminate()
