@@ -1,5 +1,5 @@
 [project]
-name = "Tzafon"
+name = "tzafonComputer"
 version = "1.0.1"
 description = "The official Python library for the computer API"
 dynamic = ["readme"]
