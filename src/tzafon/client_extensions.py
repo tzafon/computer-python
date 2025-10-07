@@ -1,0 +1,62 @@
+"""Client extensions - protected from Stainless regeneration."""
+
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ._client import AsyncComputer as AsyncTzafonClient
+    from ._client import Computer as TzafonClient
+    from .async_wrapper import AsyncComputerWrapper
+    from .wrapper import ComputerWrapper
+
+__all__ = ["add_client_extensions", "add_async_client_extensions"]
+
+
+def add_client_extensions(client_class: type[TzafonClient]) -> None:
+    """Monkey-patch the Computer client to add custom methods."""
+
+    def create(
+        self: TzafonClient, kind: str = "browser", **kwargs
+    ) -> ComputerWrapper:
+        """Create a computer and return a high-level wrapper.
+
+        Args:
+            kind: Type of computer ("browser", "desktop", "code")
+            **kwargs: Additional arguments passed to computers.create()
+
+        Returns:
+            ComputerWrapper instance with clean API
+        """
+        from .wrapper import ComputerWrapper
+
+        response = self.computers.create(kind=kind, **kwargs)
+        return ComputerWrapper(self, response.id)
+
+    # Add the method to the class
+    client_class.create = create  # type: ignore
+
+
+def add_async_client_extensions(client_class: type[AsyncTzafonClient]) -> None:
+    """Monkey-patch the AsyncComputer client to add custom methods."""
+
+    async def create(
+        self: AsyncTzafonClient, kind: str = "browser", **kwargs
+    ) -> AsyncComputerWrapper:
+        """Create a computer and return a high-level async wrapper.
+
+        Args:
+            kind: Type of computer ("browser", "desktop", "code")
+            **kwargs: Additional arguments passed to computers.create()
+
+        Returns:
+            AsyncComputerWrapper instance with clean API
+        """
+        from .async_wrapper import AsyncComputerWrapper
+
+        response = await self.computers.create(kind=kind, **kwargs)
+        return AsyncComputerWrapper(self, response.id)
+
+    # Add the method to the class
+    client_class.create = create  # type: ignore
+

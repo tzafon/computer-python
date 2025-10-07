@@ -88,6 +88,20 @@ if not _t.TYPE_CHECKING:
 
 _setup_logging()
 
+# Apply custom extensions to client (protected from Stainless regeneration)
+from .client_extensions import add_client_extensions, add_async_client_extensions
+from .wrapper import ComputerWrapper
+from .async_wrapper import AsyncComputerWrapper
+
+add_client_extensions(Computer)
+add_async_client_extensions(AsyncComputer)
+
+# Add Tzafon aliases for better naming
+Tzafon = Computer
+AsyncTzafon = AsyncComputer
+
+__all__.extend(["ComputerWrapper", "AsyncComputerWrapper", "Tzafon", "AsyncTzafon"])
+
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
