@@ -18,12 +18,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from tzafon import Computer, AsyncComputer, APIResponseValidationError
-from tzafon._types import Omit
-from tzafon._utils import asyncify
-from tzafon._models import BaseModel, FinalRequestOptions
-from tzafon._exceptions import ComputerError, APIStatusError, APITimeoutError, APIResponseValidationError
-from tzafon._base_client import (
+from tzafonComputer import Computer, AsyncComputer, APIResponseValidationError
+from tzafonComputer._types import Omit
+from tzafonComputer._utils import asyncify
+from tzafonComputer._models import BaseModel, FinalRequestOptions
+from tzafonComputer._exceptions import ComputerError, APIStatusError, APITimeoutError, APIResponseValidationError
+from tzafonComputer._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -232,10 +232,10 @@ class TestComputer:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "tzafon/_legacy_response.py",
-                        "tzafon/_response.py",
+                        "tzafonComputer/_legacy_response.py",
+                        "tzafonComputer/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "tzafon/_compat.py",
+                        "tzafonComputer/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -711,7 +711,7 @@ class TestComputer:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Computer) -> None:
         respx_mock.get("/auth/callback").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -721,7 +721,7 @@ class TestComputer:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Computer) -> None:
         respx_mock.get("/auth/callback").mock(return_value=httpx.Response(500))
@@ -731,7 +731,7 @@ class TestComputer:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -762,7 +762,7 @@ class TestComputer:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: Computer, failures_before_success: int, respx_mock: MockRouter
@@ -787,7 +787,7 @@ class TestComputer:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Computer, failures_before_success: int, respx_mock: MockRouter
@@ -1037,10 +1037,10 @@ class TestAsyncComputer:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "tzafon/_legacy_response.py",
-                        "tzafon/_response.py",
+                        "tzafonComputer/_legacy_response.py",
+                        "tzafonComputer/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "tzafon/_compat.py",
+                        "tzafonComputer/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1530,7 +1530,7 @@ class TestAsyncComputer:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncComputer
@@ -1542,7 +1542,7 @@ class TestAsyncComputer:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncComputer
@@ -1554,7 +1554,7 @@ class TestAsyncComputer:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
@@ -1586,7 +1586,7 @@ class TestAsyncComputer:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
@@ -1612,7 +1612,7 @@ class TestAsyncComputer:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("tzafon._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(

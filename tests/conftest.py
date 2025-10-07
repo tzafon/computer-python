@@ -10,15 +10,15 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from tzafon import Computer, AsyncComputer, DefaultAioHttpClient
-from tzafon._utils import is_dict
+from tzafonComputer import Computer, AsyncComputer, DefaultAioHttpClient
+from tzafonComputer._utils import is_dict
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("tzafon").setLevel(logging.DEBUG)
+logging.getLogger("tzafonComputer").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
