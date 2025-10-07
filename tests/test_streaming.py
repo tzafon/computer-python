@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from computer import Computer, AsyncComputer
-from computer._streaming import Stream, AsyncStream, ServerSentEvent
+from tzafon import Computer, AsyncComputer
+from tzafon._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

@@ -7,17 +7,17 @@ from ._proxy import LazyProxy
 
 
 class ResourcesProxy(LazyProxy[Any]):
-    """A proxy for the `computer.resources` module.
+    """A proxy for the `tzafon.resources` module.
 
-    This is used so that we can lazily import `computer.resources` only when
-    needed *and* so that users can just import `computer` and reference `computer.resources`
+    This is used so that we can lazily import `tzafon.resources` only when
+    needed *and* so that users can just import `tzafon` and reference `tzafon.resources`
     """
 
     @override
     def __load__(self) -> Any:
         import importlib
 
-        mod = importlib.import_module("computer.resources")
+        mod = importlib.import_module("tzafon.resources")
         return mod
 
 
