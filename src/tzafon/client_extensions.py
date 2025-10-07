@@ -8,8 +8,9 @@ if TYPE_CHECKING:
     from ._client import Computer as TzafonClient, AsyncComputer as AsyncTzafonClient
     from .wrapper import ComputerWrapper
     from .async_wrapper import AsyncComputerWrapper
+    from .batch_wrapper import BatchComputerWrapper
 
-__all__ = ["add_client_extensions", "add_async_client_extensions"]
+__all__ = ["add_client_extensions", "add_async_client_extensions", "add_batch_client_extensions"]
 
 
 def add_client_extensions(client_class: type[TzafonClient]) -> None:
@@ -55,6 +56,30 @@ def add_async_client_extensions(client_class: type[AsyncTzafonClient]) -> None:
 
         response = await self.computers.create(kind=kind, **kwargs)
         return AsyncComputerWrapper(self, response.id)
+
+    # Add the method to the class
+    client_class.create = create  # type: ignore
+
+
+def add_batch_client_extensions(client_class: type[TzafonClient]) -> None:
+    """Monkey-patch the Computer client for batch execution."""
+
+    def create(
+        self: TzafonClient, kind: str = "browser", **kwargs
+    ) -> BatchComputerWrapper:
+        """Create a computer and return a batch execution wrapper.
+
+        Args:
+            kind: Type of computer ("browser", "desktop", "code")
+            **kwargs: Additional arguments passed to computers.create()
+
+        Returns:
+            BatchComputerWrapper instance that queues actions
+        """
+        from .batch_wrapper import BatchComputerWrapper
+
+        response = self.computers.create(kind=kind, **kwargs)
+        return BatchComputerWrapper(self, response.id)
 
     # Add the method to the class
     client_class.create = create  # type: ignore
