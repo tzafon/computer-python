@@ -1,7 +1,7 @@
 # Computer Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/Tzafon.svg?label=pypi%20(stable))](https://pypi.org/project/Tzafon/)
+[![PyPI version](https://img.shields.io/pypi/v/tzafonComputer.svg?label=pypi%20(stable))](https://pypi.org/project/tzafonComputer/)
 
 The Computer Python library provides convenient access to the Computer REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -17,7 +17,7 @@ The REST API documentation can be found on [docs.tzafon.ai](http://docs.tzafon.a
 
 ```sh
 # install from PyPI
-pip install Tzafon
+pip install tzafonComputer
 ```
 
 ## Usage
@@ -77,7 +77,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install Tzafon[aiohttp]
+pip install tzafonComputer[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
