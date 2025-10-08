@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/tzafonComputer/_version.py"
+    "src/tzafon/_version.py"
   ]
 }
