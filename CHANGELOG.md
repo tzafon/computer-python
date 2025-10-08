@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.2 (2025-10-08)
+
+Full Changelog: [v1.3.1...v1.3.2](https://github.com/atulgavandetzafon/computer-python/compare/v1.3.1...v1.3.2)
+
+### Chores
+
+* update SDK settings ([05f237e](https://github.com/atulgavandetzafon/computer-python/commit/05f237ee8b8b72f28301dda597201e051f1b7ef4))
+* update SDK settings ([89b4df6](https://github.com/atulgavandetzafon/computer-python/commit/89b4df64ee207a368dfa80e9ae47a9255da4d545))
+
 ## 1.3.1 (2025-10-08)
 
 Full Changelog: [v1.3.0...v1.3.1](https://github.com/atulgavandetzafon/computer-python/compare/v1.3.0...v1.3.1)
