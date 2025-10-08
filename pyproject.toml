@@ -5,7 +5,7 @@ description = "The official Python library for the computer API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [
-{ name = "Computer", email = "api@tzafon.ai" },
+{ name = "Computer", email = "simon@tzafon.ai" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
