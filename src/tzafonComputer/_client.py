@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import auth, computers
+from .resources import computers
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ComputerError, APIStatusError
 from ._base_client import (
@@ -43,7 +43,6 @@ __all__ = [
 
 
 class Computer(SyncAPIClient):
-    auth: auth.AuthResource
     computers: computers.ComputersResource
     with_raw_response: ComputerWithRawResponse
     with_streaming_response: ComputerWithStreamedResponse
@@ -102,7 +101,6 @@ class Computer(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.auth = auth.AuthResource(self)
         self.computers = computers.ComputersResource(self)
         self.with_raw_response = ComputerWithRawResponse(self)
         self.with_streaming_response = ComputerWithStreamedResponse(self)
@@ -213,7 +211,6 @@ class Computer(SyncAPIClient):
 
 
 class AsyncComputer(AsyncAPIClient):
-    auth: auth.AsyncAuthResource
     computers: computers.AsyncComputersResource
     with_raw_response: AsyncComputerWithRawResponse
     with_streaming_response: AsyncComputerWithStreamedResponse
@@ -272,7 +269,6 @@ class AsyncComputer(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.auth = auth.AsyncAuthResource(self)
         self.computers = computers.AsyncComputersResource(self)
         self.with_raw_response = AsyncComputerWithRawResponse(self)
         self.with_streaming_response = AsyncComputerWithStreamedResponse(self)
@@ -384,25 +380,21 @@ class AsyncComputer(AsyncAPIClient):
 
 class ComputerWithRawResponse:
     def __init__(self, client: Computer) -> None:
-        self.auth = auth.AuthResourceWithRawResponse(client.auth)
         self.computers = computers.ComputersResourceWithRawResponse(client.computers)
 
 
 class AsyncComputerWithRawResponse:
     def __init__(self, client: AsyncComputer) -> None:
-        self.auth = auth.AsyncAuthResourceWithRawResponse(client.auth)
         self.computers = computers.AsyncComputersResourceWithRawResponse(client.computers)
 
 
 class ComputerWithStreamedResponse:
     def __init__(self, client: Computer) -> None:
-        self.auth = auth.AuthResourceWithStreamingResponse(client.auth)
         self.computers = computers.ComputersResourceWithStreamingResponse(client.computers)
 
 
 class AsyncComputerWithStreamedResponse:
     def __init__(self, client: AsyncComputer) -> None:
-        self.auth = auth.AsyncAuthResourceWithStreamingResponse(client.auth)
         self.computers = computers.AsyncComputersResourceWithStreamingResponse(client.computers)
 
 
