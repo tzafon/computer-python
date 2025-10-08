@@ -148,9 +148,9 @@ exclude = [
     ".venv",
     ".nox",
     ".git",
-    "src/tzafonComputer/wrapper.py",
-    "src/tzafonComputer/batch_wrapper.py",
-    "src/tzafonComputer/client_extensions.py",
+    "src/tzafon/wrapper.py",
+    "src/tzafon/batch_wrapper.py",
+    "src/tzafon/client_extensions.py",
     "examples/",
 ]
 
