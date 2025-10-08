@@ -85,7 +85,7 @@ typecheck = { chain = [
   "typecheck:mypy"
 ]}
 "typecheck:pyright" = "pyright"
-"typecheck:verify-types" = "pyright --verifytypes tzafon --ignoreexternal"
+"typecheck:verify-types" = "pyright --verifytypes tzafonComputer --ignoreexternal"
 "typecheck:mypy" = "mypy ."
 
 [build-system]
