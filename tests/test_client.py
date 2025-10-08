@@ -714,20 +714,20 @@ class TestComputer:
     @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Computer) -> None:
-        respx_mock.get("/auth/callback").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/computers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.auth.with_streaming_response.handle_callback(code="code", state="state").__enter__()
+            client.computers.with_streaming_response.create().__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("tzafonComputer._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Computer) -> None:
-        respx_mock.get("/auth/callback").mock(return_value=httpx.Response(500))
+        respx_mock.post("/computers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.auth.with_streaming_response.handle_callback(code="code", state="state").__enter__()
+            client.computers.with_streaming_response.create().__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -754,9 +754,9 @@ class TestComputer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/auth/callback").mock(side_effect=retry_handler)
+        respx_mock.post("/computers").mock(side_effect=retry_handler)
 
-        response = client.auth.with_raw_response.handle_callback(code="code", state="state")
+        response = client.computers.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -778,11 +778,9 @@ class TestComputer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/auth/callback").mock(side_effect=retry_handler)
+        respx_mock.post("/computers").mock(side_effect=retry_handler)
 
-        response = client.auth.with_raw_response.handle_callback(
-            code="code", state="state", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = client.computers.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -803,11 +801,9 @@ class TestComputer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/auth/callback").mock(side_effect=retry_handler)
+        respx_mock.post("/computers").mock(side_effect=retry_handler)
 
-        response = client.auth.with_raw_response.handle_callback(
-            code="code", state="state", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = client.computers.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1535,10 +1531,10 @@ class TestAsyncComputer:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncComputer
     ) -> None:
-        respx_mock.get("/auth/callback").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/computers").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.auth.with_streaming_response.handle_callback(code="code", state="state").__aenter__()
+            await async_client.computers.with_streaming_response.create().__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
@@ -1547,10 +1543,10 @@ class TestAsyncComputer:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncComputer
     ) -> None:
-        respx_mock.get("/auth/callback").mock(return_value=httpx.Response(500))
+        respx_mock.post("/computers").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.auth.with_streaming_response.handle_callback(code="code", state="state").__aenter__()
+            await async_client.computers.with_streaming_response.create().__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1578,9 +1574,9 @@ class TestAsyncComputer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/auth/callback").mock(side_effect=retry_handler)
+        respx_mock.post("/computers").mock(side_effect=retry_handler)
 
-        response = await client.auth.with_raw_response.handle_callback(code="code", state="state")
+        response = await client.computers.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1603,11 +1599,9 @@ class TestAsyncComputer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/auth/callback").mock(side_effect=retry_handler)
+        respx_mock.post("/computers").mock(side_effect=retry_handler)
 
-        response = await client.auth.with_raw_response.handle_callback(
-            code="code", state="state", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = await client.computers.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1629,11 +1623,9 @@ class TestAsyncComputer:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/auth/callback").mock(side_effect=retry_handler)
+        respx_mock.post("/computers").mock(side_effect=retry_handler)
 
-        response = await client.auth.with_raw_response.handle_callback(
-            code="code", state="state", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = await client.computers.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

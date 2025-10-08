@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.2.0 (2025-10-08)
+
+Full Changelog: [v1.1.4...v1.2.0](https://github.com/atulgavandetzafon/computer-python/compare/v1.1.4...v1.2.0)
+
+### Features
+
+* **api:** manual updates ([8ce5b6b](https://github.com/atulgavandetzafon/computer-python/commit/8ce5b6bc92fffc1baf956972489ceefbf987be3b))
+* **api:** manual updates ([8fa5045](https://github.com/atulgavandetzafon/computer-python/commit/8fa5045b6bfbf00a3d44833100d36b58d27a83e3))
+* **api:** manual updates ([3dc796f](https://github.com/atulgavandetzafon/computer-python/commit/3dc796fb27186307f81f6e3ad93e6715a707604d))
+* **api:** manual updates ([ff7ae66](https://github.com/atulgavandetzafon/computer-python/commit/ff7ae66be8c4d9c69b52f803b23a0456aebe3c1e))
+* **api:** manual updates ([3492063](https://github.com/atulgavandetzafon/computer-python/commit/3492063eeb600e5c42585ebc8805b50cc0ffe9c0))
+* **api:** manual updates ([a68cfdb](https://github.com/atulgavandetzafon/computer-python/commit/a68cfdb2689829e82063eb672e1736e9f66bd81e))
+* **api:** manual updates ([0e7ee2c](https://github.com/atulgavandetzafon/computer-python/commit/0e7ee2ca2568511b495a154a6b802dd5c4b42908))
+
+## 1.1.4 (2025-10-08)
+
+Full Changelog: [v1.1.3...v1.1.4](https://github.com/atulgavandetzafon/computer-python/compare/v1.1.3...v1.1.4)
+
 ## 1.1.3 (2025-10-08)
 
 Full Changelog: [v1.1.2...v1.1.3](https://github.com/atulgavandetzafon/computer-python/compare/v1.1.2...v1.1.3)
