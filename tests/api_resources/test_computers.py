@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from tzafon import Computer, AsyncComputer
 from tests.utils import assert_matches_type
-from tzafonComputer import Computer, AsyncComputer
-from tzafonComputer.types import (
+from tzafon.types import (
     ActionResult,
     ComputerResponse,
     ComputerListResponse,
