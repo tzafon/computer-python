@@ -14,10 +14,12 @@ class ComputerCreateParams(TypedDict, total=False):
     """TODO: implement"""
 
     kind: str
-    """\"browser"|"desktop"|"code" (we wire browser + OS now)"""
+    """\"browser"|"desktop"|"code" etc"""
 
     stealth: object
     """TODO: implement"""
+
+    timeout_seconds: int
 
 
 class Display(TypedDict, total=False):
