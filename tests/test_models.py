@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from tzafonComputer._utils import PropertyInfo
-from tzafonComputer._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from tzafonComputer._models import BaseModel, construct_type
+from tzafon._utils import PropertyInfo
+from tzafon._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from tzafon._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):
