@@ -23,6 +23,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.action_result import ActionResult
 from ..types.computer_response import ComputerResponse
+from ..types.computer_list_response import ComputerListResponse
 from ..types.computer_keep_alive_response import ComputerKeepAliveResponse
 from ..types.computer_execute_batch_response import ComputerExecuteBatchResponse
 
@@ -131,6 +132,25 @@ class ComputersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ComputerResponse,
+        )
+
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ComputerListResponse:
+        """List all active computers for the user's organization"""
+        return self._get(
+            "/computers",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ComputerListResponse,
         )
 
     def execute_action(
@@ -444,6 +464,25 @@ class AsyncComputersResource(AsyncAPIResource):
             cast_to=ComputerResponse,
         )
 
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ComputerListResponse:
+        """List all active computers for the user's organization"""
+        return await self._get(
+            "/computers",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ComputerListResponse,
+        )
+
     async def execute_action(
         self,
         id: str,
@@ -661,6 +700,9 @@ class ComputersResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             computers.retrieve,
         )
+        self.list = to_raw_response_wrapper(
+            computers.list,
+        )
         self.execute_action = to_raw_response_wrapper(
             computers.execute_action,
         )
@@ -690,6 +732,9 @@ class AsyncComputersResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             computers.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            computers.list,
         )
         self.execute_action = async_to_raw_response_wrapper(
             computers.execute_action,
@@ -721,6 +766,9 @@ class ComputersResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             computers.retrieve,
         )
+        self.list = to_streamed_response_wrapper(
+            computers.list,
+        )
         self.execute_action = to_streamed_response_wrapper(
             computers.execute_action,
         )
@@ -750,6 +798,9 @@ class AsyncComputersResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             computers.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            computers.list,
         )
         self.execute_action = async_to_streamed_response_wrapper(
             computers.execute_action,

@@ -5,6 +5,7 @@ from __future__ import annotations
 from .action_result import ActionResult as ActionResult
 from .computer_response import ComputerResponse as ComputerResponse
 from .computer_create_params import ComputerCreateParams as ComputerCreateParams
+from .computer_list_response import ComputerListResponse as ComputerListResponse
 from .computer_navigate_params import ComputerNavigateParams as ComputerNavigateParams
 from .computer_keep_alive_response import ComputerKeepAliveResponse as ComputerKeepAliveResponse
 from .computer_execute_batch_params import ComputerExecuteBatchParams as ComputerExecuteBatchParams
