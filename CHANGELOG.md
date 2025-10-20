@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.4.0 (2025-10-20)
+
+Full Changelog: [v1.3.2...v1.4.0](https://github.com/atulgavandetzafon/computer-python/compare/v1.3.2...v1.4.0)
+
+### Features
+
+* **api:** manual updates ([6405afc](https://github.com/atulgavandetzafon/computer-python/commit/6405afc6031ccdc2e65dbd935d54c340c148a675))
+* renamed api key ([6800a00](https://github.com/atulgavandetzafon/computer-python/commit/6800a0019d321a9bc121745b1b3f9697b52ac565))
+
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([f5e4b7e](https://github.com/atulgavandetzafon/computer-python/commit/f5e4b7ed3a9a62190715a3e426e0c9cd430ad7d7))
+* **internal:** detect missing future annotations with ruff ([3c69485](https://github.com/atulgavandetzafon/computer-python/commit/3c69485eb903332d717f99730319c50f9a6a5776))
+
 ## 1.3.2 (2025-10-08)
 
 Full Changelog: [v1.3.1...v1.3.2](https://github.com/atulgavandetzafon/computer-python/compare/v1.3.1...v1.3.2)
