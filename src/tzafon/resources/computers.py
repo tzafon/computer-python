@@ -37,7 +37,7 @@ class ComputersResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/atulgavandetzafon/computer-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/tzafon/computer-python#accessing-raw-response-data-eg-headers
         """
         return ComputersResourceWithRawResponse(self)
 
@@ -46,7 +46,7 @@ class ComputersResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/atulgavandetzafon/computer-python#with_streaming_response
+        For more information, see https://www.github.com/tzafon/computer-python#with_streaming_response
         """
         return ComputersResourceWithStreamingResponse(self)
 
@@ -367,7 +367,7 @@ class AsyncComputersResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/atulgavandetzafon/computer-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/tzafon/computer-python#accessing-raw-response-data-eg-headers
         """
         return AsyncComputersResourceWithRawResponse(self)
 
@@ -376,7 +376,7 @@ class AsyncComputersResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/atulgavandetzafon/computer-python#with_streaming_response
+        For more information, see https://www.github.com/tzafon/computer-python#with_streaming_response
         """
         return AsyncComputersResourceWithStreamingResponse(self)
 
