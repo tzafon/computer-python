@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.0 (2025-10-20)
+
+Full Changelog: [v1.4.0...v2.0.0](https://github.com/tzafon/computer-python/compare/v1.4.0...v2.0.0)
+
+### Features
+
+* **api:** manual updates ([29bf74f](https://github.com/tzafon/computer-python/commit/29bf74fecae0fe2aaa70a9f6f5f7ca64ba5ddbff))
+
 ## 1.4.0 (2025-10-20)
 
 Full Changelog: [v1.3.2...v1.4.0](https://github.com/atulgavandetzafon/computer-python/compare/v1.3.2...v1.4.0)
