@@ -7,7 +7,7 @@ Simple OOP wrapper for browser automation.
 ```python
 from tzafon import Computer
 
-client = Computer()  # Auto-reads COMPUTER_API_KEY env var
+client = Computer()  # Auto-reads TZAFON_API_KEY env var
 
 with client.create(kind="browser") as computer:
     computer.navigate("https://google.com")

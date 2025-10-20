@@ -29,7 +29,7 @@ import os
 from tzafon import Computer
 
 client = Computer(
-    api_key=os.environ.get("COMPUTER_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
 computer_response = client.computers.create(
@@ -40,7 +40,7 @@ print(computer_response.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `COMPUTER_API_KEY="My API Key"` to your `.env` file
+to add `TZAFON_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -53,7 +53,7 @@ import asyncio
 from tzafon import AsyncComputer
 
 client = AsyncComputer(
-    api_key=os.environ.get("COMPUTER_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
 

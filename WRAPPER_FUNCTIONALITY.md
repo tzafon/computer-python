@@ -33,7 +33,7 @@ client.computers.terminate(response.id)
 ```python
 from tzafon import Computer
 
-client = Computer()  # Auto-reads COMPUTER_API_KEY from env
+client = Computer()  # Auto-reads TZAFON_API_KEY from env
 
 # Context manager handles cleanup automatically
 with client.create(kind="browser") as computer:
@@ -83,7 +83,7 @@ add_async_client_extensions(AsyncComputer)
 ```python
 from tzafon import Computer
 
-# Reads COMPUTER_API_KEY environment variable
+# Reads TZAFON_API_KEY environment variable
 client = Computer()
 
 # Or pass explicitly
@@ -236,7 +236,7 @@ client.computers.terminate(response.id)
 ## Environment Setup
 
 ```bash
-export COMPUTER_API_KEY=wpk_QUCIth7oNvAei4hV2i1c9uDl5yLaVmRJ
+export TZAFON_API_KEY=wpk_QUCIth7oNvAei4hV2i1c9uDl5yLaVmRJ
 ```
 
 ## Testing

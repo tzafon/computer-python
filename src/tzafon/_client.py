@@ -75,13 +75,13 @@ class Computer(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Computer client instance.
 
-        This automatically infers the `api_key` argument from the `COMPUTER_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `TZAFON_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("COMPUTER_API_KEY")
+            api_key = os.environ.get("TZAFON_API_KEY")
         if api_key is None:
             raise ComputerError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the COMPUTER_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the TZAFON_API_KEY environment variable"
             )
         self.api_key = api_key
 
@@ -243,13 +243,13 @@ class AsyncComputer(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncComputer client instance.
 
-        This automatically infers the `api_key` argument from the `COMPUTER_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `TZAFON_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("COMPUTER_API_KEY")
+            api_key = os.environ.get("TZAFON_API_KEY")
         if api_key is None:
             raise ComputerError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the COMPUTER_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the TZAFON_API_KEY environment variable"
             )
         self.api_key = api_key
 
