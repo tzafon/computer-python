@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 (2025-10-21)
+
+Full Changelog: [v2.0.0...v2.0.1](https://github.com/tzafon/computer-python/compare/v2.0.0...v2.0.1)
+
 ## 2.0.0 (2025-10-20)
 
 Full Changelog: [v1.4.0...v2.0.0](https://github.com/tzafon/computer-python/compare/v1.4.0...v2.0.0)
