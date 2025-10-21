@@ -1,17 +1,19 @@
-# Computer Python API library
+# Tzafon Python SDK
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/tzafon.svg?label=pypi%20(stable))](https://pypi.org/project/tzafon/)
 
-The Computer Python library provides convenient access to the Computer REST API from any Python 3.8+
-application. The library includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+The Tzafon Python SDK provides programmatic control of Chromium browsers and Linux desktop environments. Automate web interactions with simple method calls - navigate, click, type, and capture screenshots.
 
-It is generated with [Stainless](https://www.stainless.com/).
+**Key Features:**
+- Browser and desktop automation
+- Synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx)
+- Type-safe API with full type definitions
+- Context manager support for automatic cleanup
 
 ## Documentation
 
-The REST API documentation can be found on [docs.tzafon.ai](http://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found at [docs.tzafon.ai](https://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -22,52 +24,46 @@ pip install tzafon
 
 ## Usage
 
-The full API of this library can be found in [api.md](api.md).
-
 ```python
-import os
 from tzafon import Computer
 
-client = Computer(
-    api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
-)
+client = Computer()  # Reads TZAFON_API_KEY from environment
 
-computer_response = client.computers.create(
-    kind="browser",
-)
-print(computer_response.id)
+# Create and control a browser instance
+with client.create(kind="browser") as computer:
+    computer.navigate("https://google.com")
+    computer.type("Tzafon AI")
+    computer.click(100, 200)
+    screenshot = computer.screenshot()
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `TZAFON_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
-
-## Async usage
-
-Simply import `AsyncComputer` instead of `Computer` and use `await` with each API call:
+The client automatically reads `TZAFON_API_KEY` from your environment. You can also pass it explicitly:
 
 ```python
-import os
+client = Computer(api_key="your-api-key")
+```
+
+We recommend using [python-dotenv](https://pypi.org/project/python-dotenv/) to manage your API key in a `.env` file.
+
+## Async Usage
+
+Import `AsyncComputer` and use `await` with each action:
+
+```python
 import asyncio
 from tzafon import AsyncComputer
 
-client = AsyncComputer(
-    api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
-)
-
-
-async def main() -> None:
-    computer_response = await client.computers.create(
-        kind="browser",
-    )
-    print(computer_response.id)
-
+async def main():
+    client = AsyncComputer()
+    
+    async with client.create(kind="browser") as computer:
+        await computer.navigate("https://google.com")
+        await computer.type("Tzafon AI")
+        await computer.click(100, 200)
+        screenshot = await computer.screenshot()
 
 asyncio.run(main())
 ```
-
-Functionality between the synchronous and asynchronous clients is otherwise identical.
 
 ### With aiohttp
 
