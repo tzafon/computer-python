@@ -66,7 +66,9 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerResponse:
         """
-        Create a new browser or desktop automation session
+        Create a new browser or desktop automation session with configurable timeout.
+        Returns endpoints for executing actions, streaming events, and viewing
+        screencast.
 
         Args:
           display: TODO: implement
@@ -113,7 +115,7 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerResponse:
         """
-        Get the current status of a computer instance
+        Get the current status and metadata of a computer instance
 
         Args:
           extra_headers: Send extra headers
@@ -166,7 +168,8 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Execute a single action (screenshot, click, type, navigate, )
+        Execute a single action such as screenshot, click, type, navigate, scroll, debug
+        or other computer use actions
 
         Args:
           extra_headers: Send extra headers
@@ -235,7 +238,7 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerKeepAliveResponse:
         """
-        Extend the timeout for a computer session
+        Extend the timeout for a computer session and verify it is still running
 
         Args:
           extra_headers: Send extra headers
@@ -337,7 +340,8 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Terminate and clean up a computer instance
+        Terminate and clean up a computer instance, stopping the session and recording
+        metrics
 
         Args:
           extra_headers: Send extra headers
@@ -396,7 +400,9 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerResponse:
         """
-        Create a new browser or desktop automation session
+        Create a new browser or desktop automation session with configurable timeout.
+        Returns endpoints for executing actions, streaming events, and viewing
+        screencast.
 
         Args:
           display: TODO: implement
@@ -443,7 +449,7 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerResponse:
         """
-        Get the current status of a computer instance
+        Get the current status and metadata of a computer instance
 
         Args:
           extra_headers: Send extra headers
@@ -496,7 +502,8 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Execute a single action (screenshot, click, type, navigate, )
+        Execute a single action such as screenshot, click, type, navigate, scroll, debug
+        or other computer use actions
 
         Args:
           extra_headers: Send extra headers
@@ -565,7 +572,7 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerKeepAliveResponse:
         """
-        Extend the timeout for a computer session
+        Extend the timeout for a computer session and verify it is still running
 
         Args:
           extra_headers: Send extra headers
@@ -667,7 +674,8 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Terminate and clean up a computer instance
+        Terminate and clean up a computer instance, stopping the session and recording
+        metrics
 
         Args:
           extra_headers: Send extra headers
