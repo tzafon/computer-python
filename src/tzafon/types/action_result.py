@@ -10,6 +10,8 @@ __all__ = ["ActionResult"]
 class ActionResult(BaseModel):
     error_message: Optional[str] = None
 
+    request_id: Optional[str] = None
+
     result: Optional[Dict[str, object]] = None
 
     status: Optional[str] = None
