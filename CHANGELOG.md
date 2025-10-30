@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.1.0 (2025-10-30)
+
+Full Changelog: [v2.0.1...v2.1.0](https://github.com/tzafon/computer-python/compare/v2.0.1...v2.1.0)
+
+### Features
+
+* **api:** api update ([2a38a7f](https://github.com/tzafon/computer-python/commit/2a38a7f2bb027dd6cd627df075d0c8c4399e615d))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([24a5a11](https://github.com/tzafon/computer-python/commit/24a5a114bcb3d3d4ed0c0b5df158e09c99d78a79))
+
 ## 2.0.1 (2025-10-21)
 
 Full Changelog: [v2.0.0...v2.0.1](https://github.com/tzafon/computer-python/compare/v2.0.0...v2.0.1)
