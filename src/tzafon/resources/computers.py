@@ -7,12 +7,23 @@ from typing import Iterable
 import httpx
 
 from ..types import (
+    computer_drag_params,
+    computer_click_params,
+    computer_debug_params,
     computer_create_params,
+    computer_get_html_params,
     computer_navigate_params,
+    computer_type_text_params,
+    computer_right_click_params,
+    computer_double_click_params,
+    computer_press_hotkey_params,
+    computer_set_viewport_params,
     computer_execute_batch_params,
     computer_execute_action_params,
+    computer_scroll_viewport_params,
+    computer_capture_screenshot_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -162,6 +173,251 @@ class ComputersResource(SyncAPIResource):
             cast_to=ComputerListResponse,
         )
 
+    def capture_screenshot(
+        self,
+        id: str,
+        *,
+        base64: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Take a screenshot of the current browser viewport, optionally as base64
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/screenshot",
+            body=maybe_transform(
+                {"base64": base64}, computer_capture_screenshot_params.ComputerCaptureScreenshotParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def click(
+        self,
+        id: str,
+        *,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a left mouse click at the specified x,y coordinates
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/click",
+            body=maybe_transform(
+                {
+                    "x": x,
+                    "y": y,
+                },
+                computer_click_params.ComputerClickParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def connect_websocket(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Establish WebSocket for real-time bidirectional communication
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            f"/computers/{id}/ws",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def debug(
+        self,
+        id: str,
+        *,
+        command: str | Omit = omit,
+        max_output_length: int | Omit = omit,
+        timeout_seconds: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Execute a shell command with optional timeout and output length limits
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/debug",
+            body=maybe_transform(
+                {
+                    "command": command,
+                    "max_output_length": max_output_length,
+                    "timeout_seconds": timeout_seconds,
+                },
+                computer_debug_params.ComputerDebugParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def double_click(
+        self,
+        id: str,
+        *,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a double mouse click at the specified x,y coordinates
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/double-click",
+            body=maybe_transform(
+                {
+                    "x": x,
+                    "y": y,
+                },
+                computer_double_click_params.ComputerDoubleClickParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def drag(
+        self,
+        id: str,
+        *,
+        x1: float | Omit = omit,
+        x2: float | Omit = omit,
+        y1: float | Omit = omit,
+        y2: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a click-and-drag action from (x1,y1) to (x2,y2)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/drag",
+            body=maybe_transform(
+                {
+                    "x1": x1,
+                    "x2": x2,
+                    "y1": y1,
+                    "y2": y2,
+                },
+                computer_drag_params.ComputerDragParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     def execute_action(
         self,
         id: str,
@@ -233,6 +489,43 @@ class ComputersResource(SyncAPIResource):
             cast_to=ComputerExecuteBatchResponse,
         )
 
+    def get_html(
+        self,
+        id: str,
+        *,
+        auto_detect_encoding: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Get the HTML content of the current browser page
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/html",
+            body=maybe_transform(
+                {"auto_detect_encoding": auto_detect_encoding}, computer_get_html_params.ComputerGetHTMLParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     def keep_alive(
         self,
         id: str,
@@ -301,6 +594,173 @@ class ComputersResource(SyncAPIResource):
             cast_to=ActionResult,
         )
 
+    def press_hotkey(
+        self,
+        id: str,
+        *,
+        keys: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Press a combination of keys (e.g., ["Control", "c"] for copy)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/hotkey",
+            body=maybe_transform({"keys": keys}, computer_press_hotkey_params.ComputerPressHotkeyParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def right_click(
+        self,
+        id: str,
+        *,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a right mouse click at the specified x,y coordinates
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/right-click",
+            body=maybe_transform(
+                {
+                    "x": x,
+                    "y": y,
+                },
+                computer_right_click_params.ComputerRightClickParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def scroll_viewport(
+        self,
+        id: str,
+        *,
+        dx: float | Omit = omit,
+        dy: float | Omit = omit,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Scroll the browser viewport by the specified delta
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/scroll",
+            body=maybe_transform(
+                {
+                    "dx": dx,
+                    "dy": dy,
+                    "x": x,
+                    "y": y,
+                },
+                computer_scroll_viewport_params.ComputerScrollViewportParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def set_viewport(
+        self,
+        id: str,
+        *,
+        height: int | Omit = omit,
+        scale_factor: float | Omit = omit,
+        width: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Change the browser viewport dimensions and scale factor
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/viewport",
+            body=maybe_transform(
+                {
+                    "height": height,
+                    "scale_factor": scale_factor,
+                    "width": width,
+                },
+                computer_set_viewport_params.ComputerSetViewportParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     def stream_events(
         self,
         id: str,
@@ -329,6 +789,41 @@ class ComputersResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._get(
             f"/computers/{id}/events",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    def stream_screencast(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Stream only screencast frames (base64 JPEG images) using Server-Sent Events
+        (SSE) for live browser viewing
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._get(
+            f"/computers/{id}/screencast",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -368,6 +863,41 @@ class ComputersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
+        )
+
+    def type_text(
+        self,
+        id: str,
+        *,
+        text: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Type text into the currently focused element in the browser
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/type",
+            body=maybe_transform({"text": text}, computer_type_text_params.ComputerTypeTextParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
         )
 
 
@@ -501,6 +1031,251 @@ class AsyncComputersResource(AsyncAPIResource):
             cast_to=ComputerListResponse,
         )
 
+    async def capture_screenshot(
+        self,
+        id: str,
+        *,
+        base64: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Take a screenshot of the current browser viewport, optionally as base64
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/screenshot",
+            body=await async_maybe_transform(
+                {"base64": base64}, computer_capture_screenshot_params.ComputerCaptureScreenshotParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def click(
+        self,
+        id: str,
+        *,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a left mouse click at the specified x,y coordinates
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/click",
+            body=await async_maybe_transform(
+                {
+                    "x": x,
+                    "y": y,
+                },
+                computer_click_params.ComputerClickParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def connect_websocket(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Establish WebSocket for real-time bidirectional communication
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            f"/computers/{id}/ws",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def debug(
+        self,
+        id: str,
+        *,
+        command: str | Omit = omit,
+        max_output_length: int | Omit = omit,
+        timeout_seconds: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Execute a shell command with optional timeout and output length limits
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/debug",
+            body=await async_maybe_transform(
+                {
+                    "command": command,
+                    "max_output_length": max_output_length,
+                    "timeout_seconds": timeout_seconds,
+                },
+                computer_debug_params.ComputerDebugParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def double_click(
+        self,
+        id: str,
+        *,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a double mouse click at the specified x,y coordinates
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/double-click",
+            body=await async_maybe_transform(
+                {
+                    "x": x,
+                    "y": y,
+                },
+                computer_double_click_params.ComputerDoubleClickParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def drag(
+        self,
+        id: str,
+        *,
+        x1: float | Omit = omit,
+        x2: float | Omit = omit,
+        y1: float | Omit = omit,
+        y2: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a click-and-drag action from (x1,y1) to (x2,y2)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/drag",
+            body=await async_maybe_transform(
+                {
+                    "x1": x1,
+                    "x2": x2,
+                    "y1": y1,
+                    "y2": y2,
+                },
+                computer_drag_params.ComputerDragParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     async def execute_action(
         self,
         id: str,
@@ -576,6 +1351,43 @@ class AsyncComputersResource(AsyncAPIResource):
             cast_to=ComputerExecuteBatchResponse,
         )
 
+    async def get_html(
+        self,
+        id: str,
+        *,
+        auto_detect_encoding: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Get the HTML content of the current browser page
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/html",
+            body=await async_maybe_transform(
+                {"auto_detect_encoding": auto_detect_encoding}, computer_get_html_params.ComputerGetHTMLParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     async def keep_alive(
         self,
         id: str,
@@ -644,6 +1456,173 @@ class AsyncComputersResource(AsyncAPIResource):
             cast_to=ActionResult,
         )
 
+    async def press_hotkey(
+        self,
+        id: str,
+        *,
+        keys: SequenceNotStr[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Press a combination of keys (e.g., ["Control", "c"] for copy)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/hotkey",
+            body=await async_maybe_transform({"keys": keys}, computer_press_hotkey_params.ComputerPressHotkeyParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def right_click(
+        self,
+        id: str,
+        *,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Perform a right mouse click at the specified x,y coordinates
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/right-click",
+            body=await async_maybe_transform(
+                {
+                    "x": x,
+                    "y": y,
+                },
+                computer_right_click_params.ComputerRightClickParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def scroll_viewport(
+        self,
+        id: str,
+        *,
+        dx: float | Omit = omit,
+        dy: float | Omit = omit,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Scroll the browser viewport by the specified delta
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/scroll",
+            body=await async_maybe_transform(
+                {
+                    "dx": dx,
+                    "dy": dy,
+                    "x": x,
+                    "y": y,
+                },
+                computer_scroll_viewport_params.ComputerScrollViewportParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def set_viewport(
+        self,
+        id: str,
+        *,
+        height: int | Omit = omit,
+        scale_factor: float | Omit = omit,
+        width: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Change the browser viewport dimensions and scale factor
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/viewport",
+            body=await async_maybe_transform(
+                {
+                    "height": height,
+                    "scale_factor": scale_factor,
+                    "width": width,
+                },
+                computer_set_viewport_params.ComputerSetViewportParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     async def stream_events(
         self,
         id: str,
@@ -672,6 +1651,41 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._get(
             f"/computers/{id}/events",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
+    async def stream_screencast(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Stream only screencast frames (base64 JPEG images) using Server-Sent Events
+        (SSE) for live browser viewing
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._get(
+            f"/computers/{id}/screencast",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -713,6 +1727,41 @@ class AsyncComputersResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def type_text(
+        self,
+        id: str,
+        *,
+        text: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """
+        Type text into the currently focused element in the browser
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/type",
+            body=await async_maybe_transform({"text": text}, computer_type_text_params.ComputerTypeTextParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
 
 class ComputersResourceWithRawResponse:
     def __init__(self, computers: ComputersResource) -> None:
@@ -727,11 +1776,32 @@ class ComputersResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             computers.list,
         )
+        self.capture_screenshot = to_raw_response_wrapper(
+            computers.capture_screenshot,
+        )
+        self.click = to_raw_response_wrapper(
+            computers.click,
+        )
+        self.connect_websocket = to_raw_response_wrapper(
+            computers.connect_websocket,
+        )
+        self.debug = to_raw_response_wrapper(
+            computers.debug,
+        )
+        self.double_click = to_raw_response_wrapper(
+            computers.double_click,
+        )
+        self.drag = to_raw_response_wrapper(
+            computers.drag,
+        )
         self.execute_action = to_raw_response_wrapper(
             computers.execute_action,
         )
         self.execute_batch = to_raw_response_wrapper(
             computers.execute_batch,
+        )
+        self.get_html = to_raw_response_wrapper(
+            computers.get_html,
         )
         self.keep_alive = to_raw_response_wrapper(
             computers.keep_alive,
@@ -739,11 +1809,29 @@ class ComputersResourceWithRawResponse:
         self.navigate = to_raw_response_wrapper(
             computers.navigate,
         )
+        self.press_hotkey = to_raw_response_wrapper(
+            computers.press_hotkey,
+        )
+        self.right_click = to_raw_response_wrapper(
+            computers.right_click,
+        )
+        self.scroll_viewport = to_raw_response_wrapper(
+            computers.scroll_viewport,
+        )
+        self.set_viewport = to_raw_response_wrapper(
+            computers.set_viewport,
+        )
         self.stream_events = to_raw_response_wrapper(
             computers.stream_events,
         )
+        self.stream_screencast = to_raw_response_wrapper(
+            computers.stream_screencast,
+        )
         self.terminate = to_raw_response_wrapper(
             computers.terminate,
+        )
+        self.type_text = to_raw_response_wrapper(
+            computers.type_text,
         )
 
 
@@ -760,11 +1848,32 @@ class AsyncComputersResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             computers.list,
         )
+        self.capture_screenshot = async_to_raw_response_wrapper(
+            computers.capture_screenshot,
+        )
+        self.click = async_to_raw_response_wrapper(
+            computers.click,
+        )
+        self.connect_websocket = async_to_raw_response_wrapper(
+            computers.connect_websocket,
+        )
+        self.debug = async_to_raw_response_wrapper(
+            computers.debug,
+        )
+        self.double_click = async_to_raw_response_wrapper(
+            computers.double_click,
+        )
+        self.drag = async_to_raw_response_wrapper(
+            computers.drag,
+        )
         self.execute_action = async_to_raw_response_wrapper(
             computers.execute_action,
         )
         self.execute_batch = async_to_raw_response_wrapper(
             computers.execute_batch,
+        )
+        self.get_html = async_to_raw_response_wrapper(
+            computers.get_html,
         )
         self.keep_alive = async_to_raw_response_wrapper(
             computers.keep_alive,
@@ -772,11 +1881,29 @@ class AsyncComputersResourceWithRawResponse:
         self.navigate = async_to_raw_response_wrapper(
             computers.navigate,
         )
+        self.press_hotkey = async_to_raw_response_wrapper(
+            computers.press_hotkey,
+        )
+        self.right_click = async_to_raw_response_wrapper(
+            computers.right_click,
+        )
+        self.scroll_viewport = async_to_raw_response_wrapper(
+            computers.scroll_viewport,
+        )
+        self.set_viewport = async_to_raw_response_wrapper(
+            computers.set_viewport,
+        )
         self.stream_events = async_to_raw_response_wrapper(
             computers.stream_events,
         )
+        self.stream_screencast = async_to_raw_response_wrapper(
+            computers.stream_screencast,
+        )
         self.terminate = async_to_raw_response_wrapper(
             computers.terminate,
+        )
+        self.type_text = async_to_raw_response_wrapper(
+            computers.type_text,
         )
 
 
@@ -793,11 +1920,32 @@ class ComputersResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             computers.list,
         )
+        self.capture_screenshot = to_streamed_response_wrapper(
+            computers.capture_screenshot,
+        )
+        self.click = to_streamed_response_wrapper(
+            computers.click,
+        )
+        self.connect_websocket = to_streamed_response_wrapper(
+            computers.connect_websocket,
+        )
+        self.debug = to_streamed_response_wrapper(
+            computers.debug,
+        )
+        self.double_click = to_streamed_response_wrapper(
+            computers.double_click,
+        )
+        self.drag = to_streamed_response_wrapper(
+            computers.drag,
+        )
         self.execute_action = to_streamed_response_wrapper(
             computers.execute_action,
         )
         self.execute_batch = to_streamed_response_wrapper(
             computers.execute_batch,
+        )
+        self.get_html = to_streamed_response_wrapper(
+            computers.get_html,
         )
         self.keep_alive = to_streamed_response_wrapper(
             computers.keep_alive,
@@ -805,11 +1953,29 @@ class ComputersResourceWithStreamingResponse:
         self.navigate = to_streamed_response_wrapper(
             computers.navigate,
         )
+        self.press_hotkey = to_streamed_response_wrapper(
+            computers.press_hotkey,
+        )
+        self.right_click = to_streamed_response_wrapper(
+            computers.right_click,
+        )
+        self.scroll_viewport = to_streamed_response_wrapper(
+            computers.scroll_viewport,
+        )
+        self.set_viewport = to_streamed_response_wrapper(
+            computers.set_viewport,
+        )
         self.stream_events = to_streamed_response_wrapper(
             computers.stream_events,
         )
+        self.stream_screencast = to_streamed_response_wrapper(
+            computers.stream_screencast,
+        )
         self.terminate = to_streamed_response_wrapper(
             computers.terminate,
+        )
+        self.type_text = to_streamed_response_wrapper(
+            computers.type_text,
         )
 
 
@@ -826,11 +1992,32 @@ class AsyncComputersResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             computers.list,
         )
+        self.capture_screenshot = async_to_streamed_response_wrapper(
+            computers.capture_screenshot,
+        )
+        self.click = async_to_streamed_response_wrapper(
+            computers.click,
+        )
+        self.connect_websocket = async_to_streamed_response_wrapper(
+            computers.connect_websocket,
+        )
+        self.debug = async_to_streamed_response_wrapper(
+            computers.debug,
+        )
+        self.double_click = async_to_streamed_response_wrapper(
+            computers.double_click,
+        )
+        self.drag = async_to_streamed_response_wrapper(
+            computers.drag,
+        )
         self.execute_action = async_to_streamed_response_wrapper(
             computers.execute_action,
         )
         self.execute_batch = async_to_streamed_response_wrapper(
             computers.execute_batch,
+        )
+        self.get_html = async_to_streamed_response_wrapper(
+            computers.get_html,
         )
         self.keep_alive = async_to_streamed_response_wrapper(
             computers.keep_alive,
@@ -838,9 +2025,27 @@ class AsyncComputersResourceWithStreamingResponse:
         self.navigate = async_to_streamed_response_wrapper(
             computers.navigate,
         )
+        self.press_hotkey = async_to_streamed_response_wrapper(
+            computers.press_hotkey,
+        )
+        self.right_click = async_to_streamed_response_wrapper(
+            computers.right_click,
+        )
+        self.scroll_viewport = async_to_streamed_response_wrapper(
+            computers.scroll_viewport,
+        )
+        self.set_viewport = async_to_streamed_response_wrapper(
+            computers.set_viewport,
+        )
         self.stream_events = async_to_streamed_response_wrapper(
             computers.stream_events,
         )
+        self.stream_screencast = async_to_streamed_response_wrapper(
+            computers.stream_screencast,
+        )
         self.terminate = async_to_streamed_response_wrapper(
             computers.terminate,
+        )
+        self.type_text = async_to_streamed_response_wrapper(
+            computers.type_text,
         )
