@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
@@ -172,6 +173,22 @@ class ComputerSession:
             ActionResult with status and timestamp
         """
         return self._client.computers.scroll_viewport(self.id, dx=dx, dy=dy)
+
+    def wait(self, seconds: float) -> None:
+        """
+        Wait for a specified number of seconds.
+
+        Args:
+            seconds: Number of seconds to wait (can be fractional, e.g., 0.5 for half a second)
+
+        Example:
+            ```python
+            computer.wait(1)      # Wait 1 second
+            computer.wait(0.5)    # Wait 500 milliseconds
+            computer.wait(2.5)    # Wait 2.5 seconds
+            ```
+        """
+        time.sleep(seconds)
 
     def html(self, auto_detect_encoding: bool = False) -> ActionResult:
         """
