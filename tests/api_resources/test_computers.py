@@ -140,6 +140,310 @@ class TestComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_capture_screenshot(self, client: Computer) -> None:
+        computer = client.computers.capture_screenshot(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_capture_screenshot_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.capture_screenshot(
+            id="id",
+            base64=True,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_capture_screenshot(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.capture_screenshot(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_capture_screenshot(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.capture_screenshot(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_capture_screenshot(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.capture_screenshot(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_click(self, client: Computer) -> None:
+        computer = client.computers.click(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_click_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.click(
+            id="id",
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_click(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.click(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_click(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.click(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_click(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.click(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_connect_websocket(self, client: Computer) -> None:
+        computer = client.computers.connect_websocket(
+            "id",
+        )
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_connect_websocket(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.connect_websocket(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_connect_websocket(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.connect_websocket(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert computer is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_connect_websocket(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.connect_websocket(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_debug(self, client: Computer) -> None:
+        computer = client.computers.debug(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_debug_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.debug(
+            id="id",
+            command="command",
+            max_output_length=0,
+            timeout_seconds=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_debug(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.debug(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_debug(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.debug(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_debug(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.debug(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_double_click(self, client: Computer) -> None:
+        computer = client.computers.double_click(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_double_click_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.double_click(
+            id="id",
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_double_click(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.double_click(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_double_click(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.double_click(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_double_click(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.double_click(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_drag(self, client: Computer) -> None:
+        computer = client.computers.drag(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_drag_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.drag(
+            id="id",
+            x1=0,
+            x2=0,
+            y1=0,
+            y2=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_drag(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.drag(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_drag(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.drag(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_drag(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.drag(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_execute_action(self, client: Computer) -> None:
         computer = client.computers.execute_action(
             id="id",
@@ -294,6 +598,57 @@ class TestComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_get_html(self, client: Computer) -> None:
+        computer = client.computers.get_html(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_get_html_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.get_html(
+            id="id",
+            auto_detect_encoding=True,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_get_html(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.get_html(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_get_html(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.get_html(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_get_html(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.get_html(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_keep_alive(self, client: Computer) -> None:
         computer = client.computers.keep_alive(
             "id",
@@ -387,6 +742,216 @@ class TestComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_press_hotkey(self, client: Computer) -> None:
+        computer = client.computers.press_hotkey(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_press_hotkey_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.press_hotkey(
+            id="id",
+            keys=["string"],
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_press_hotkey(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.press_hotkey(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_press_hotkey(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.press_hotkey(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_press_hotkey(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.press_hotkey(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_right_click(self, client: Computer) -> None:
+        computer = client.computers.right_click(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_right_click_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.right_click(
+            id="id",
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_right_click(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.right_click(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_right_click(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.right_click(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_right_click(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.right_click(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_scroll_viewport(self, client: Computer) -> None:
+        computer = client.computers.scroll_viewport(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_scroll_viewport_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.scroll_viewport(
+            id="id",
+            dx=0,
+            dy=0,
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_scroll_viewport(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.scroll_viewport(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_scroll_viewport(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.scroll_viewport(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_scroll_viewport(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.scroll_viewport(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_set_viewport(self, client: Computer) -> None:
+        computer = client.computers.set_viewport(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_set_viewport_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.set_viewport(
+            id="id",
+            height=0,
+            scale_factor=0,
+            width=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_set_viewport(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.set_viewport(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_set_viewport(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.set_viewport(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_set_viewport(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.set_viewport(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_stream_events(self, client: Computer) -> None:
         computer = client.computers.stream_events(
             "id",
@@ -424,6 +989,48 @@ class TestComputers:
     def test_path_params_stream_events(self, client: Computer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.computers.with_raw_response.stream_events(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_stream_screencast(self, client: Computer) -> None:
+        computer = client.computers.stream_screencast(
+            "id",
+        )
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_stream_screencast(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.stream_screencast(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_stream_screencast(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.stream_screencast(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert computer is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_stream_screencast(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.stream_screencast(
                 "",
             )
 
@@ -467,6 +1074,57 @@ class TestComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.computers.with_raw_response.terminate(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_type_text(self, client: Computer) -> None:
+        computer = client.computers.type_text(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_type_text_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.type_text(
+            id="id",
+            text="text",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_type_text(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.type_text(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_type_text(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.type_text(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_type_text(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.type_text(
+                id="",
             )
 
 
@@ -589,6 +1247,310 @@ class TestAsyncComputers:
             assert_matches_type(ComputerListResponse, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_capture_screenshot(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.capture_screenshot(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_capture_screenshot_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.capture_screenshot(
+            id="id",
+            base64=True,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_capture_screenshot(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.capture_screenshot(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_capture_screenshot(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.capture_screenshot(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_capture_screenshot(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.capture_screenshot(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_click(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.click(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_click_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.click(
+            id="id",
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_click(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.click(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_click(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.click(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_click(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.click(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_connect_websocket(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.connect_websocket(
+            "id",
+        )
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_connect_websocket(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.connect_websocket(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_connect_websocket(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.connect_websocket(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert computer is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_connect_websocket(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.connect_websocket(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_debug(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.debug(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_debug_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.debug(
+            id="id",
+            command="command",
+            max_output_length=0,
+            timeout_seconds=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_debug(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.debug(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_debug(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.debug(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_debug(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.debug(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_double_click(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.double_click(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_double_click_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.double_click(
+            id="id",
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_double_click(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.double_click(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_double_click(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.double_click(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_double_click(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.double_click(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_drag(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.drag(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_drag_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.drag(
+            id="id",
+            x1=0,
+            x2=0,
+            y1=0,
+            y2=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_drag(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.drag(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_drag(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.drag(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_drag(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.drag(
+                id="",
+            )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -746,6 +1708,57 @@ class TestAsyncComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_get_html(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.get_html(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_get_html_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.get_html(
+            id="id",
+            auto_detect_encoding=True,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_get_html(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.get_html(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_html(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.get_html(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_get_html(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.get_html(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_keep_alive(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.keep_alive(
             "id",
@@ -839,6 +1852,216 @@ class TestAsyncComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_press_hotkey(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.press_hotkey(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_press_hotkey_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.press_hotkey(
+            id="id",
+            keys=["string"],
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_press_hotkey(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.press_hotkey(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_press_hotkey(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.press_hotkey(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_press_hotkey(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.press_hotkey(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_right_click(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.right_click(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_right_click_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.right_click(
+            id="id",
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_right_click(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.right_click(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_right_click(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.right_click(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_right_click(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.right_click(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_scroll_viewport(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.scroll_viewport(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_scroll_viewport_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.scroll_viewport(
+            id="id",
+            dx=0,
+            dy=0,
+            x=0,
+            y=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_scroll_viewport(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.scroll_viewport(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_scroll_viewport(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.scroll_viewport(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_scroll_viewport(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.scroll_viewport(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_set_viewport(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.set_viewport(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_set_viewport_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.set_viewport(
+            id="id",
+            height=0,
+            scale_factor=0,
+            width=0,
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_set_viewport(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.set_viewport(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_set_viewport(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.set_viewport(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_set_viewport(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.set_viewport(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_stream_events(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.stream_events(
             "id",
@@ -876,6 +2099,48 @@ class TestAsyncComputers:
     async def test_path_params_stream_events(self, async_client: AsyncComputer) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.computers.with_raw_response.stream_events(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_stream_screencast(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.stream_screencast(
+            "id",
+        )
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_stream_screencast(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.stream_screencast(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert computer is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_stream_screencast(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.stream_screencast(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert computer is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_stream_screencast(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.stream_screencast(
                 "",
             )
 
@@ -919,4 +2184,55 @@ class TestAsyncComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.computers.with_raw_response.terminate(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_type_text(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.type_text(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_type_text_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.type_text(
+            id="id",
+            text="text",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_type_text(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.type_text(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_type_text(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.type_text(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_type_text(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.type_text(
+                id="",
             )
