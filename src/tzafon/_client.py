@@ -79,6 +79,16 @@ class Computer(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("TZAFON_API_KEY")
+
+        # Try to load from .env file if still not found
+        if api_key is None:
+            try:
+                from dotenv import load_dotenv
+                load_dotenv()
+                api_key = os.environ.get("TZAFON_API_KEY")
+            except ImportError:
+                pass  # python-dotenv not installed, that's okay
+
         if api_key is None:
             raise ComputerError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the TZAFON_API_KEY environment variable"
@@ -251,6 +261,16 @@ class AsyncComputer(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("TZAFON_API_KEY")
+
+        # Try to load from .env file if still not found
+        if api_key is None:
+            try:
+                from dotenv import load_dotenv
+                load_dotenv()
+                api_key = os.environ.get("TZAFON_API_KEY")
+            except ImportError:
+                pass  # python-dotenv not installed, that's okay
+
         if api_key is None:
             raise ComputerError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the TZAFON_API_KEY environment variable"
