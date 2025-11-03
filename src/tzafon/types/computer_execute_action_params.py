@@ -2,10 +2,71 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
-__all__ = ["ComputerExecuteActionParams"]
+from .._types import SequenceNotStr
+
+__all__ = ["ComputerExecuteActionParams", "Action", "ActionDebug"]
 
 
 class ComputerExecuteActionParams(TypedDict, total=False):
-    body: Required[object]
+    action: Action
+
+
+class ActionDebug(TypedDict, total=False):
+    command: str
+
+    max_output_length: int
+
+    timeout_seconds: int
+
+
+class Action(TypedDict, total=False):
+    auto_detect_encoding: bool
+    """For get_html_content"""
+
+    base64: bool
+    """For screenshot"""
+
+    button: str
+
+    debug: ActionDebug
+
+    dx: float
+    """For scrolling"""
+
+    dy: float
+
+    height: int
+
+    keys: SequenceNotStr[str]
+
+    ms: int
+
+    scale_factor: float
+
+    text: str
+
+    type: str
+    """
+    click|double_click|right_click|drag|type|keypress|scroll|wait|screenshot|go_to_url|debug|get_html_content|set_viewport
+    """
+
+    url: str
+
+    width: int
+    """For set_viewport"""
+
+    x: float
+
+    x1: float
+    """For dragging/scrolling"""
+
+    x2: float
+    """For dragging"""
+
+    y: float
+
+    y1: float
+
+    y2: float

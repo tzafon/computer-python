@@ -8,6 +8,12 @@ __all__ = ["ComputerCreateParams", "Display"]
 
 
 class ComputerCreateParams(TypedDict, total=False):
+    auto_kill: bool
+    """If true (default), kill session after inactivity.
+
+    If false, only kill on explicit stop or max_lifetime
+    """
+
     context_id: str
 
     display: Display
