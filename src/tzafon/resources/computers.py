@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
 from ..types import (
@@ -53,6 +55,7 @@ class ComputersResource(SyncAPIResource):
     def create(
         self,
         *,
+        auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
         kind: str | Omit = omit,
@@ -71,6 +74,9 @@ class ComputersResource(SyncAPIResource):
         screencast.
 
         Args:
+          auto_kill: If true (default), kill session after inactivity. If false, only kill on
+              explicit stop or max_lifetime
+
           display: TODO: implement
 
           kind: "browser"|"desktop"|"code" etc
@@ -89,6 +95,7 @@ class ComputersResource(SyncAPIResource):
             "/computers",
             body=maybe_transform(
                 {
+                    "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
                     "kind": kind,
@@ -159,7 +166,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
-        body: object,
+        action: computer_execute_action_params.Action | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -168,8 +175,8 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Execute a single action such as screenshot, click, type, navigate, scroll, debug
-        or other computer use actions
+        Execute a single action such as screenshot, click, type, navigate, scroll,
+        debug, set_viewport, get_html_content or other computer use actions
 
         Args:
           extra_headers: Send extra headers
@@ -184,7 +191,7 @@ class ComputersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/computers/{id}/execute",
-            body=maybe_transform(body, computer_execute_action_params.ComputerExecuteActionParams),
+            body=maybe_transform({"action": action}, computer_execute_action_params.ComputerExecuteActionParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -195,7 +202,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
-        body: object,
+        actions: Iterable[computer_execute_batch_params.Action] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,7 +226,7 @@ class ComputersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/computers/{id}/batch",
-            body=maybe_transform(body, computer_execute_batch_params.ComputerExecuteBatchParams),
+            body=maybe_transform({"actions": actions}, computer_execute_batch_params.ComputerExecuteBatchParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -263,7 +270,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
-        body: object,
+        url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +294,7 @@ class ComputersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/computers/{id}/navigate",
-            body=maybe_transform(body, computer_navigate_params.ComputerNavigateParams),
+            body=maybe_transform({"url": url}, computer_navigate_params.ComputerNavigateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -387,6 +394,7 @@ class AsyncComputersResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
         kind: str | Omit = omit,
@@ -405,6 +413,9 @@ class AsyncComputersResource(AsyncAPIResource):
         screencast.
 
         Args:
+          auto_kill: If true (default), kill session after inactivity. If false, only kill on
+              explicit stop or max_lifetime
+
           display: TODO: implement
 
           kind: "browser"|"desktop"|"code" etc
@@ -423,6 +434,7 @@ class AsyncComputersResource(AsyncAPIResource):
             "/computers",
             body=await async_maybe_transform(
                 {
+                    "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
                     "kind": kind,
@@ -493,7 +505,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        body: object,
+        action: computer_execute_action_params.Action | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -502,8 +514,8 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Execute a single action such as screenshot, click, type, navigate, scroll, debug
-        or other computer use actions
+        Execute a single action such as screenshot, click, type, navigate, scroll,
+        debug, set_viewport, get_html_content or other computer use actions
 
         Args:
           extra_headers: Send extra headers
@@ -518,7 +530,9 @@ class AsyncComputersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/computers/{id}/execute",
-            body=await async_maybe_transform(body, computer_execute_action_params.ComputerExecuteActionParams),
+            body=await async_maybe_transform(
+                {"action": action}, computer_execute_action_params.ComputerExecuteActionParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -529,7 +543,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        body: object,
+        actions: Iterable[computer_execute_batch_params.Action] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -553,7 +567,9 @@ class AsyncComputersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/computers/{id}/batch",
-            body=await async_maybe_transform(body, computer_execute_batch_params.ComputerExecuteBatchParams),
+            body=await async_maybe_transform(
+                {"actions": actions}, computer_execute_batch_params.ComputerExecuteBatchParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -597,7 +613,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        body: object,
+        url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -621,7 +637,7 @@ class AsyncComputersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/computers/{id}/navigate",
-            body=await async_maybe_transform(body, computer_navigate_params.ComputerNavigateParams),
+            body=await async_maybe_transform({"url": url}, computer_navigate_params.ComputerNavigateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
