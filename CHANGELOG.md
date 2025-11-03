@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2 (2025-11-03)
+
+Full Changelog: [v2.3.1...v2.3.2](https://github.com/tzafon/computer-python/compare/v2.3.1...v2.3.2)
+
 ## 2.3.1 (2025-11-03)
 
 Full Changelog: [v2.3.0...v2.3.1](https://github.com/tzafon/computer-python/compare/v2.3.0...v2.3.1)
