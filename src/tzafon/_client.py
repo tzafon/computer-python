@@ -90,6 +90,10 @@ class Computer(SyncAPIClient):
         if base_url is None:
             base_url = f"https://v2.tzafon.ai/v1"
 
+        # Strip trailing slash to prevent double-slash in URLs (httpx adds it back)
+        if isinstance(base_url, str):
+            base_url = base_url.rstrip('/')
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -257,6 +261,10 @@ class AsyncComputer(AsyncAPIClient):
             base_url = os.environ.get("COMPUTER_BASE_URL")
         if base_url is None:
             base_url = f"https://v2.tzafon.ai/v1"
+
+        # Strip trailing slash to prevent double-slash in URLs (httpx adds it back)
+        if isinstance(base_url, str):
+            base_url = base_url.rstrip('/')
 
         super().__init__(
             version=__version__,
