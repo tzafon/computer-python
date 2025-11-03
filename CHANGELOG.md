@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.2.0 (2025-11-03)
+
+Full Changelog: [v2.1.0...v2.2.0](https://github.com/tzafon/computer-python/compare/v2.1.0...v2.2.0)
+
+### Features
+
+* **api:** api update ([4950128](https://github.com/tzafon/computer-python/commit/4950128991e4e714562709df3d84eb0f1270677b))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([b2a3169](https://github.com/tzafon/computer-python/commit/b2a3169289c6e5117cd42973594618e232e7eb1d))
+* remove custom code ([fa3ccd4](https://github.com/tzafon/computer-python/commit/fa3ccd4b257623a59e61db225e65e0ee415b3517))
+
 ## 2.1.0 (2025-10-30)
 
 Full Changelog: [v2.0.1...v2.1.0](https://github.com/tzafon/computer-python/compare/v2.0.1...v2.1.0)
