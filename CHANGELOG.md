@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.0 (2025-11-03)
+
+Full Changelog: [v2.3.3...v2.4.0](https://github.com/tzafon/computer-python/compare/v2.3.3...v2.4.0)
+
+### Features
+
+* add wait ([4a7a963](https://github.com/tzafon/computer-python/commit/4a7a9631ee0b4a1ca33c813faded83227f95471a))
+
 ## 2.3.3 (2025-11-03)
 
 Full Changelog: [v2.3.2...v2.3.3](https://github.com/tzafon/computer-python/compare/v2.3.2...v2.3.3)
