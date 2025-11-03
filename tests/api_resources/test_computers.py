@@ -33,6 +33,7 @@ class TestComputers:
     @parametrize
     def test_method_create_with_all_params(self, client: Computer) -> None:
         computer = client.computers.create(
+            auto_kill=True,
             context_id="context_id",
             display={
                 "height": 0,
@@ -142,7 +143,40 @@ class TestComputers:
     def test_method_execute_action(self, client: Computer) -> None:
         computer = client.computers.execute_action(
             id="id",
-            body={},
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_execute_action_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.execute_action(
+            id="id",
+            action={
+                "auto_detect_encoding": True,
+                "base64": True,
+                "button": "button",
+                "debug": {
+                    "command": "command",
+                    "max_output_length": 0,
+                    "timeout_seconds": 0,
+                },
+                "dx": 0,
+                "dy": 0,
+                "height": 0,
+                "keys": ["string"],
+                "ms": 0,
+                "scale_factor": 0,
+                "text": "text",
+                "type": "type",
+                "url": "url",
+                "width": 0,
+                "x": 0,
+                "x1": 0,
+                "x2": 0,
+                "y": 0,
+                "y1": 0,
+                "y2": 0,
+            },
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -151,7 +185,6 @@ class TestComputers:
     def test_raw_response_execute_action(self, client: Computer) -> None:
         response = client.computers.with_raw_response.execute_action(
             id="id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -164,7 +197,6 @@ class TestComputers:
     def test_streaming_response_execute_action(self, client: Computer) -> None:
         with client.computers.with_streaming_response.execute_action(
             id="id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -180,7 +212,6 @@ class TestComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.computers.with_raw_response.execute_action(
                 id="",
-                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -188,7 +219,42 @@ class TestComputers:
     def test_method_execute_batch(self, client: Computer) -> None:
         computer = client.computers.execute_batch(
             id="id",
-            body={},
+        )
+        assert_matches_type(ComputerExecuteBatchResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_execute_batch_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.execute_batch(
+            id="id",
+            actions=[
+                {
+                    "auto_detect_encoding": True,
+                    "base64": True,
+                    "button": "button",
+                    "debug": {
+                        "command": "command",
+                        "max_output_length": 0,
+                        "timeout_seconds": 0,
+                    },
+                    "dx": 0,
+                    "dy": 0,
+                    "height": 0,
+                    "keys": ["string"],
+                    "ms": 0,
+                    "scale_factor": 0,
+                    "text": "text",
+                    "type": "type",
+                    "url": "url",
+                    "width": 0,
+                    "x": 0,
+                    "x1": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y1": 0,
+                    "y2": 0,
+                }
+            ],
         )
         assert_matches_type(ComputerExecuteBatchResponse, computer, path=["response"])
 
@@ -197,7 +263,6 @@ class TestComputers:
     def test_raw_response_execute_batch(self, client: Computer) -> None:
         response = client.computers.with_raw_response.execute_batch(
             id="id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -210,7 +275,6 @@ class TestComputers:
     def test_streaming_response_execute_batch(self, client: Computer) -> None:
         with client.computers.with_streaming_response.execute_batch(
             id="id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -226,7 +290,6 @@ class TestComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.computers.with_raw_response.execute_batch(
                 id="",
-                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -276,7 +339,15 @@ class TestComputers:
     def test_method_navigate(self, client: Computer) -> None:
         computer = client.computers.navigate(
             id="id",
-            body={},
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_navigate_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.navigate(
+            id="id",
+            url="url",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -285,7 +356,6 @@ class TestComputers:
     def test_raw_response_navigate(self, client: Computer) -> None:
         response = client.computers.with_raw_response.navigate(
             id="id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -298,7 +368,6 @@ class TestComputers:
     def test_streaming_response_navigate(self, client: Computer) -> None:
         with client.computers.with_streaming_response.navigate(
             id="id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -314,7 +383,6 @@ class TestComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.computers.with_raw_response.navigate(
                 id="",
-                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -417,6 +485,7 @@ class TestAsyncComputers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.create(
+            auto_kill=True,
             context_id="context_id",
             display={
                 "height": 0,
@@ -526,7 +595,40 @@ class TestAsyncComputers:
     async def test_method_execute_action(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.execute_action(
             id="id",
-            body={},
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_execute_action_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.execute_action(
+            id="id",
+            action={
+                "auto_detect_encoding": True,
+                "base64": True,
+                "button": "button",
+                "debug": {
+                    "command": "command",
+                    "max_output_length": 0,
+                    "timeout_seconds": 0,
+                },
+                "dx": 0,
+                "dy": 0,
+                "height": 0,
+                "keys": ["string"],
+                "ms": 0,
+                "scale_factor": 0,
+                "text": "text",
+                "type": "type",
+                "url": "url",
+                "width": 0,
+                "x": 0,
+                "x1": 0,
+                "x2": 0,
+                "y": 0,
+                "y1": 0,
+                "y2": 0,
+            },
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -535,7 +637,6 @@ class TestAsyncComputers:
     async def test_raw_response_execute_action(self, async_client: AsyncComputer) -> None:
         response = await async_client.computers.with_raw_response.execute_action(
             id="id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -548,7 +649,6 @@ class TestAsyncComputers:
     async def test_streaming_response_execute_action(self, async_client: AsyncComputer) -> None:
         async with async_client.computers.with_streaming_response.execute_action(
             id="id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -564,7 +664,6 @@ class TestAsyncComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.computers.with_raw_response.execute_action(
                 id="",
-                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -572,7 +671,42 @@ class TestAsyncComputers:
     async def test_method_execute_batch(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.execute_batch(
             id="id",
-            body={},
+        )
+        assert_matches_type(ComputerExecuteBatchResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_execute_batch_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.execute_batch(
+            id="id",
+            actions=[
+                {
+                    "auto_detect_encoding": True,
+                    "base64": True,
+                    "button": "button",
+                    "debug": {
+                        "command": "command",
+                        "max_output_length": 0,
+                        "timeout_seconds": 0,
+                    },
+                    "dx": 0,
+                    "dy": 0,
+                    "height": 0,
+                    "keys": ["string"],
+                    "ms": 0,
+                    "scale_factor": 0,
+                    "text": "text",
+                    "type": "type",
+                    "url": "url",
+                    "width": 0,
+                    "x": 0,
+                    "x1": 0,
+                    "x2": 0,
+                    "y": 0,
+                    "y1": 0,
+                    "y2": 0,
+                }
+            ],
         )
         assert_matches_type(ComputerExecuteBatchResponse, computer, path=["response"])
 
@@ -581,7 +715,6 @@ class TestAsyncComputers:
     async def test_raw_response_execute_batch(self, async_client: AsyncComputer) -> None:
         response = await async_client.computers.with_raw_response.execute_batch(
             id="id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -594,7 +727,6 @@ class TestAsyncComputers:
     async def test_streaming_response_execute_batch(self, async_client: AsyncComputer) -> None:
         async with async_client.computers.with_streaming_response.execute_batch(
             id="id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -610,7 +742,6 @@ class TestAsyncComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.computers.with_raw_response.execute_batch(
                 id="",
-                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -660,7 +791,15 @@ class TestAsyncComputers:
     async def test_method_navigate(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.navigate(
             id="id",
-            body={},
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_navigate_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.navigate(
+            id="id",
+            url="url",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -669,7 +808,6 @@ class TestAsyncComputers:
     async def test_raw_response_navigate(self, async_client: AsyncComputer) -> None:
         response = await async_client.computers.with_raw_response.navigate(
             id="id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -682,7 +820,6 @@ class TestAsyncComputers:
     async def test_streaming_response_navigate(self, async_client: AsyncComputer) -> None:
         async with async_client.computers.with_streaming_response.navigate(
             id="id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -698,7 +835,6 @@ class TestAsyncComputers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.computers.with_raw_response.navigate(
                 id="",
-                body={},
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")

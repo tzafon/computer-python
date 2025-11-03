@@ -88,19 +88,6 @@ if not _t.TYPE_CHECKING:
 
 _setup_logging()
 
-# Apply custom extensions to client (protected from Stainless regeneration)
-from .wrapper import ComputerWrapper as ComputerWrapper
-from .batch_wrapper import BatchComputerWrapper as BatchComputerWrapper
-from .client_extensions import add_client_extensions, add_batch_client_extensions
-
-add_client_extensions(Computer)
-
-# Create asyncComputer alias for batch execution
-asyncComputer = _t.cast(_t.Type[Computer], type("asyncComputer", (Computer,), {}))
-add_batch_client_extensions(asyncComputer)
-
-__all__.extend(["ComputerWrapper", "BatchComputerWrapper", "asyncComputer"])
-
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.

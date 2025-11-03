@@ -1,6 +1,6 @@
 [project]
 name = "tzafon"
-version = "2.1.0"
+version = "2.2.0"
 description = "The official Python library for the computer API"
 dynamic = ["readme"]
 license = "MIT"
@@ -148,10 +148,6 @@ exclude = [
     ".venv",
     ".nox",
     ".git",
-    "src/tzafon/wrapper.py",
-    "src/tzafon/batch_wrapper.py",
-    "src/tzafon/client_extensions.py",
-    "examples/",
 ]
 
 reportImplicitOverride = true
