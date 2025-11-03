@@ -1,5 +1,0 @@
-# Custom files protected from Stainless regeneration
-src/tzafon/wrapper.py
-src/tzafon/batch_wrapper.py
-src/tzafon/client_extensions.py
-
