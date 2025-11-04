@@ -156,9 +156,10 @@ class ComputerSession:
             ```python
             computer.hotkey("Control", "c")  # Copy
             computer.hotkey("Control", "v")  # Paste
+            computer.hotkey("Control", "Shift", "p")  # Multiple modifiers
             ```
         """
-        return self._client.computers.press_hotkey(self.id, keys=list(keys))
+        return self._client.computers.execute_action(self.id, action={"type": "keypress", "keys": list(keys)})
 
     def scroll(self, dx: float = 0, dy: float = 0) -> ActionResult:
         """
