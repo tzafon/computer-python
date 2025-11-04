@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import time
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
@@ -174,21 +173,25 @@ class ComputerSession:
         """
         return self._client.computers.scroll_viewport(self.id, dx=dx, dy=dy)
 
-    def wait(self, seconds: float) -> None:
+    def wait(self, seconds: float) -> ActionResult:
         """
-        Wait for a specified number of seconds.
+        Wait for a specified number of seconds on the remote computer.
 
         Args:
             seconds: Number of seconds to wait (can be fractional, e.g., 0.5 for half a second)
 
+        Returns:
+            ActionResult with status and timestamp
+
         Example:
             ```python
-            computer.wait(1)      # Wait 1 second
-            computer.wait(0.5)    # Wait 500 milliseconds
-            computer.wait(2.5)    # Wait 2.5 seconds
+            result = computer.wait(1)      # Wait 1 second
+            result = computer.wait(0.5)    # Wait 500 milliseconds
+            result = computer.wait(2.5)    # Wait 2.5 seconds
             ```
         """
-        time.sleep(seconds)
+        ms = int(seconds * 1000)
+        return self._client.computers.execute_action(self.id, action={"type": "wait", "ms": ms})
 
     def html(self, auto_detect_encoding: bool = False) -> ActionResult:
         """
