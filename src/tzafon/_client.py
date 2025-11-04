@@ -30,6 +30,24 @@ from ._base_client import (
     AsyncAPIClient,
 )
 
+
+def _load_env_file(filepath: str = ".env") -> None:
+    """Load environment variables from a .env file."""
+    try:
+        with open(filepath) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, value = line.split("=", 1)
+                    key = key.strip()
+                    value = value.strip()
+                    # Strip quotes if present
+                    if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+                        value = value[1:-1]
+                    os.environ.setdefault(key, value)
+    except FileNotFoundError:
+        pass
+
 __all__ = [
     "Timeout",
     "Transport",
@@ -82,12 +100,8 @@ class Computer(SyncAPIClient):
 
         # Try to load from .env file if still not found
         if api_key is None:
-            try:
-                from dotenv import load_dotenv
-                load_dotenv()
-                api_key = os.environ.get("TZAFON_API_KEY")
-            except ImportError:
-                pass  # python-dotenv not installed, that's okay
+            _load_env_file()
+            api_key = os.environ.get("TZAFON_API_KEY")
 
         if api_key is None:
             raise ComputerError(
@@ -264,12 +278,8 @@ class AsyncComputer(AsyncAPIClient):
 
         # Try to load from .env file if still not found
         if api_key is None:
-            try:
-                from dotenv import load_dotenv
-                load_dotenv()
-                api_key = os.environ.get("TZAFON_API_KEY")
-            except ImportError:
-                pass  # python-dotenv not installed, that's okay
+            _load_env_file()
+            api_key = os.environ.get("TZAFON_API_KEY")
 
         if api_key is None:
             raise ComputerError(
