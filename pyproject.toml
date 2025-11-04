@@ -1,6 +1,6 @@
 [project]
 name = "tzafon"
-version = "2.4.2"
+version = "2.4.3"
 description = "The official Python library for the computer API"
 dynamic = ["readme"]
 license = "MIT"
