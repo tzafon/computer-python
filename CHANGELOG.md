@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.3 (2025-11-04)
+
+Full Changelog: [v2.4.2...v2.4.3](https://github.com/tzafon/computer-python/compare/v2.4.2...v2.4.3)
+
+### Bug Fixes
+
+* modifier list hotkeys ([f92f449](https://github.com/tzafon/computer-python/commit/f92f4493efa5111ffca00f28dc3a45d9bc285230))
+
 ## 2.4.2 (2025-11-04)
 
 Full Changelog: [v2.4.1...v2.4.2](https://github.com/tzafon/computer-python/compare/v2.4.1...v2.4.2)
