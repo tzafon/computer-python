@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.4 (2025-11-04)
+
+Full Changelog: [v2.4.3...v2.4.4](https://github.com/tzafon/computer-python/compare/v2.4.3...v2.4.4)
+
 ## 2.4.3 (2025-11-04)
 
 Full Changelog: [v2.4.2...v2.4.3](https://github.com/tzafon/computer-python/compare/v2.4.2...v2.4.3)
