@@ -148,18 +148,25 @@ class ComputerSession:
 
         Args:
             *keys: Keys to press together (e.g., "Control", "c" for Ctrl+C)
+                  Can be passed as separate arguments or as a single list/tuple
 
         Returns:
             ActionResult with status and timestamp
 
         Example:
             ```python
-            computer.hotkey("Control", "c")  # Copy
-            computer.hotkey("Control", "v")  # Paste
+            computer.hotkey("Control", "c")  # Copy - varargs style
+            computer.hotkey(["Control", "v"])  # Paste - list style
             computer.hotkey("Control", "Shift", "p")  # Multiple modifiers
             ```
         """
-        return self._client.computers.execute_action(self.id, action={"type": "keypress", "keys": list(keys)})
+        # Handle both hotkey("a", "b") and hotkey(["a", "b"]) calling styles
+        if len(keys) == 1 and isinstance(keys[0], (list, tuple)):
+            keys_list = list(keys[0])
+        else:
+            keys_list = list(keys)
+        
+        return self._client.computers.execute_action(self.id, action={"type": "keypress", "keys": keys_list})
 
     def scroll(self, dx: float = 0, dy: float = 0) -> ActionResult:
         """
