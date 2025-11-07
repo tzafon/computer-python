@@ -8,6 +8,8 @@ __all__ = ["ComputerDragParams"]
 
 
 class ComputerDragParams(TypedDict, total=False):
+    tab_id: str
+
     x1: float
 
     x2: float

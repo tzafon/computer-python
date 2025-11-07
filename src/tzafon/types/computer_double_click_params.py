@@ -8,6 +8,8 @@ __all__ = ["ComputerDoubleClickParams"]
 
 
 class ComputerDoubleClickParams(TypedDict, total=False):
+    tab_id: str
+
     x: float
 
     y: float

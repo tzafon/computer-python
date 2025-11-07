@@ -8,6 +8,8 @@ __all__ = ["ComputerRightClickParams"]
 
 
 class ComputerRightClickParams(TypedDict, total=False):
+    tab_id: str
+
     x: float
 
     y: float

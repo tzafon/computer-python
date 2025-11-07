@@ -12,4 +12,6 @@ class ComputerSetViewportParams(TypedDict, total=False):
 
     scale_factor: float
 
+    tab_id: str
+
     width: int

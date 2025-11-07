@@ -12,4 +12,6 @@ class ComputerDebugParams(TypedDict, total=False):
 
     max_output_length: int
 
+    tab_id: str
+
     timeout_seconds: int
