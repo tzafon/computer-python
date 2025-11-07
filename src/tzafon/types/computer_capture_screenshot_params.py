@@ -9,3 +9,5 @@ __all__ = ["ComputerCaptureScreenshotParams"]
 
 class ComputerCaptureScreenshotParams(TypedDict, total=False):
     base64: bool
+
+    tab_id: str

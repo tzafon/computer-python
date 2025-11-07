@@ -152,6 +152,7 @@ class TestComputers:
         computer = client.computers.capture_screenshot(
             id="id",
             base64=True,
+            tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -202,6 +203,7 @@ class TestComputers:
     def test_method_click_with_all_params(self, client: Computer) -> None:
         computer = client.computers.click(
             id="id",
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -298,6 +300,7 @@ class TestComputers:
             id="id",
             command="command",
             max_output_length=0,
+            tab_id="tab_id",
             timeout_seconds=0,
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -349,6 +352,7 @@ class TestComputers:
     def test_method_double_click_with_all_params(self, client: Computer) -> None:
         computer = client.computers.double_click(
             id="id",
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -401,6 +405,7 @@ class TestComputers:
     def test_method_drag_with_all_params(self, client: Computer) -> None:
         computer = client.computers.drag(
             id="id",
+            tab_id="tab_id",
             x1=0,
             x2=0,
             y1=0,
@@ -612,6 +617,7 @@ class TestComputers:
         computer = client.computers.get_html(
             id="id",
             auto_detect_encoding=True,
+            tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -704,6 +710,7 @@ class TestComputers:
     def test_method_navigate_with_all_params(self, client: Computer) -> None:
         computer = client.computers.navigate(
             id="id",
+            tab_id="tab_id",
             url="url",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -756,6 +763,7 @@ class TestComputers:
         computer = client.computers.press_hotkey(
             id="id",
             keys=["string"],
+            tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -806,6 +814,7 @@ class TestComputers:
     def test_method_right_click_with_all_params(self, client: Computer) -> None:
         computer = client.computers.right_click(
             id="id",
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -860,6 +869,7 @@ class TestComputers:
             id="id",
             dx=0,
             dy=0,
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -914,6 +924,7 @@ class TestComputers:
             id="id",
             height=0,
             scale_factor=0,
+            tab_id="tab_id",
             width=0,
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -1091,6 +1102,7 @@ class TestComputers:
     def test_method_type_text_with_all_params(self, client: Computer) -> None:
         computer = client.computers.type_text(
             id="id",
+            tab_id="tab_id",
             text="text",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -1264,6 +1276,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.capture_screenshot(
             id="id",
             base64=True,
+            tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -1314,6 +1327,7 @@ class TestAsyncComputers:
     async def test_method_click_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.click(
             id="id",
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -1410,6 +1424,7 @@ class TestAsyncComputers:
             id="id",
             command="command",
             max_output_length=0,
+            tab_id="tab_id",
             timeout_seconds=0,
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -1461,6 +1476,7 @@ class TestAsyncComputers:
     async def test_method_double_click_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.double_click(
             id="id",
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -1513,6 +1529,7 @@ class TestAsyncComputers:
     async def test_method_drag_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.drag(
             id="id",
+            tab_id="tab_id",
             x1=0,
             x2=0,
             y1=0,
@@ -1724,6 +1741,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.get_html(
             id="id",
             auto_detect_encoding=True,
+            tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -1816,6 +1834,7 @@ class TestAsyncComputers:
     async def test_method_navigate_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.navigate(
             id="id",
+            tab_id="tab_id",
             url="url",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -1868,6 +1887,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.press_hotkey(
             id="id",
             keys=["string"],
+            tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
 
@@ -1918,6 +1938,7 @@ class TestAsyncComputers:
     async def test_method_right_click_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.right_click(
             id="id",
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -1972,6 +1993,7 @@ class TestAsyncComputers:
             id="id",
             dx=0,
             dy=0,
+            tab_id="tab_id",
             x=0,
             y=0,
         )
@@ -2026,6 +2048,7 @@ class TestAsyncComputers:
             id="id",
             height=0,
             scale_factor=0,
+            tab_id="tab_id",
             width=0,
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -2203,6 +2226,7 @@ class TestAsyncComputers:
     async def test_method_type_text_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.type_text(
             id="id",
+            tab_id="tab_id",
             text="text",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
