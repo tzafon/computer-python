@@ -8,4 +8,6 @@ __all__ = ["ComputerNavigateParams"]
 
 
 class ComputerNavigateParams(TypedDict, total=False):
+    tab_id: str
+
     url: str

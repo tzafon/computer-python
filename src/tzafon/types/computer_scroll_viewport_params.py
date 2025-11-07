@@ -12,6 +12,8 @@ class ComputerScrollViewportParams(TypedDict, total=False):
 
     dy: float
 
+    tab_id: str
+
     x: float
 
     y: float

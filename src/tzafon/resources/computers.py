@@ -178,6 +178,7 @@ class ComputersResource(SyncAPIResource):
         id: str,
         *,
         base64: bool | Omit = omit,
+        tab_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -186,7 +187,8 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Take a screenshot of the current browser viewport, optionally as base64
+        Take a screenshot of the current browser viewport, optionally as base64.
+        Optionally specify tab_id to screenshot a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -202,7 +204,11 @@ class ComputersResource(SyncAPIResource):
         return self._post(
             f"/computers/{id}/screenshot",
             body=maybe_transform(
-                {"base64": base64}, computer_capture_screenshot_params.ComputerCaptureScreenshotParams
+                {
+                    "base64": base64,
+                    "tab_id": tab_id,
+                },
+                computer_capture_screenshot_params.ComputerCaptureScreenshotParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -214,6 +220,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -223,8 +230,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a left mouse click at the specified x,y coordinates
+        """Perform a left mouse click at the specified x,y coordinates.
+
+        Optionally specify
+        tab_id to click on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -241,6 +250,7 @@ class ComputersResource(SyncAPIResource):
             f"/computers/{id}/click",
             body=maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -292,6 +302,7 @@ class ComputersResource(SyncAPIResource):
         *,
         command: str | Omit = omit,
         max_output_length: int | Omit = omit,
+        tab_id: str | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -301,7 +312,8 @@ class ComputersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Execute a shell command with optional timeout and output length limits
+        Execute a shell command with optional timeout and output length limits.
+        Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -320,6 +332,7 @@ class ComputersResource(SyncAPIResource):
                 {
                     "command": command,
                     "max_output_length": max_output_length,
+                    "tab_id": tab_id,
                     "timeout_seconds": timeout_seconds,
                 },
                 computer_debug_params.ComputerDebugParams,
@@ -334,6 +347,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -343,8 +357,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a double mouse click at the specified x,y coordinates
+        """Perform a double mouse click at the specified x,y coordinates.
+
+        Optionally
+        specify tab_id to double-click on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -361,6 +377,7 @@ class ComputersResource(SyncAPIResource):
             f"/computers/{id}/double-click",
             body=maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -376,6 +393,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x1: float | Omit = omit,
         x2: float | Omit = omit,
         y1: float | Omit = omit,
@@ -387,8 +405,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a click-and-drag action from (x1,y1) to (x2,y2)
+        """Perform a click-and-drag action from (x1,y1) to (x2,y2).
+
+        Optionally specify
+        tab_id to drag on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -405,6 +425,7 @@ class ComputersResource(SyncAPIResource):
             f"/computers/{id}/drag",
             body=maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x1": x1,
                     "x2": x2,
                     "y1": y1,
@@ -494,6 +515,7 @@ class ComputersResource(SyncAPIResource):
         id: str,
         *,
         auto_detect_encoding: bool | Omit = omit,
+        tab_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -501,8 +523,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Get the HTML content of the current browser page
+        """Get the HTML content of the current browser page.
+
+        Optionally specify tab_id to
+        get HTML from a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -518,7 +542,11 @@ class ComputersResource(SyncAPIResource):
         return self._post(
             f"/computers/{id}/html",
             body=maybe_transform(
-                {"auto_detect_encoding": auto_detect_encoding}, computer_get_html_params.ComputerGetHTMLParams
+                {
+                    "auto_detect_encoding": auto_detect_encoding,
+                    "tab_id": tab_id,
+                },
+                computer_get_html_params.ComputerGetHTMLParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -563,6 +591,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -571,8 +600,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Navigate the browser to a specified URL
+        """Navigate the browser to a specified URL.
+
+        Optionally specify tab_id to navigate a
+        specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -587,7 +618,13 @@ class ComputersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/computers/{id}/navigate",
-            body=maybe_transform({"url": url}, computer_navigate_params.ComputerNavigateParams),
+            body=maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "url": url,
+                },
+                computer_navigate_params.ComputerNavigateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -599,6 +636,7 @@ class ComputersResource(SyncAPIResource):
         id: str,
         *,
         keys: SequenceNotStr[str] | Omit = omit,
+        tab_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -606,8 +644,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Press a combination of keys (e.g., ["Control", "c"] for copy)
+        """Press a combination of keys (e.g., ["Control", "c"] for copy).
+
+        Optionally
+        specify tab_id to send hotkey to a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -622,7 +662,13 @@ class ComputersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/computers/{id}/hotkey",
-            body=maybe_transform({"keys": keys}, computer_press_hotkey_params.ComputerPressHotkeyParams),
+            body=maybe_transform(
+                {
+                    "keys": keys,
+                    "tab_id": tab_id,
+                },
+                computer_press_hotkey_params.ComputerPressHotkeyParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -633,6 +679,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -642,8 +689,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a right mouse click at the specified x,y coordinates
+        """Perform a right mouse click at the specified x,y coordinates.
+
+        Optionally specify
+        tab_id to right-click on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -660,6 +709,7 @@ class ComputersResource(SyncAPIResource):
             f"/computers/{id}/right-click",
             body=maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -677,6 +727,7 @@ class ComputersResource(SyncAPIResource):
         *,
         dx: float | Omit = omit,
         dy: float | Omit = omit,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -686,8 +737,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Scroll the browser viewport by the specified delta
+        """Scroll the browser viewport by the specified delta.
+
+        Optionally specify tab_id to
+        scroll a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -706,6 +759,7 @@ class ComputersResource(SyncAPIResource):
                 {
                     "dx": dx,
                     "dy": dy,
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -723,6 +777,7 @@ class ComputersResource(SyncAPIResource):
         *,
         height: int | Omit = omit,
         scale_factor: float | Omit = omit,
+        tab_id: str | Omit = omit,
         width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -731,8 +786,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Change the browser viewport dimensions and scale factor
+        """Change the browser viewport dimensions and scale factor.
+
+        Optionally specify
+        tab_id to set viewport for a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -751,6 +808,7 @@ class ComputersResource(SyncAPIResource):
                 {
                     "height": height,
                     "scale_factor": scale_factor,
+                    "tab_id": tab_id,
                     "width": width,
                 },
                 computer_set_viewport_params.ComputerSetViewportParams,
@@ -869,6 +927,7 @@ class ComputersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         text: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -877,8 +936,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Type text into the currently focused element in the browser
+        """Type text into the currently focused element in the browser.
+
+        Optionally specify
+        tab_id to type on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -893,7 +954,13 @@ class ComputersResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/computers/{id}/type",
-            body=maybe_transform({"text": text}, computer_type_text_params.ComputerTypeTextParams),
+            body=maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "text": text,
+                },
+                computer_type_text_params.ComputerTypeTextParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1036,6 +1103,7 @@ class AsyncComputersResource(AsyncAPIResource):
         id: str,
         *,
         base64: bool | Omit = omit,
+        tab_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1044,7 +1112,8 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Take a screenshot of the current browser viewport, optionally as base64
+        Take a screenshot of the current browser viewport, optionally as base64.
+        Optionally specify tab_id to screenshot a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1060,7 +1129,11 @@ class AsyncComputersResource(AsyncAPIResource):
         return await self._post(
             f"/computers/{id}/screenshot",
             body=await async_maybe_transform(
-                {"base64": base64}, computer_capture_screenshot_params.ComputerCaptureScreenshotParams
+                {
+                    "base64": base64,
+                    "tab_id": tab_id,
+                },
+                computer_capture_screenshot_params.ComputerCaptureScreenshotParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1072,6 +1145,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1081,8 +1155,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a left mouse click at the specified x,y coordinates
+        """Perform a left mouse click at the specified x,y coordinates.
+
+        Optionally specify
+        tab_id to click on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1099,6 +1175,7 @@ class AsyncComputersResource(AsyncAPIResource):
             f"/computers/{id}/click",
             body=await async_maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -1150,6 +1227,7 @@ class AsyncComputersResource(AsyncAPIResource):
         *,
         command: str | Omit = omit,
         max_output_length: int | Omit = omit,
+        tab_id: str | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1159,7 +1237,8 @@ class AsyncComputersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
         """
-        Execute a shell command with optional timeout and output length limits
+        Execute a shell command with optional timeout and output length limits.
+        Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1178,6 +1257,7 @@ class AsyncComputersResource(AsyncAPIResource):
                 {
                     "command": command,
                     "max_output_length": max_output_length,
+                    "tab_id": tab_id,
                     "timeout_seconds": timeout_seconds,
                 },
                 computer_debug_params.ComputerDebugParams,
@@ -1192,6 +1272,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1201,8 +1282,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a double mouse click at the specified x,y coordinates
+        """Perform a double mouse click at the specified x,y coordinates.
+
+        Optionally
+        specify tab_id to double-click on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1219,6 +1302,7 @@ class AsyncComputersResource(AsyncAPIResource):
             f"/computers/{id}/double-click",
             body=await async_maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -1234,6 +1318,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x1: float | Omit = omit,
         x2: float | Omit = omit,
         y1: float | Omit = omit,
@@ -1245,8 +1330,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a click-and-drag action from (x1,y1) to (x2,y2)
+        """Perform a click-and-drag action from (x1,y1) to (x2,y2).
+
+        Optionally specify
+        tab_id to drag on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1263,6 +1350,7 @@ class AsyncComputersResource(AsyncAPIResource):
             f"/computers/{id}/drag",
             body=await async_maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x1": x1,
                     "x2": x2,
                     "y1": y1,
@@ -1356,6 +1444,7 @@ class AsyncComputersResource(AsyncAPIResource):
         id: str,
         *,
         auto_detect_encoding: bool | Omit = omit,
+        tab_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1363,8 +1452,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Get the HTML content of the current browser page
+        """Get the HTML content of the current browser page.
+
+        Optionally specify tab_id to
+        get HTML from a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1380,7 +1471,11 @@ class AsyncComputersResource(AsyncAPIResource):
         return await self._post(
             f"/computers/{id}/html",
             body=await async_maybe_transform(
-                {"auto_detect_encoding": auto_detect_encoding}, computer_get_html_params.ComputerGetHTMLParams
+                {
+                    "auto_detect_encoding": auto_detect_encoding,
+                    "tab_id": tab_id,
+                },
+                computer_get_html_params.ComputerGetHTMLParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1425,6 +1520,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1433,8 +1529,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Navigate the browser to a specified URL
+        """Navigate the browser to a specified URL.
+
+        Optionally specify tab_id to navigate a
+        specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1449,7 +1547,13 @@ class AsyncComputersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/computers/{id}/navigate",
-            body=await async_maybe_transform({"url": url}, computer_navigate_params.ComputerNavigateParams),
+            body=await async_maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "url": url,
+                },
+                computer_navigate_params.ComputerNavigateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1461,6 +1565,7 @@ class AsyncComputersResource(AsyncAPIResource):
         id: str,
         *,
         keys: SequenceNotStr[str] | Omit = omit,
+        tab_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1468,8 +1573,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Press a combination of keys (e.g., ["Control", "c"] for copy)
+        """Press a combination of keys (e.g., ["Control", "c"] for copy).
+
+        Optionally
+        specify tab_id to send hotkey to a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1484,7 +1591,13 @@ class AsyncComputersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/computers/{id}/hotkey",
-            body=await async_maybe_transform({"keys": keys}, computer_press_hotkey_params.ComputerPressHotkeyParams),
+            body=await async_maybe_transform(
+                {
+                    "keys": keys,
+                    "tab_id": tab_id,
+                },
+                computer_press_hotkey_params.ComputerPressHotkeyParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1495,6 +1608,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1504,8 +1618,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Perform a right mouse click at the specified x,y coordinates
+        """Perform a right mouse click at the specified x,y coordinates.
+
+        Optionally specify
+        tab_id to right-click on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1522,6 +1638,7 @@ class AsyncComputersResource(AsyncAPIResource):
             f"/computers/{id}/right-click",
             body=await async_maybe_transform(
                 {
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -1539,6 +1656,7 @@ class AsyncComputersResource(AsyncAPIResource):
         *,
         dx: float | Omit = omit,
         dy: float | Omit = omit,
+        tab_id: str | Omit = omit,
         x: float | Omit = omit,
         y: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1548,8 +1666,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Scroll the browser viewport by the specified delta
+        """Scroll the browser viewport by the specified delta.
+
+        Optionally specify tab_id to
+        scroll a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1568,6 +1688,7 @@ class AsyncComputersResource(AsyncAPIResource):
                 {
                     "dx": dx,
                     "dy": dy,
+                    "tab_id": tab_id,
                     "x": x,
                     "y": y,
                 },
@@ -1585,6 +1706,7 @@ class AsyncComputersResource(AsyncAPIResource):
         *,
         height: int | Omit = omit,
         scale_factor: float | Omit = omit,
+        tab_id: str | Omit = omit,
         width: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1593,8 +1715,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Change the browser viewport dimensions and scale factor
+        """Change the browser viewport dimensions and scale factor.
+
+        Optionally specify
+        tab_id to set viewport for a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1613,6 +1737,7 @@ class AsyncComputersResource(AsyncAPIResource):
                 {
                     "height": height,
                     "scale_factor": scale_factor,
+                    "tab_id": tab_id,
                     "width": width,
                 },
                 computer_set_viewport_params.ComputerSetViewportParams,
@@ -1731,6 +1856,7 @@ class AsyncComputersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        tab_id: str | Omit = omit,
         text: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1739,8 +1865,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ActionResult:
-        """
-        Type text into the currently focused element in the browser
+        """Type text into the currently focused element in the browser.
+
+        Optionally specify
+        tab_id to type on a specific tab (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1755,7 +1883,13 @@ class AsyncComputersResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             f"/computers/{id}/type",
-            body=await async_maybe_transform({"text": text}, computer_type_text_params.ComputerTypeTextParams),
+            body=await async_maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "text": text,
+                },
+                computer_type_text_params.ComputerTypeTextParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

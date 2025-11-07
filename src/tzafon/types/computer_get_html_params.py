@@ -9,3 +9,5 @@ __all__ = ["ComputerGetHTMLParams"]
 
 class ComputerGetHTMLParams(TypedDict, total=False):
     auto_detect_encoding: bool
+
+    tab_id: str

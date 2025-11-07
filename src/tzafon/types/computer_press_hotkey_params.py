@@ -11,3 +11,5 @@ __all__ = ["ComputerPressHotkeyParams"]
 
 class ComputerPressHotkeyParams(TypedDict, total=False):
     keys: SequenceNotStr[str]
+
+    tab_id: str

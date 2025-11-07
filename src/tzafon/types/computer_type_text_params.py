@@ -8,4 +8,6 @@ __all__ = ["ComputerTypeTextParams"]
 
 
 class ComputerTypeTextParams(TypedDict, total=False):
+    tab_id: str
+
     text: str
