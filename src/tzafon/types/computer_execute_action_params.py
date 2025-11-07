@@ -45,11 +45,14 @@ class Action(TypedDict, total=False):
 
     scale_factor: float
 
+    tab_id: str
+    """For tab management (browser sessions only)"""
+
     text: str
 
     type: str
     """
-    click|double_click|right_click|drag|type|keypress|scroll|wait|screenshot|go_to_url|debug|get_html_content|set_viewport
+    click|double_click|right_click|drag|type|keypress|scroll|wait|screenshot|go_to_url|debug|get_html_content|set_viewport|list_tabs|new_tab|switch_tab|close_tab
     """
 
     url: str
