@@ -39,6 +39,9 @@ class Action(TypedDict, total=False):
 
     height: int
 
+    include_context: bool
+    """Include page context in response"""
+
     keys: SequenceNotStr[str]
 
     ms: int
