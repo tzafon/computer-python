@@ -187,7 +187,7 @@ client = Computer(
 
 ## Requirements
 
-Python 3.8+
+Python 3.9+
 
 ## License
 
