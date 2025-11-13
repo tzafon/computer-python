@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.6.1 (2025-11-13)
+
+Full Changelog: [v2.6.0...v2.6.1](https://github.com/tzafon/computer-python/compare/v2.6.0...v2.6.1)
+
+### Bug Fixes
+
+* compat with Python 3.14 ([424f54f](https://github.com/tzafon/computer-python/commit/424f54f6ab8c3a72f1dfacc095fd8139b62d69ee))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([336d7dd](https://github.com/tzafon/computer-python/commit/336d7dd67723b66f543b72911ed2e38d9bba38fa))
+* scroll accurate ([9a07238](https://github.com/tzafon/computer-python/commit/9a07238a472aa491eeea931c5e615f99f360614d))
+
+
+### Chores
+
+* **package:** drop Python 3.8 support ([cc1d225](https://github.com/tzafon/computer-python/commit/cc1d2256fbe4cff3eca11ebbde79b6e017850104))
+
 ## 2.6.0 (2025-11-07)
 
 Full Changelog: [v2.5.0...v2.6.0](https://github.com/tzafon/computer-python/compare/v2.5.0...v2.6.0)
