@@ -168,18 +168,20 @@ class ComputerSession:
         
         return self._client.computers.execute_action(self.id, action={"type": "keypress", "keys": keys_list})
 
-    def scroll(self, dx: float = 0, dy: float = 0) -> ActionResult:
+    def scroll(self, dx: float = 0, dy: float = 0, x: float = 0, y: float = 0) -> ActionResult:
         """
         Scroll the viewport.
 
         Args:
             dx: Horizontal scroll delta (positive = right, negative = left)
             dy: Vertical scroll delta (positive = down, negative = up)
+            x: Starting X coordinate for the scroll action
+            y: Starting Y coordinate for the scroll action
 
         Returns:
             ActionResult with status and timestamp
         """
-        return self._client.computers.scroll_viewport(self.id, dx=dx, dy=dy)
+        return self._client.computers.scroll_viewport(self.id, dx=dx, dy=dy, x=x, y=y)
 
     def wait(self, seconds: float) -> ActionResult:
         """
