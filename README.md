@@ -155,7 +155,7 @@ client = Computer(
 - `drag(x1, y1, x2, y2)` - Click and drag
 - `type(text)` - Type text
 - `hotkey(*keys)` - Press key combination
-- `scroll(dx, dy)` - Scroll viewport
+- `scroll(dx, dy, x, y)` - Scroll viewport with starting coordinates
 - `screenshot(base64=False)` - Capture screenshot
 - `html(auto_detect_encoding=False)` - Get page HTML
 - `debug(command, timeout_seconds=120, max_output_length=65536)` - Run shell command
