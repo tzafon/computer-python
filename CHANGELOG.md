@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.6.2 (2025-11-21)
+
+Full Changelog: [v2.6.1...v2.6.2](https://github.com/tzafon/computer-python/compare/v2.6.1...v2.6.2)
+
+### Chores
+
+* **internal:** codegen related update ([b1af838](https://github.com/tzafon/computer-python/commit/b1af8380a0a3b88c3e3e316ab7e5572c42532ccb))
+
 ## 2.6.1 (2025-11-13)
 
 Full Changelog: [v2.6.0...v2.6.1](https://github.com/tzafon/computer-python/compare/v2.6.0...v2.6.1)
