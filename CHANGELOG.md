@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.7.0 (2025-11-26)
+
+Full Changelog: [v2.6.2...v2.7.0](https://github.com/tzafon/computer-python/compare/v2.6.2...v2.7.0)
+
+### Features
+
+* update endpoint URL ([a9a63de](https://github.com/tzafon/computer-python/commit/a9a63deb8d0f1966bcb36a0037faa169bc6eb9b2))
+
 ## 2.6.2 (2025-11-21)
 
 Full Changelog: [v2.6.1...v2.6.2](https://github.com/tzafon/computer-python/compare/v2.6.1...v2.6.2)
