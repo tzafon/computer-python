@@ -88,7 +88,7 @@ class Computer(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("COMPUTER_BASE_URL")
         if base_url is None:
-            base_url = f"https://v2.tzafon.ai/v1"
+            base_url = f"https://api.tzafon.ai"
 
         super().__init__(
             version=__version__,
@@ -256,7 +256,7 @@ class AsyncComputer(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("COMPUTER_BASE_URL")
         if base_url is None:
-            base_url = f"https://v2.tzafon.ai/v1"
+            base_url = f"https://api.tzafon.ai"
 
         super().__init__(
             version=__version__,
