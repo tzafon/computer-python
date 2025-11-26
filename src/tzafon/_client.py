@@ -290,7 +290,7 @@ class AsyncComputer(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("COMPUTER_BASE_URL")
         if base_url is None:
-            base_url = f"https://v2.tzafon.ai/v1"
+            base_url = f"https://api.tzafon.ai"
 
         # Strip trailing slash to prevent double-slash in URLs (httpx adds it back)
         if isinstance(base_url, str):
