@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.8.1 (2025-11-27)
+
+Full Changelog: [v2.8.0...v2.8.1](https://github.com/tzafon/computer-python/compare/v2.8.0...v2.8.1)
+
+### Bug Fixes
+
+* ensure streams are always closed ([3364b2c](https://github.com/tzafon/computer-python/commit/3364b2ce1fe9d80c2023937c5d1ed9d62954f4e8))
+
+
+### Chores
+
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([3e0c9f7](https://github.com/tzafon/computer-python/commit/3e0c9f728c9c598749752a97fa1968d36654a4cb))
+
 ## 2.8.0 (2025-11-26)
 
 Full Changelog: [v2.7.0...v2.8.0](https://github.com/tzafon/computer-python/compare/v2.7.0...v2.8.0)
