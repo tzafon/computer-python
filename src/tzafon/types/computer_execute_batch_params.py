@@ -43,6 +43,9 @@ class Action(TypedDict, total=False):
     include_context: bool
     """Include page context in response"""
 
+    key: str
+    """For key_down/key_up"""
+
     keys: SequenceNotStr[str]
 
     ms: int
@@ -56,7 +59,7 @@ class Action(TypedDict, total=False):
 
     type: str
     """
-    click|double_click|right_click|drag|type|keypress|scroll|wait|screenshot|go_to_url|debug|get_html_content|set_viewport|list_tabs|new_tab|switch_tab|close_tab
+    click|double_click|right_click|drag|type|keypress|scroll|wait|screenshot|go_to_url|debug|get_html_content|set_viewport|list_tabs|new_tab|switch_tab|close_tab|key_down|key_up|mouse_down|mouse_up
     """
 
     url: str
