@@ -83,6 +83,7 @@ pip install tzafon[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from tzafon import DefaultAioHttpClient
 from tzafon import AsyncComputer
@@ -90,7 +91,7 @@ from tzafon import AsyncComputer
 
 async def main() -> None:
     async with AsyncComputer(
-        api_key="My API Key",
+        api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         computer_response = await client.computers.create(
