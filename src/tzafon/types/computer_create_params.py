@@ -29,6 +29,8 @@ class ComputerCreateParams(TypedDict, total=False):
 
 
 class Display(TypedDict, total=False):
+    """TODO: implement"""
+
     height: int
 
     scale: float
