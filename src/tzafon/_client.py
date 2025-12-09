@@ -21,7 +21,6 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import computers
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import ComputerError, APIStatusError
 from ._base_client import (
@@ -29,6 +28,8 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.agent import agent
+from .resources.computers import computers
 
 
 def _load_env_file(filepath: str = ".env") -> None:
@@ -62,6 +63,7 @@ __all__ = [
 
 class Computer(SyncAPIClient):
     computers: computers.ComputersResource
+    agent: agent.AgentResource
     with_raw_response: ComputerWithRawResponse
     with_streaming_response: ComputerWithStreamedResponse
 
@@ -130,6 +132,7 @@ class Computer(SyncAPIClient):
         )
 
         self.computers = computers.ComputersResource(self)
+        self.agent = agent.AgentResource(self)
         self.with_raw_response = ComputerWithRawResponse(self)
         self.with_streaming_response = ComputerWithStreamedResponse(self)
 
@@ -240,6 +243,7 @@ class Computer(SyncAPIClient):
 
 class AsyncComputer(AsyncAPIClient):
     computers: computers.AsyncComputersResource
+    agent: agent.AsyncAgentResource
     with_raw_response: AsyncComputerWithRawResponse
     with_streaming_response: AsyncComputerWithStreamedResponse
 
@@ -308,6 +312,7 @@ class AsyncComputer(AsyncAPIClient):
         )
 
         self.computers = computers.AsyncComputersResource(self)
+        self.agent = agent.AsyncAgentResource(self)
         self.with_raw_response = AsyncComputerWithRawResponse(self)
         self.with_streaming_response = AsyncComputerWithStreamedResponse(self)
 
@@ -419,21 +424,25 @@ class AsyncComputer(AsyncAPIClient):
 class ComputerWithRawResponse:
     def __init__(self, client: Computer) -> None:
         self.computers = computers.ComputersResourceWithRawResponse(client.computers)
+        self.agent = agent.AgentResourceWithRawResponse(client.agent)
 
 
 class AsyncComputerWithRawResponse:
     def __init__(self, client: AsyncComputer) -> None:
         self.computers = computers.AsyncComputersResourceWithRawResponse(client.computers)
+        self.agent = agent.AsyncAgentResourceWithRawResponse(client.agent)
 
 
 class ComputerWithStreamedResponse:
     def __init__(self, client: Computer) -> None:
         self.computers = computers.ComputersResourceWithStreamingResponse(client.computers)
+        self.agent = agent.AgentResourceWithStreamingResponse(client.agent)
 
 
 class AsyncComputerWithStreamedResponse:
     def __init__(self, client: AsyncComputer) -> None:
         self.computers = computers.AsyncComputersResourceWithStreamingResponse(client.computers)
+        self.agent = agent.AsyncAgentResourceWithStreamingResponse(client.agent)
 
 
 Client = Computer
