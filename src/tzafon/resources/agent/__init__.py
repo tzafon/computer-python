@@ -8,22 +8,22 @@ from .agent import (
     AgentResourceWithStreamingResponse,
     AsyncAgentResourceWithStreamingResponse,
 )
-from .computers import (
-    ComputersResource,
-    AsyncComputersResource,
-    ComputersResourceWithRawResponse,
-    AsyncComputersResourceWithRawResponse,
-    ComputersResourceWithStreamingResponse,
-    AsyncComputersResourceWithStreamingResponse,
+from .tasks import (
+    TasksResource,
+    AsyncTasksResource,
+    TasksResourceWithRawResponse,
+    AsyncTasksResourceWithRawResponse,
+    TasksResourceWithStreamingResponse,
+    AsyncTasksResourceWithStreamingResponse,
 )
 
 __all__ = [
-    "ComputersResource",
-    "AsyncComputersResource",
-    "ComputersResourceWithRawResponse",
-    "AsyncComputersResourceWithRawResponse",
-    "ComputersResourceWithStreamingResponse",
-    "AsyncComputersResourceWithStreamingResponse",
+    "TasksResource",
+    "AsyncTasksResource",
+    "TasksResourceWithRawResponse",
+    "AsyncTasksResourceWithRawResponse",
+    "TasksResourceWithStreamingResponse",
+    "AsyncTasksResourceWithStreamingResponse",
     "AgentResource",
     "AsyncAgentResource",
     "AgentResourceWithRawResponse",
