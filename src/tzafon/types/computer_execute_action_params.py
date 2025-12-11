@@ -49,6 +49,8 @@ class Action(TypedDict, total=False):
 
     ms: int
 
+    proxy_url: str
+
     scale_factor: float
 
     tab_id: str
