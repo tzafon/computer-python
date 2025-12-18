@@ -1,5 +1,32 @@
 # Changelog
 
+## 2.9.0 (2025-12-18)
+
+Full Changelog: [v2.8.1...v2.9.0](https://github.com/tzafon/computer-python/compare/v2.8.1...v2.9.0)
+
+### Features
+
+* **api:** api update ([dc894e3](https://github.com/tzafon/computer-python/commit/dc894e38e67fd7288e36324b090e064fbcff5919))
+* **api:** api update ([c82965f](https://github.com/tzafon/computer-python/commit/c82965f2e0237d6c9c637613d081868ece0be925))
+* **api:** manual updates ([bb0e104](https://github.com/tzafon/computer-python/commit/bb0e1043a4d14970b4f29e41b0f7f61d3aee2e37))
+* **api:** manual updates ([2d2c614](https://github.com/tzafon/computer-python/commit/2d2c61480d8c7e8bd1ebf97b2f7e67ed5c3bba9e))
+
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([66d1c13](https://github.com/tzafon/computer-python/commit/66d1c13cd8e32a7575c317e5e0f952c9298762fa))
+* use async_to_httpx_files in patch method ([f8b61cd](https://github.com/tzafon/computer-python/commit/f8b61cdf44b1b4fbe21652c32ae6535e1ebf16fb))
+
+
+### Chores
+
+* add missing docstrings ([7796642](https://github.com/tzafon/computer-python/commit/779664245cd19dde6a05b586b80480310ff173b0))
+* **docs:** use environment variables for authentication in code snippets ([30861f9](https://github.com/tzafon/computer-python/commit/30861f9881ab186d25828b1b7d88dbd15a806d54))
+* **internal:** add `--fix` argument to lint script ([202e51b](https://github.com/tzafon/computer-python/commit/202e51bdbd3f92e42955bc3afd5ee810ec1ef592))
+* **internal:** add missing files argument to base client ([2dced9d](https://github.com/tzafon/computer-python/commit/2dced9db90bfa722cfb5ef6987ee6cc1a0a75422))
+* speedup initial import ([2ab1f6a](https://github.com/tzafon/computer-python/commit/2ab1f6a4c9a2a96a73da95f7f55c5db18c66cab9))
+* update lockfile ([8cf0a73](https://github.com/tzafon/computer-python/commit/8cf0a73ea6e0f4aaa227c56eba52ebc0de8929be))
+
 ## 2.8.1 (2025-11-27)
 
 Full Changelog: [v2.8.0...v2.8.1](https://github.com/tzafon/computer-python/compare/v2.8.0...v2.8.1)
