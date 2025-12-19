@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .agent import (
-    AgentResource,
-    AsyncAgentResource,
-    AgentResourceWithRawResponse,
-    AsyncAgentResourceWithRawResponse,
-    AgentResourceWithStreamingResponse,
-    AsyncAgentResourceWithStreamingResponse,
+from .tabs import (
+    TabsResource,
+    AsyncTabsResource,
+    TabsResourceWithRawResponse,
+    AsyncTabsResourceWithRawResponse,
+    TabsResourceWithStreamingResponse,
+    AsyncTabsResourceWithStreamingResponse,
 )
 from .computers import (
     ComputersResource,
@@ -18,16 +18,16 @@ from .computers import (
 )
 
 __all__ = [
+    "TabsResource",
+    "AsyncTabsResource",
+    "TabsResourceWithRawResponse",
+    "AsyncTabsResourceWithRawResponse",
+    "TabsResourceWithStreamingResponse",
+    "AsyncTabsResourceWithStreamingResponse",
     "ComputersResource",
     "AsyncComputersResource",
     "ComputersResourceWithRawResponse",
     "AsyncComputersResourceWithRawResponse",
     "ComputersResourceWithStreamingResponse",
     "AsyncComputersResourceWithStreamingResponse",
-    "AgentResource",
-    "AsyncAgentResource",
-    "AgentResourceWithRawResponse",
-    "AsyncAgentResourceWithRawResponse",
-    "AgentResourceWithStreamingResponse",
-    "AsyncAgentResourceWithStreamingResponse",
 ]

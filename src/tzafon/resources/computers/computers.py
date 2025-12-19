@@ -6,14 +6,26 @@ from typing import Iterable
 
 import httpx
 
-from ..types import (
+from .tabs import (
+    TabsResource,
+    AsyncTabsResource,
+    TabsResourceWithRawResponse,
+    AsyncTabsResourceWithRawResponse,
+    TabsResourceWithStreamingResponse,
+    AsyncTabsResourceWithStreamingResponse,
+)
+from ...types import (
     computer_drag_params,
     computer_click_params,
     computer_debug_params,
     computer_create_params,
+    computer_key_up_params,
     computer_get_html_params,
+    computer_key_down_params,
+    computer_mouse_up_params,
     computer_navigate_params,
     computer_type_text_params,
+    computer_mouse_down_params,
     computer_right_click_params,
     computer_double_click_params,
     computer_press_hotkey_params,
@@ -23,27 +35,31 @@ from ..types import (
     computer_scroll_viewport_params,
     computer_capture_screenshot_params,
 )
-from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.action_result import ActionResult
-from ..types.computer_response import ComputerResponse
-from ..types.computer_list_response import ComputerListResponse
-from ..types.computer_keep_alive_response import ComputerKeepAliveResponse
-from ..types.computer_execute_batch_response import ComputerExecuteBatchResponse
+from ..._base_client import make_request_options
+from ...types.action_result import ActionResult
+from ...types.computer_response import ComputerResponse
+from ...types.computer_list_response import ComputerListResponse
+from ...types.computer_keep_alive_response import ComputerKeepAliveResponse
+from ...types.computer_execute_batch_response import ComputerExecuteBatchResponse
 
 __all__ = ["ComputersResource", "AsyncComputersResource"]
 
 
 class ComputersResource(SyncAPIResource):
+    @cached_property
+    def tabs(self) -> TabsResource:
+        return TabsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ComputersResourceWithRawResponse:
         """
@@ -587,6 +603,187 @@ class ComputersResource(SyncAPIResource):
             cast_to=ComputerKeepAliveResponse,
         )
 
+    def key_down(
+        self,
+        id: str,
+        *,
+        key: str | Omit = omit,
+        tab_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Press and hold a keyboard key.
+
+        Use with key_up for complex interactions like
+        shift-click selection. Optionally specify tab_id (browser sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/key-down",
+            body=maybe_transform(
+                {
+                    "key": key,
+                    "tab_id": tab_id,
+                },
+                computer_key_down_params.ComputerKeyDownParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def key_up(
+        self,
+        id: str,
+        *,
+        key: str | Omit = omit,
+        tab_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Release a keyboard key that was previously pressed with key_down.
+
+        Optionally
+        specify tab_id (browser sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/key-up",
+            body=maybe_transform(
+                {
+                    "key": key,
+                    "tab_id": tab_id,
+                },
+                computer_key_up_params.ComputerKeyUpParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def mouse_down(
+        self,
+        id: str,
+        *,
+        tab_id: str | Omit = omit,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Press and hold the left mouse button at the specified coordinates.
+
+        Use with
+        mouse_up for fine-grained drag control. Optionally specify tab_id (browser
+        sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/mouse-down",
+            body=maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "x": x,
+                    "y": y,
+                },
+                computer_mouse_down_params.ComputerMouseDownParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    def mouse_up(
+        self,
+        id: str,
+        *,
+        tab_id: str | Omit = omit,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Release the left mouse button at the specified coordinates.
+
+        Optionally specify
+        tab_id (browser sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/computers/{id}/mouse-up",
+            body=maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "x": x,
+                    "y": y,
+                },
+                computer_mouse_up_params.ComputerMouseUpParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     def navigate(
         self,
         id: str,
@@ -969,6 +1166,10 @@ class ComputersResource(SyncAPIResource):
 
 
 class AsyncComputersResource(AsyncAPIResource):
+    @cached_property
+    def tabs(self) -> AsyncTabsResource:
+        return AsyncTabsResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncComputersResourceWithRawResponse:
         """
@@ -1516,6 +1717,187 @@ class AsyncComputersResource(AsyncAPIResource):
             cast_to=ComputerKeepAliveResponse,
         )
 
+    async def key_down(
+        self,
+        id: str,
+        *,
+        key: str | Omit = omit,
+        tab_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Press and hold a keyboard key.
+
+        Use with key_up for complex interactions like
+        shift-click selection. Optionally specify tab_id (browser sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/key-down",
+            body=await async_maybe_transform(
+                {
+                    "key": key,
+                    "tab_id": tab_id,
+                },
+                computer_key_down_params.ComputerKeyDownParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def key_up(
+        self,
+        id: str,
+        *,
+        key: str | Omit = omit,
+        tab_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Release a keyboard key that was previously pressed with key_down.
+
+        Optionally
+        specify tab_id (browser sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/key-up",
+            body=await async_maybe_transform(
+                {
+                    "key": key,
+                    "tab_id": tab_id,
+                },
+                computer_key_up_params.ComputerKeyUpParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def mouse_down(
+        self,
+        id: str,
+        *,
+        tab_id: str | Omit = omit,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Press and hold the left mouse button at the specified coordinates.
+
+        Use with
+        mouse_up for fine-grained drag control. Optionally specify tab_id (browser
+        sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/mouse-down",
+            body=await async_maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "x": x,
+                    "y": y,
+                },
+                computer_mouse_down_params.ComputerMouseDownParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
+    async def mouse_up(
+        self,
+        id: str,
+        *,
+        tab_id: str | Omit = omit,
+        x: float | Omit = omit,
+        y: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ActionResult:
+        """Release the left mouse button at the specified coordinates.
+
+        Optionally specify
+        tab_id (browser sessions only)
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/computers/{id}/mouse-up",
+            body=await async_maybe_transform(
+                {
+                    "tab_id": tab_id,
+                    "x": x,
+                    "y": y,
+                },
+                computer_mouse_up_params.ComputerMouseUpParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ActionResult,
+        )
+
     async def navigate(
         self,
         id: str,
@@ -1940,6 +2322,18 @@ class ComputersResourceWithRawResponse:
         self.keep_alive = to_raw_response_wrapper(
             computers.keep_alive,
         )
+        self.key_down = to_raw_response_wrapper(
+            computers.key_down,
+        )
+        self.key_up = to_raw_response_wrapper(
+            computers.key_up,
+        )
+        self.mouse_down = to_raw_response_wrapper(
+            computers.mouse_down,
+        )
+        self.mouse_up = to_raw_response_wrapper(
+            computers.mouse_up,
+        )
         self.navigate = to_raw_response_wrapper(
             computers.navigate,
         )
@@ -1967,6 +2361,10 @@ class ComputersResourceWithRawResponse:
         self.type_text = to_raw_response_wrapper(
             computers.type_text,
         )
+
+    @cached_property
+    def tabs(self) -> TabsResourceWithRawResponse:
+        return TabsResourceWithRawResponse(self._computers.tabs)
 
 
 class AsyncComputersResourceWithRawResponse:
@@ -2012,6 +2410,18 @@ class AsyncComputersResourceWithRawResponse:
         self.keep_alive = async_to_raw_response_wrapper(
             computers.keep_alive,
         )
+        self.key_down = async_to_raw_response_wrapper(
+            computers.key_down,
+        )
+        self.key_up = async_to_raw_response_wrapper(
+            computers.key_up,
+        )
+        self.mouse_down = async_to_raw_response_wrapper(
+            computers.mouse_down,
+        )
+        self.mouse_up = async_to_raw_response_wrapper(
+            computers.mouse_up,
+        )
         self.navigate = async_to_raw_response_wrapper(
             computers.navigate,
         )
@@ -2039,6 +2449,10 @@ class AsyncComputersResourceWithRawResponse:
         self.type_text = async_to_raw_response_wrapper(
             computers.type_text,
         )
+
+    @cached_property
+    def tabs(self) -> AsyncTabsResourceWithRawResponse:
+        return AsyncTabsResourceWithRawResponse(self._computers.tabs)
 
 
 class ComputersResourceWithStreamingResponse:
@@ -2084,6 +2498,18 @@ class ComputersResourceWithStreamingResponse:
         self.keep_alive = to_streamed_response_wrapper(
             computers.keep_alive,
         )
+        self.key_down = to_streamed_response_wrapper(
+            computers.key_down,
+        )
+        self.key_up = to_streamed_response_wrapper(
+            computers.key_up,
+        )
+        self.mouse_down = to_streamed_response_wrapper(
+            computers.mouse_down,
+        )
+        self.mouse_up = to_streamed_response_wrapper(
+            computers.mouse_up,
+        )
         self.navigate = to_streamed_response_wrapper(
             computers.navigate,
         )
@@ -2111,6 +2537,10 @@ class ComputersResourceWithStreamingResponse:
         self.type_text = to_streamed_response_wrapper(
             computers.type_text,
         )
+
+    @cached_property
+    def tabs(self) -> TabsResourceWithStreamingResponse:
+        return TabsResourceWithStreamingResponse(self._computers.tabs)
 
 
 class AsyncComputersResourceWithStreamingResponse:
@@ -2156,6 +2586,18 @@ class AsyncComputersResourceWithStreamingResponse:
         self.keep_alive = async_to_streamed_response_wrapper(
             computers.keep_alive,
         )
+        self.key_down = async_to_streamed_response_wrapper(
+            computers.key_down,
+        )
+        self.key_up = async_to_streamed_response_wrapper(
+            computers.key_up,
+        )
+        self.mouse_down = async_to_streamed_response_wrapper(
+            computers.mouse_down,
+        )
+        self.mouse_up = async_to_streamed_response_wrapper(
+            computers.mouse_up,
+        )
         self.navigate = async_to_streamed_response_wrapper(
             computers.navigate,
         )
@@ -2183,3 +2625,7 @@ class AsyncComputersResourceWithStreamingResponse:
         self.type_text = async_to_streamed_response_wrapper(
             computers.type_text,
         )
+
+    @cached_property
+    def tabs(self) -> AsyncTabsResourceWithStreamingResponse:
+        return AsyncTabsResourceWithStreamingResponse(self._computers.tabs)
