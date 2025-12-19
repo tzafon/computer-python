@@ -43,7 +43,7 @@ Or use a `.env` file with [python-dotenv](https://pypi.org/project/python-dotenv
 **Session Management**
 - Context manager support for automatic cleanup
 - Manual session control when needed
-- Browser, desktop, and code environments
+- Browser and desktop environments
 
 **Browser Actions**
 - Navigation: `navigate(url)`
@@ -52,6 +52,13 @@ Or use a `.env` file with [python-dotenv](https://pypi.org/project/python-dotenv
 - Viewport: `scroll()`, `set_viewport()`
 - Capture: `screenshot()`, `html()`
 - Debug: Execute shell commands with `debug()`
+
+**Advanced Features**
+- Multi-tab management
+- Batch action execution
+- Low-level input control (key_down/key_up, mouse_down/mouse_up)
+- Proxy configuration
+- Real-time streaming (events, screencast)
 
 **Type Safety**
 - Full type annotations for IDE autocomplete
@@ -71,6 +78,9 @@ with client.create(kind="browser") as computer:
     computer.type("username")
     computer.hotkey("Control", "a")  # Select all
 
+    # Wait for page loads
+    computer.wait(2)
+
     # Capture state
     html_result = computer.html()
     html = computer.get_html_content(html_result)
@@ -89,6 +99,59 @@ try:
     screenshot = computer.screenshot()
 finally:
     computer.terminate()
+```
+
+### Batch Actions
+
+```python
+# Execute multiple actions in one request
+result = client.computers.execute_batch(computer.id, actions=[
+    {"type": "go_to_url", "url": "https://example.com"},
+    {"type": "wait", "ms": 2000},
+    {"type": "click", "x": 100, "y": 200},
+    {"type": "type", "text": "search query"},
+    {"type": "screenshot"}
+])
+```
+
+### Low-Level Input Control
+
+```python
+# Shift-click selection
+computer.execute_action({"type": "key_down", "key": "Shift"})
+computer.click(100, 200)
+computer.click(100, 400)
+computer.execute_action({"type": "key_up", "key": "Shift"})
+```
+
+### Proxy Configuration
+
+```python
+# Set proxy for the browser session
+computer.execute_action({
+    "type": "change_proxy",
+    "proxy_url": "http://user:pass@proxy:port"
+})
+```
+
+### Multi-Tab Management
+
+```python
+# Create new tab
+result = computer.execute_action({
+    "type": "new_tab",
+    "url": "https://example.com"
+})
+tab_id = result.executed_tab_id
+
+# List all tabs
+tabs = computer.execute_action({"type": "list_tabs"})
+
+# Switch to tab
+computer.execute_action({"type": "switch_tab", "tab_id": tab_id})
+
+# Close tab
+computer.execute_action({"type": "close_tab", "tab_id": tab_id})
 ```
 
 ### Async Support
@@ -160,12 +223,20 @@ client = Computer(
 - `html(auto_detect_encoding=False)` - Get page HTML
 - `debug(command, timeout_seconds=120, max_output_length=65536)` - Run shell command
 - `set_viewport(width, height, scale_factor=1.0)` - Set viewport size
+- `wait(seconds)` - Wait for duration
+- `execute_action(action)` - Execute any action
 - `terminate()` - End session
 
 **Helper Methods**
 - `get_screenshot_url(result)` - Extract screenshot URL from result
 - `get_html_content(result)` - Extract HTML from result
 - `get_debug_response(result)` - Extract command output from result
+
+**Low-Level Actions** (via `execute_action`)
+- `key_down`, `key_up` - Hold/release keyboard keys
+- `mouse_down`, `mouse_up` - Hold/release mouse button
+- `change_proxy` - Set browser proxy
+- `new_tab`, `switch_tab`, `close_tab`, `list_tabs` - Tab management
 
 ## Error Codes
 
@@ -177,7 +248,7 @@ client = Computer(
 | 404 | `NotFoundError` |
 | 422 | `UnprocessableEntityError` |
 | 429 | `RateLimitError` |
-| ≥500 | `InternalServerError` |
+| >=500 | `InternalServerError` |
 
 ## Documentation
 
