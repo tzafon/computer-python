@@ -4,7 +4,7 @@ from typing import Dict, Optional
 
 from .._models import BaseModel
 
-__all__ = ["ActionResult", "PageContext"]
+__all__ = ["ComputerTypeTextResponse", "PageContext"]
 
 
 class PageContext(BaseModel):
@@ -31,7 +31,7 @@ class PageContext(BaseModel):
     viewport_width: Optional[int] = None
 
 
-class ActionResult(BaseModel):
+class ComputerTypeTextResponse(BaseModel):
     error_message: Optional[str] = None
 
     executed_tab_id: Optional[str] = None

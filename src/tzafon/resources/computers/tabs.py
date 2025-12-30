@@ -16,7 +16,10 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.computers import tab_create_params
-from ...types.action_result import ActionResult
+from ...types.computers.tab_list_response import TabListResponse
+from ...types.computers.tab_create_response import TabCreateResponse
+from ...types.computers.tab_delete_response import TabDeleteResponse
+from ...types.computers.tab_switch_response import TabSwitchResponse
 
 __all__ = ["TabsResource", "AsyncTabsResource"]
 
@@ -52,7 +55,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabCreateResponse:
         """
         Create a new tab, optionally navigating to a URL (browser sessions only)
 
@@ -73,7 +76,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabCreateResponse,
         )
 
     def list(
@@ -86,7 +89,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabListResponse:
         """
         Get a list of all open tabs with their IDs, URLs, titles, and main tab status
         (browser sessions only)
@@ -107,7 +110,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabListResponse,
         )
 
     def delete(
@@ -121,7 +124,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabDeleteResponse:
         """Close a specific tab by ID.
 
         Cannot close the last remaining tab (browser
@@ -145,7 +148,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabDeleteResponse,
         )
 
     def switch(
@@ -159,7 +162,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabSwitchResponse:
         """
         Switch the main/active tab to a different tab by ID (browser sessions only)
 
@@ -181,7 +184,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabSwitchResponse,
         )
 
 
@@ -216,7 +219,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabCreateResponse:
         """
         Create a new tab, optionally navigating to a URL (browser sessions only)
 
@@ -237,7 +240,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabCreateResponse,
         )
 
     async def list(
@@ -250,7 +253,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabListResponse:
         """
         Get a list of all open tabs with their IDs, URLs, titles, and main tab status
         (browser sessions only)
@@ -271,7 +274,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabListResponse,
         )
 
     async def delete(
@@ -285,7 +288,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabDeleteResponse:
         """Close a specific tab by ID.
 
         Cannot close the last remaining tab (browser
@@ -309,7 +312,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabDeleteResponse,
         )
 
     async def switch(
@@ -323,7 +326,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> TabSwitchResponse:
         """
         Switch the main/active tab to a different tab by ID (browser sessions only)
 
@@ -345,7 +348,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=TabSwitchResponse,
         )
 
 
