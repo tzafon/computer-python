@@ -16,7 +16,7 @@ class ComputerCreateParams(TypedDict, total=False):
     display: Display
 
     kind: str
-    """\"browser"|"desktop"|"code" etc"""
+    """\"browser" (default) or "desktop" """
 
     stealth: object
 

@@ -112,15 +112,15 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerCreateResponse:
-        """
-        Create a new browser or desktop automation session with configurable timeout.
-        Returns endpoints for executing actions, streaming events, and viewing
-        screencast.
+        """Create a new automation session.
+
+        Set kind to "browser" for web automation or
+        "desktop" for OS-level automation. Defaults to "browser" if not specified.
 
         Args:
           auto_kill: If true (default), kill session after inactivity
 
-          kind: "browser"|"desktop"|"code" etc
+          kind: "browser" (default) or "desktop"
 
           extra_headers: Send extra headers
 
@@ -260,8 +260,10 @@ class ComputersResource(SyncAPIResource):
     ) -> ComputerClickResponse:
         """Perform a left mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions - send exactly what you see in the
+        screenshot/screencast image. If target is at pixel (500, 300) in the image, send
+        x=500, y=300. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -387,8 +389,8 @@ class ComputersResource(SyncAPIResource):
     ) -> ComputerDoubleClickResponse:
         """Perform a double mouse click at the specified x,y coordinates.
 
-        Optionally
-        specify tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -435,8 +437,8 @@ class ComputersResource(SyncAPIResource):
     ) -> ComputerDragResponse:
         """Perform a click-and-drag action from (x1,y1) to (x2,y2).
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -717,10 +719,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerMouseDownResponse:
-        """Press and hold the left mouse button at the specified coordinates.
-
-        Optionally
-        specify tab_id (browser sessions only)
+        """
+        Press and hold the left mouse button at the specified x,y coordinates.
+        Coordinates are screenshot pixel positions. Optionally specify tab_id (browser
+        sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -763,10 +765,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerMouseUpResponse:
-        """Release the left mouse button at the specified coordinates.
+        """Release the left mouse button at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -899,8 +901,8 @@ class ComputersResource(SyncAPIResource):
     ) -> ComputerRightClickResponse:
         """Perform a right mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -945,10 +947,10 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerScrollViewportResponse:
-        """Scroll the browser viewport by the specified delta.
+        """Scroll at the specified x,y position by delta dx,dy.
 
-        Optionally specify tab_id
-        (browser sessions only)
+        Coordinates are screenshot
+        pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1216,15 +1218,15 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerCreateResponse:
-        """
-        Create a new browser or desktop automation session with configurable timeout.
-        Returns endpoints for executing actions, streaming events, and viewing
-        screencast.
+        """Create a new automation session.
+
+        Set kind to "browser" for web automation or
+        "desktop" for OS-level automation. Defaults to "browser" if not specified.
 
         Args:
           auto_kill: If true (default), kill session after inactivity
 
-          kind: "browser"|"desktop"|"code" etc
+          kind: "browser" (default) or "desktop"
 
           extra_headers: Send extra headers
 
@@ -1364,8 +1366,10 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ComputerClickResponse:
         """Perform a left mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions - send exactly what you see in the
+        screenshot/screencast image. If target is at pixel (500, 300) in the image, send
+        x=500, y=300. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1491,8 +1495,8 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ComputerDoubleClickResponse:
         """Perform a double mouse click at the specified x,y coordinates.
 
-        Optionally
-        specify tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1539,8 +1543,8 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ComputerDragResponse:
         """Perform a click-and-drag action from (x1,y1) to (x2,y2).
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1825,10 +1829,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerMouseDownResponse:
-        """Press and hold the left mouse button at the specified coordinates.
-
-        Optionally
-        specify tab_id (browser sessions only)
+        """
+        Press and hold the left mouse button at the specified x,y coordinates.
+        Coordinates are screenshot pixel positions. Optionally specify tab_id (browser
+        sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1871,10 +1875,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerMouseUpResponse:
-        """Release the left mouse button at the specified coordinates.
+        """Release the left mouse button at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -2007,8 +2011,8 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ComputerRightClickResponse:
         """Perform a right mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -2053,10 +2057,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerScrollViewportResponse:
-        """Scroll the browser viewport by the specified delta.
+        """Scroll at the specified x,y position by delta dx,dy.
 
-        Optionally specify tab_id
-        (browser sessions only)
+        Coordinates are screenshot
+        pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
