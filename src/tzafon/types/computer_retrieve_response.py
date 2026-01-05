@@ -14,6 +14,6 @@ class ComputerRetrieveResponse(BaseModel):
 
     endpoints: Optional[Dict[str, str]] = None
 
-    status: Optional[str] = None
+    kind: Optional[str] = None
 
-    type: Optional[str] = None
+    status: Optional[str] = None
