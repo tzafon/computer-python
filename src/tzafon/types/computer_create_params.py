@@ -9,28 +9,21 @@ __all__ = ["ComputerCreateParams", "Display"]
 
 class ComputerCreateParams(TypedDict, total=False):
     auto_kill: bool
-    """If true (default), kill session after inactivity.
-
-    If false, only kill on explicit stop or max_lifetime
-    """
+    """If true (default), kill session after inactivity"""
 
     context_id: str
 
     display: Display
-    """TODO: implement"""
 
     kind: str
     """\"browser"|"desktop"|"code" etc"""
 
     stealth: object
-    """TODO: implement"""
 
     timeout_seconds: int
 
 
 class Display(TypedDict, total=False):
-    """TODO: implement"""
-
     height: int
 
     scale: float

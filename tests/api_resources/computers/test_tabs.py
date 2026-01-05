@@ -9,7 +9,12 @@ import pytest
 
 from tzafon import Computer, AsyncComputer
 from tests.utils import assert_matches_type
-from tzafon.types import ActionResult
+from tzafon.types.computers import (
+    TabListResponse,
+    TabCreateResponse,
+    TabDeleteResponse,
+    TabSwitchResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,7 +28,7 @@ class TestTabs:
         tab = client.computers.tabs.create(
             id="id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabCreateResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -32,7 +37,7 @@ class TestTabs:
             id="id",
             url="url",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabCreateResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -44,7 +49,7 @@ class TestTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabCreateResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -56,7 +61,7 @@ class TestTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabCreateResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -74,7 +79,7 @@ class TestTabs:
         tab = client.computers.tabs.list(
             "id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabListResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -86,7 +91,7 @@ class TestTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabListResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -98,7 +103,7 @@ class TestTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabListResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -117,7 +122,7 @@ class TestTabs:
             tab_id="tab_id",
             id="id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabDeleteResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -130,7 +135,7 @@ class TestTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabDeleteResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -143,7 +148,7 @@ class TestTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabDeleteResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -169,7 +174,7 @@ class TestTabs:
             tab_id="tab_id",
             id="id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabSwitchResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -182,7 +187,7 @@ class TestTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabSwitchResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -195,7 +200,7 @@ class TestTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabSwitchResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -226,7 +231,7 @@ class TestAsyncTabs:
         tab = await async_client.computers.tabs.create(
             id="id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabCreateResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -235,7 +240,7 @@ class TestAsyncTabs:
             id="id",
             url="url",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabCreateResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -247,7 +252,7 @@ class TestAsyncTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = await response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabCreateResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -259,7 +264,7 @@ class TestAsyncTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = await response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabCreateResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -277,7 +282,7 @@ class TestAsyncTabs:
         tab = await async_client.computers.tabs.list(
             "id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabListResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -289,7 +294,7 @@ class TestAsyncTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = await response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabListResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -301,7 +306,7 @@ class TestAsyncTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = await response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabListResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -320,7 +325,7 @@ class TestAsyncTabs:
             tab_id="tab_id",
             id="id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabDeleteResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -333,7 +338,7 @@ class TestAsyncTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = await response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabDeleteResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -346,7 +351,7 @@ class TestAsyncTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = await response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabDeleteResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -372,7 +377,7 @@ class TestAsyncTabs:
             tab_id="tab_id",
             id="id",
         )
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabSwitchResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -385,7 +390,7 @@ class TestAsyncTabs:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tab = await response.parse()
-        assert_matches_type(ActionResult, tab, path=["response"])
+        assert_matches_type(TabSwitchResponse, tab, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -398,7 +403,7 @@ class TestAsyncTabs:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tab = await response.parse()
-            assert_matches_type(ActionResult, tab, path=["response"])
+            assert_matches_type(TabSwitchResponse, tab, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
