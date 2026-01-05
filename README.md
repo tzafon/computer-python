@@ -15,7 +15,33 @@ pip install tzafon
 ```python
 from tzafon import Computer
 
-client = Computer()  # Reads TZAFON_API_KEY from environment
+client = Computer(
+    api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
+)
+
+computer = client.computers.create(
+    kind="browser",
+)
+print(computer.id)
+```
+
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `TZAFON_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
+
+## Async usage
+
+Simply import `AsyncComputer` instead of `Computer` and use `await` with each API call:
+
+```python
+import os
+import asyncio
+from tzafon import AsyncComputer
+
+client = AsyncComputer(
+    api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
+)
 
 # Create and control a browser instance
 with client.create(kind="browser") as computer:

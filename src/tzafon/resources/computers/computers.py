@@ -46,11 +46,28 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.action_result import ActionResult
-from ...types.computer_response import ComputerResponse
+from ...types.computer_drag_response import ComputerDragResponse
 from ...types.computer_list_response import ComputerListResponse
+from ...types.computer_click_response import ComputerClickResponse
+from ...types.computer_debug_response import ComputerDebugResponse
+from ...types.computer_create_response import ComputerCreateResponse
+from ...types.computer_key_up_response import ComputerKeyUpResponse
+from ...types.computer_get_html_response import ComputerGetHTMLResponse
+from ...types.computer_key_down_response import ComputerKeyDownResponse
+from ...types.computer_mouse_up_response import ComputerMouseUpResponse
+from ...types.computer_navigate_response import ComputerNavigateResponse
+from ...types.computer_retrieve_response import ComputerRetrieveResponse
+from ...types.computer_type_text_response import ComputerTypeTextResponse
 from ...types.computer_keep_alive_response import ComputerKeepAliveResponse
+from ...types.computer_mouse_down_response import ComputerMouseDownResponse
+from ...types.computer_right_click_response import ComputerRightClickResponse
+from ...types.computer_double_click_response import ComputerDoubleClickResponse
+from ...types.computer_press_hotkey_response import ComputerPressHotkeyResponse
+from ...types.computer_set_viewport_response import ComputerSetViewportResponse
 from ...types.computer_execute_batch_response import ComputerExecuteBatchResponse
+from ...types.computer_execute_action_response import ComputerExecuteActionResponse
+from ...types.computer_scroll_viewport_response import ComputerScrollViewportResponse
+from ...types.computer_capture_screenshot_response import ComputerCaptureScreenshotResponse
 
 __all__ = ["ComputersResource", "AsyncComputersResource"]
 
@@ -94,21 +111,16 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ComputerResponse:
-        """
-        Create a new browser or desktop automation session with configurable timeout.
-        Returns endpoints for executing actions, streaming events, and viewing
-        screencast.
+    ) -> ComputerCreateResponse:
+        """Create a new automation session.
+
+        Set kind to "browser" for web automation or
+        "desktop" for OS-level automation. Defaults to "browser" if not specified.
 
         Args:
-          auto_kill: If true (default), kill session after inactivity. If false, only kill on
-              explicit stop or max_lifetime
+          auto_kill: If true (default), kill session after inactivity
 
-          display: TODO: implement
-
-          kind: "browser"|"desktop"|"code" etc
-
-          stealth: TODO: implement
+          kind: "browser" (default) or "desktop"
 
           extra_headers: Send extra headers
 
@@ -134,7 +146,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ComputerResponse,
+            cast_to=ComputerCreateResponse,
         )
 
     def retrieve(
@@ -147,7 +159,7 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ComputerResponse:
+    ) -> ComputerRetrieveResponse:
         """
         Get the current status and metadata of a computer instance
 
@@ -167,7 +179,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ComputerResponse,
+            cast_to=ComputerRetrieveResponse,
         )
 
     def list(
@@ -201,10 +213,10 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerCaptureScreenshotResponse:
         """
         Take a screenshot of the current browser viewport, optionally as base64.
-        Optionally specify tab_id to screenshot a specific tab (browser sessions only)
+        Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -229,7 +241,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerCaptureScreenshotResponse,
         )
 
     def click(
@@ -245,11 +257,13 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerClickResponse:
         """Perform a left mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id to click on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions - send exactly what you see in the
+        screenshot/screencast image. If target is at pixel (500, 300) in the image, send
+        x=500, y=300. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -275,7 +289,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerClickResponse,
         )
 
     def connect_websocket(
@@ -326,7 +340,7 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerDebugResponse:
         """
         Execute a shell command with optional timeout and output length limits.
         Optionally specify tab_id (browser sessions only)
@@ -356,7 +370,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerDebugResponse,
         )
 
     def double_click(
@@ -372,11 +386,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerDoubleClickResponse:
         """Perform a double mouse click at the specified x,y coordinates.
 
-        Optionally
-        specify tab_id to double-click on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -402,7 +416,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerDoubleClickResponse,
         )
 
     def drag(
@@ -420,11 +434,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerDragResponse:
         """Perform a click-and-drag action from (x1,y1) to (x2,y2).
 
-        Optionally specify
-        tab_id to drag on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -452,7 +466,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerDragResponse,
         )
 
     def execute_action(
@@ -466,7 +480,7 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerExecuteActionResponse:
         """
         Execute a single action such as screenshot, click, type, navigate, scroll,
         debug, set_viewport, get_html_content or other computer use actions
@@ -488,7 +502,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerExecuteActionResponse,
         )
 
     def execute_batch(
@@ -538,11 +552,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerGetHTMLResponse:
         """Get the HTML content of the current browser page.
 
-        Optionally specify tab_id to
-        get HTML from a specific tab (browser sessions only)
+        Optionally specify tab_id
+        (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -567,7 +581,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerGetHTMLResponse,
         )
 
     def keep_alive(
@@ -615,11 +629,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerKeyDownResponse:
         """Press and hold a keyboard key.
 
-        Use with key_up for complex interactions like
-        shift-click selection. Optionally specify tab_id (browser sessions only)
+        Use with key_up for complex interactions.
+        Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -644,7 +658,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerKeyDownResponse,
         )
 
     def key_up(
@@ -659,7 +673,7 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerKeyUpResponse:
         """Release a keyboard key that was previously pressed with key_down.
 
         Optionally
@@ -688,7 +702,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerKeyUpResponse,
         )
 
     def mouse_down(
@@ -704,11 +718,10 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
-        """Press and hold the left mouse button at the specified coordinates.
-
-        Use with
-        mouse_up for fine-grained drag control. Optionally specify tab_id (browser
+    ) -> ComputerMouseDownResponse:
+        """
+        Press and hold the left mouse button at the specified x,y coordinates.
+        Coordinates are screenshot pixel positions. Optionally specify tab_id (browser
         sessions only)
 
         Args:
@@ -735,7 +748,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerMouseDownResponse,
         )
 
     def mouse_up(
@@ -751,11 +764,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
-        """Release the left mouse button at the specified coordinates.
+    ) -> ComputerMouseUpResponse:
+        """Release the left mouse button at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -781,7 +794,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerMouseUpResponse,
         )
 
     def navigate(
@@ -796,7 +809,7 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerNavigateResponse:
         """Navigate the browser to a specified URL.
 
         Optionally specify tab_id to navigate a
@@ -825,7 +838,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerNavigateResponse,
         )
 
     def press_hotkey(
@@ -840,11 +853,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerPressHotkeyResponse:
         """Press a combination of keys (e.g., ["Control", "c"] for copy).
 
         Optionally
-        specify tab_id to send hotkey to a specific tab (browser sessions only)
+        specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -869,7 +882,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerPressHotkeyResponse,
         )
 
     def right_click(
@@ -885,11 +898,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerRightClickResponse:
         """Perform a right mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id to right-click on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -915,7 +928,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerRightClickResponse,
         )
 
     def scroll_viewport(
@@ -933,11 +946,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
-        """Scroll the browser viewport by the specified delta.
+    ) -> ComputerScrollViewportResponse:
+        """Scroll at the specified x,y position by delta dx,dy.
 
-        Optionally specify tab_id to
-        scroll a specific tab (browser sessions only)
+        Coordinates are screenshot
+        pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -965,7 +978,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerScrollViewportResponse,
         )
 
     def set_viewport(
@@ -982,11 +995,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerSetViewportResponse:
         """Change the browser viewport dimensions and scale factor.
 
         Optionally specify
-        tab_id to set viewport for a specific tab (browser sessions only)
+        tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1013,7 +1026,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerSetViewportResponse,
         )
 
     def stream_events(
@@ -1132,11 +1145,11 @@ class ComputersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerTypeTextResponse:
         """Type text into the currently focused element in the browser.
 
         Optionally specify
-        tab_id to type on a specific tab (browser sessions only)
+        tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1161,7 +1174,7 @@ class ComputersResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerTypeTextResponse,
         )
 
 
@@ -1204,21 +1217,16 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ComputerResponse:
-        """
-        Create a new browser or desktop automation session with configurable timeout.
-        Returns endpoints for executing actions, streaming events, and viewing
-        screencast.
+    ) -> ComputerCreateResponse:
+        """Create a new automation session.
+
+        Set kind to "browser" for web automation or
+        "desktop" for OS-level automation. Defaults to "browser" if not specified.
 
         Args:
-          auto_kill: If true (default), kill session after inactivity. If false, only kill on
-              explicit stop or max_lifetime
+          auto_kill: If true (default), kill session after inactivity
 
-          display: TODO: implement
-
-          kind: "browser"|"desktop"|"code" etc
-
-          stealth: TODO: implement
+          kind: "browser" (default) or "desktop"
 
           extra_headers: Send extra headers
 
@@ -1244,7 +1252,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ComputerResponse,
+            cast_to=ComputerCreateResponse,
         )
 
     async def retrieve(
@@ -1257,7 +1265,7 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ComputerResponse:
+    ) -> ComputerRetrieveResponse:
         """
         Get the current status and metadata of a computer instance
 
@@ -1277,7 +1285,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ComputerResponse,
+            cast_to=ComputerRetrieveResponse,
         )
 
     async def list(
@@ -1311,10 +1319,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerCaptureScreenshotResponse:
         """
         Take a screenshot of the current browser viewport, optionally as base64.
-        Optionally specify tab_id to screenshot a specific tab (browser sessions only)
+        Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1339,7 +1347,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerCaptureScreenshotResponse,
         )
 
     async def click(
@@ -1355,11 +1363,13 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerClickResponse:
         """Perform a left mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id to click on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions - send exactly what you see in the
+        screenshot/screencast image. If target is at pixel (500, 300) in the image, send
+        x=500, y=300. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1385,7 +1395,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerClickResponse,
         )
 
     async def connect_websocket(
@@ -1436,7 +1446,7 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerDebugResponse:
         """
         Execute a shell command with optional timeout and output length limits.
         Optionally specify tab_id (browser sessions only)
@@ -1466,7 +1476,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerDebugResponse,
         )
 
     async def double_click(
@@ -1482,11 +1492,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerDoubleClickResponse:
         """Perform a double mouse click at the specified x,y coordinates.
 
-        Optionally
-        specify tab_id to double-click on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1512,7 +1522,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerDoubleClickResponse,
         )
 
     async def drag(
@@ -1530,11 +1540,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerDragResponse:
         """Perform a click-and-drag action from (x1,y1) to (x2,y2).
 
-        Optionally specify
-        tab_id to drag on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1562,7 +1572,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerDragResponse,
         )
 
     async def execute_action(
@@ -1576,7 +1586,7 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerExecuteActionResponse:
         """
         Execute a single action such as screenshot, click, type, navigate, scroll,
         debug, set_viewport, get_html_content or other computer use actions
@@ -1600,7 +1610,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerExecuteActionResponse,
         )
 
     async def execute_batch(
@@ -1652,11 +1662,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerGetHTMLResponse:
         """Get the HTML content of the current browser page.
 
-        Optionally specify tab_id to
-        get HTML from a specific tab (browser sessions only)
+        Optionally specify tab_id
+        (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1681,7 +1691,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerGetHTMLResponse,
         )
 
     async def keep_alive(
@@ -1729,11 +1739,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerKeyDownResponse:
         """Press and hold a keyboard key.
 
-        Use with key_up for complex interactions like
-        shift-click selection. Optionally specify tab_id (browser sessions only)
+        Use with key_up for complex interactions.
+        Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1758,7 +1768,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerKeyDownResponse,
         )
 
     async def key_up(
@@ -1773,7 +1783,7 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerKeyUpResponse:
         """Release a keyboard key that was previously pressed with key_down.
 
         Optionally
@@ -1802,7 +1812,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerKeyUpResponse,
         )
 
     async def mouse_down(
@@ -1818,11 +1828,10 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
-        """Press and hold the left mouse button at the specified coordinates.
-
-        Use with
-        mouse_up for fine-grained drag control. Optionally specify tab_id (browser
+    ) -> ComputerMouseDownResponse:
+        """
+        Press and hold the left mouse button at the specified x,y coordinates.
+        Coordinates are screenshot pixel positions. Optionally specify tab_id (browser
         sessions only)
 
         Args:
@@ -1849,7 +1858,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerMouseDownResponse,
         )
 
     async def mouse_up(
@@ -1865,11 +1874,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
-        """Release the left mouse button at the specified coordinates.
+    ) -> ComputerMouseUpResponse:
+        """Release the left mouse button at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1895,7 +1904,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerMouseUpResponse,
         )
 
     async def navigate(
@@ -1910,7 +1919,7 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerNavigateResponse:
         """Navigate the browser to a specified URL.
 
         Optionally specify tab_id to navigate a
@@ -1939,7 +1948,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerNavigateResponse,
         )
 
     async def press_hotkey(
@@ -1954,11 +1963,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerPressHotkeyResponse:
         """Press a combination of keys (e.g., ["Control", "c"] for copy).
 
         Optionally
-        specify tab_id to send hotkey to a specific tab (browser sessions only)
+        specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -1983,7 +1992,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerPressHotkeyResponse,
         )
 
     async def right_click(
@@ -1999,11 +2008,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerRightClickResponse:
         """Perform a right mouse click at the specified x,y coordinates.
 
-        Optionally specify
-        tab_id to right-click on a specific tab (browser sessions only)
+        Coordinates are
+        screenshot pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -2029,7 +2038,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerRightClickResponse,
         )
 
     async def scroll_viewport(
@@ -2047,11 +2056,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
-        """Scroll the browser viewport by the specified delta.
+    ) -> ComputerScrollViewportResponse:
+        """Scroll at the specified x,y position by delta dx,dy.
 
-        Optionally specify tab_id to
-        scroll a specific tab (browser sessions only)
+        Coordinates are screenshot
+        pixel positions. Optionally specify tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -2079,7 +2088,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerScrollViewportResponse,
         )
 
     async def set_viewport(
@@ -2096,11 +2105,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerSetViewportResponse:
         """Change the browser viewport dimensions and scale factor.
 
         Optionally specify
-        tab_id to set viewport for a specific tab (browser sessions only)
+        tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -2127,7 +2136,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerSetViewportResponse,
         )
 
     async def stream_events(
@@ -2246,11 +2255,11 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ActionResult:
+    ) -> ComputerTypeTextResponse:
         """Type text into the currently focused element in the browser.
 
         Optionally specify
-        tab_id to type on a specific tab (browser sessions only)
+        tab_id (browser sessions only)
 
         Args:
           extra_headers: Send extra headers
@@ -2275,7 +2284,7 @@ class AsyncComputersResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ActionResult,
+            cast_to=ComputerTypeTextResponse,
         )
 
 

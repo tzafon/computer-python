@@ -31,8 +31,7 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import agent, computers
-    from .resources.agent.agent import AgentResource, AsyncAgentResource
+    from .resources import computers
     from .resources.computers.computers import ComputersResource, AsyncComputersResource
 
 
@@ -135,12 +134,6 @@ class Computer(SyncAPIClient):
         from .resources.computers import ComputersResource
 
         return ComputersResource(self)
-
-    @cached_property
-    def agent(self) -> AgentResource:
-        from .resources.agent import AgentResource
-
-        return AgentResource(self)
 
     @cached_property
     def with_raw_response(self) -> ComputerWithRawResponse:
@@ -327,12 +320,6 @@ class AsyncComputer(AsyncAPIClient):
         return AsyncComputersResource(self)
 
     @cached_property
-    def agent(self) -> AsyncAgentResource:
-        from .resources.agent import AsyncAgentResource
-
-        return AsyncAgentResource(self)
-
-    @cached_property
     def with_raw_response(self) -> AsyncComputerWithRawResponse:
         return AsyncComputerWithRawResponse(self)
 
@@ -457,12 +444,6 @@ class ComputerWithRawResponse:
 
         return ComputersResourceWithRawResponse(self._client.computers)
 
-    @cached_property
-    def agent(self) -> agent.AgentResourceWithRawResponse:
-        from .resources.agent import AgentResourceWithRawResponse
-
-        return AgentResourceWithRawResponse(self._client.agent)
-
 
 class AsyncComputerWithRawResponse:
     _client: AsyncComputer
@@ -475,12 +456,6 @@ class AsyncComputerWithRawResponse:
         from .resources.computers import AsyncComputersResourceWithRawResponse
 
         return AsyncComputersResourceWithRawResponse(self._client.computers)
-
-    @cached_property
-    def agent(self) -> agent.AsyncAgentResourceWithRawResponse:
-        from .resources.agent import AsyncAgentResourceWithRawResponse
-
-        return AsyncAgentResourceWithRawResponse(self._client.agent)
 
 
 class ComputerWithStreamedResponse:
@@ -495,12 +470,6 @@ class ComputerWithStreamedResponse:
 
         return ComputersResourceWithStreamingResponse(self._client.computers)
 
-    @cached_property
-    def agent(self) -> agent.AgentResourceWithStreamingResponse:
-        from .resources.agent import AgentResourceWithStreamingResponse
-
-        return AgentResourceWithStreamingResponse(self._client.agent)
-
 
 class AsyncComputerWithStreamedResponse:
     _client: AsyncComputer
@@ -513,12 +482,6 @@ class AsyncComputerWithStreamedResponse:
         from .resources.computers import AsyncComputersResourceWithStreamingResponse
 
         return AsyncComputersResourceWithStreamingResponse(self._client.computers)
-
-    @cached_property
-    def agent(self) -> agent.AsyncAgentResourceWithStreamingResponse:
-        from .resources.agent import AsyncAgentResourceWithStreamingResponse
-
-        return AsyncAgentResourceWithStreamingResponse(self._client.agent)
 
 
 Client = Computer
