@@ -343,7 +343,8 @@ class ComputersResource(SyncAPIResource):
     ) -> ComputerDebugResponse:
         """
         Execute a shell command with optional timeout and output length limits.
-        Optionally specify tab_id (browser sessions only)
+        Optionally specify tab_id (browser sessions only). Deprecated: use /exec or
+        /exec/sync instead.
 
         Args:
           extra_headers: Send extra headers
@@ -1449,7 +1450,8 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ComputerDebugResponse:
         """
         Execute a shell command with optional timeout and output length limits.
-        Optionally specify tab_id (browser sessions only)
+        Optionally specify tab_id (browser sessions only). Deprecated: use /exec or
+        /exec/sync instead.
 
         Args:
           extra_headers: Send extra headers
