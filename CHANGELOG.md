@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.11.0 (2026-01-16)
+
+Full Changelog: [v2.10.0...v2.11.0](https://github.com/tzafon/computer-python/compare/v2.10.0...v2.11.0)
+
+### Features
+
+* **api:** api update ([dd0f376](https://github.com/tzafon/computer-python/commit/dd0f37619821af06a01921130bfeb05a0b9f8e70))
+* **api:** api update ([54c2a2a](https://github.com/tzafon/computer-python/commit/54c2a2a8be1521a27b63447b531f2b0fbfdd1cb2))
+* **client:** add support for binary request streaming ([f9abc26](https://github.com/tzafon/computer-python/commit/f9abc26d6e29dd52fa222b470dcbc23e1e2837b2))
+
 ## 2.10.0 (2026-01-05)
 
 Full Changelog: [v2.9.0...v2.10.0](https://github.com/tzafon/computer-python/compare/v2.9.0...v2.10.0)
