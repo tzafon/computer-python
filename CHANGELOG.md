@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.12.0 (2026-01-16)
+
+Full Changelog: [v2.11.0...v2.12.0](https://github.com/tzafon/computer-python/compare/v2.11.0...v2.12.0)
+
+### Features
+
+* **api:** manual updates ([a5496ae](https://github.com/tzafon/computer-python/commit/a5496ae7637c6c79041c64b164603c68e54e7bf6))
+* **api:** manual updates ([b16e6c6](https://github.com/tzafon/computer-python/commit/b16e6c612db8b02056f1b19cdc33b847e250007f))
+
+
+### Chores
+
+* remove custom code ([5af5249](https://github.com/tzafon/computer-python/commit/5af524941c9c57fcbf16565000c63b139a849198))
+* update SDK settings ([d1819f3](https://github.com/tzafon/computer-python/commit/d1819f3830b35221caa23c1dbdad055462efacae))
+
 ## 2.11.0 (2026-01-16)
 
 Full Changelog: [v2.10.0...v2.11.0](https://github.com/tzafon/computer-python/compare/v2.10.0...v2.11.0)
