@@ -1,5 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .exec import (
+    ExecResource,
+    AsyncExecResource,
+    ExecResourceWithRawResponse,
+    AsyncExecResourceWithRawResponse,
+    ExecResourceWithStreamingResponse,
+    AsyncExecResourceWithStreamingResponse,
+)
 from .tabs import (
     TabsResource,
     AsyncTabsResource,
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncTabsResourceWithRawResponse",
     "TabsResourceWithStreamingResponse",
     "AsyncTabsResourceWithStreamingResponse",
+    "ExecResource",
+    "AsyncExecResource",
+    "ExecResourceWithRawResponse",
+    "AsyncExecResourceWithRawResponse",
+    "ExecResourceWithStreamingResponse",
+    "AsyncExecResourceWithStreamingResponse",
     "ComputersResource",
     "AsyncComputersResource",
     "ComputersResourceWithRawResponse",

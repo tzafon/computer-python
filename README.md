@@ -19,10 +19,10 @@ client = Computer(
     api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
-computer = client.computers.create(
+computer_response = client.computers.create(
     kind="browser",
 )
-print(computer.id)
+print(computer_response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -198,6 +198,8 @@ async with AsyncComputer() as client:
 The simplified wrapper uses the generated SDK under the hood. You can access it directly:
 
 ```python
+
+
 # Low-level API
 response = client.computers.create(kind="browser")
 client.computers.navigate(response.id, url="https://example.com")

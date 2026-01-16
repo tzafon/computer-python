@@ -10,28 +10,12 @@ import pytest
 from tzafon import Computer, AsyncComputer
 from tests.utils import assert_matches_type
 from tzafon.types import (
-    ComputerDragResponse,
+    ActionResult,
+    ComputerResponse,
     ComputerListResponse,
-    ComputerClickResponse,
-    ComputerDebugResponse,
-    ComputerKeyUpResponse,
-    ComputerCreateResponse,
-    ComputerGetHTMLResponse,
-    ComputerKeyDownResponse,
-    ComputerMouseUpResponse,
-    ComputerNavigateResponse,
-    ComputerRetrieveResponse,
-    ComputerTypeTextResponse,
     ComputerKeepAliveResponse,
-    ComputerMouseDownResponse,
-    ComputerRightClickResponse,
-    ComputerDoubleClickResponse,
-    ComputerPressHotkeyResponse,
-    ComputerSetViewportResponse,
     ComputerExecuteBatchResponse,
-    ComputerExecuteActionResponse,
-    ComputerScrollViewportResponse,
-    ComputerCaptureScreenshotResponse,
+    ComputerRetrieveStatusResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -44,7 +28,7 @@ class TestComputers:
     @parametrize
     def test_method_create(self, client: Computer) -> None:
         computer = client.computers.create()
-        assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -62,7 +46,7 @@ class TestComputers:
             stealth={},
             timeout_seconds=0,
         )
-        assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -72,7 +56,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -82,7 +66,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+            assert_matches_type(ComputerResponse, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -92,7 +76,7 @@ class TestComputers:
         computer = client.computers.retrieve(
             "id",
         )
-        assert_matches_type(ComputerRetrieveResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -104,7 +88,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerRetrieveResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -116,7 +100,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerRetrieveResponse, computer, path=["response"])
+            assert_matches_type(ComputerResponse, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -162,7 +146,7 @@ class TestComputers:
         computer = client.computers.capture_screenshot(
             id="id",
         )
-        assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -172,7 +156,7 @@ class TestComputers:
             base64=True,
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -184,7 +168,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -196,7 +180,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -210,11 +194,62 @@ class TestComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_change_proxy(self, client: Computer) -> None:
+        computer = client.computers.change_proxy(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_change_proxy_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.change_proxy(
+            id="id",
+            proxy_url="proxy_url",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_change_proxy(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.change_proxy(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_change_proxy(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.change_proxy(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_change_proxy(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.change_proxy(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_click(self, client: Computer) -> None:
         computer = client.computers.click(
             id="id",
         )
-        assert_matches_type(ComputerClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -225,7 +260,7 @@ class TestComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -237,7 +272,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -249,7 +284,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerClickResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -309,7 +344,7 @@ class TestComputers:
         computer = client.computers.debug(
             id="id",
         )
-        assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -321,7 +356,7 @@ class TestComputers:
             tab_id="tab_id",
             timeout_seconds=0,
         )
-        assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -333,7 +368,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -345,7 +380,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -363,7 +398,7 @@ class TestComputers:
         computer = client.computers.double_click(
             id="id",
         )
-        assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -374,7 +409,7 @@ class TestComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -386,7 +421,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -398,7 +433,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -416,7 +451,7 @@ class TestComputers:
         computer = client.computers.drag(
             id="id",
         )
-        assert_matches_type(ComputerDragResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -429,7 +464,7 @@ class TestComputers:
             y1=0,
             y2=0,
         )
-        assert_matches_type(ComputerDragResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -441,7 +476,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerDragResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -453,7 +488,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerDragResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -471,7 +506,7 @@ class TestComputers:
         computer = client.computers.execute_action(
             id="id",
         )
-        assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -514,7 +549,7 @@ class TestComputers:
                 "y2": 0,
             },
         )
-        assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -526,7 +561,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -538,7 +573,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -643,7 +678,7 @@ class TestComputers:
         computer = client.computers.get_html(
             id="id",
         )
-        assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -653,7 +688,7 @@ class TestComputers:
             auto_detect_encoding=True,
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -665,7 +700,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -677,7 +712,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -737,7 +772,7 @@ class TestComputers:
         computer = client.computers.key_down(
             id="id",
         )
-        assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -747,7 +782,7 @@ class TestComputers:
             key="key",
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -759,7 +794,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -771,7 +806,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -789,7 +824,7 @@ class TestComputers:
         computer = client.computers.key_up(
             id="id",
         )
-        assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -799,7 +834,7 @@ class TestComputers:
             key="key",
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -811,7 +846,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -823,7 +858,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -841,7 +876,7 @@ class TestComputers:
         computer = client.computers.mouse_down(
             id="id",
         )
-        assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -852,7 +887,7 @@ class TestComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -864,7 +899,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -876,7 +911,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -894,7 +929,7 @@ class TestComputers:
         computer = client.computers.mouse_up(
             id="id",
         )
-        assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -905,7 +940,7 @@ class TestComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -917,7 +952,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -929,7 +964,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -947,7 +982,7 @@ class TestComputers:
         computer = client.computers.navigate(
             id="id",
         )
-        assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -957,7 +992,7 @@ class TestComputers:
             tab_id="tab_id",
             url="url",
         )
-        assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -969,7 +1004,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -981,7 +1016,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -999,7 +1034,7 @@ class TestComputers:
         computer = client.computers.press_hotkey(
             id="id",
         )
-        assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1009,7 +1044,7 @@ class TestComputers:
             keys=["string"],
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1021,7 +1056,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1033,7 +1068,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1047,11 +1082,53 @@ class TestComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_retrieve_status(self, client: Computer) -> None:
+        computer = client.computers.retrieve_status(
+            "id",
+        )
+        assert_matches_type(ComputerRetrieveStatusResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve_status(self, client: Computer) -> None:
+        response = client.computers.with_raw_response.retrieve_status(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = response.parse()
+        assert_matches_type(ComputerRetrieveStatusResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve_status(self, client: Computer) -> None:
+        with client.computers.with_streaming_response.retrieve_status(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = response.parse()
+            assert_matches_type(ComputerRetrieveStatusResponse, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_retrieve_status(self, client: Computer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.computers.with_raw_response.retrieve_status(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_right_click(self, client: Computer) -> None:
         computer = client.computers.right_click(
             id="id",
         )
-        assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1062,7 +1139,7 @@ class TestComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1074,7 +1151,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1086,7 +1163,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1104,7 +1181,7 @@ class TestComputers:
         computer = client.computers.scroll_viewport(
             id="id",
         )
-        assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1117,7 +1194,7 @@ class TestComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1129,7 +1206,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1141,7 +1218,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1159,7 +1236,7 @@ class TestComputers:
         computer = client.computers.set_viewport(
             id="id",
         )
-        assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1171,7 +1248,7 @@ class TestComputers:
             tab_id="tab_id",
             width=0,
         )
-        assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1183,7 +1260,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1195,7 +1272,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1339,7 +1416,7 @@ class TestComputers:
         computer = client.computers.type_text(
             id="id",
         )
-        assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1349,7 +1426,7 @@ class TestComputers:
             tab_id="tab_id",
             text="text",
         )
-        assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1361,7 +1438,7 @@ class TestComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = response.parse()
-        assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1373,7 +1450,7 @@ class TestComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = response.parse()
-            assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1395,7 +1472,7 @@ class TestAsyncComputers:
     @parametrize
     async def test_method_create(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.create()
-        assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1413,7 +1490,7 @@ class TestAsyncComputers:
             stealth={},
             timeout_seconds=0,
         )
-        assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1423,7 +1500,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1433,7 +1510,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerCreateResponse, computer, path=["response"])
+            assert_matches_type(ComputerResponse, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1443,7 +1520,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.retrieve(
             "id",
         )
-        assert_matches_type(ComputerRetrieveResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1455,7 +1532,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerRetrieveResponse, computer, path=["response"])
+        assert_matches_type(ComputerResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1467,7 +1544,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerRetrieveResponse, computer, path=["response"])
+            assert_matches_type(ComputerResponse, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1513,7 +1590,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.capture_screenshot(
             id="id",
         )
-        assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1523,7 +1600,7 @@ class TestAsyncComputers:
             base64=True,
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1535,7 +1612,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1547,7 +1624,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerCaptureScreenshotResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1561,11 +1638,62 @@ class TestAsyncComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_change_proxy(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.change_proxy(
+            id="id",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_change_proxy_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.change_proxy(
+            id="id",
+            proxy_url="proxy_url",
+        )
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_change_proxy(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.change_proxy(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ActionResult, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_change_proxy(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.change_proxy(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ActionResult, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_change_proxy(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.change_proxy(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_click(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.click(
             id="id",
         )
-        assert_matches_type(ComputerClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1576,7 +1704,7 @@ class TestAsyncComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1588,7 +1716,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1600,7 +1728,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerClickResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1660,7 +1788,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.debug(
             id="id",
         )
-        assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1672,7 +1800,7 @@ class TestAsyncComputers:
             tab_id="tab_id",
             timeout_seconds=0,
         )
-        assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1684,7 +1812,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1696,7 +1824,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerDebugResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1714,7 +1842,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.double_click(
             id="id",
         )
-        assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1725,7 +1853,7 @@ class TestAsyncComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1737,7 +1865,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1749,7 +1877,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerDoubleClickResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1767,7 +1895,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.drag(
             id="id",
         )
-        assert_matches_type(ComputerDragResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1780,7 +1908,7 @@ class TestAsyncComputers:
             y1=0,
             y2=0,
         )
-        assert_matches_type(ComputerDragResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1792,7 +1920,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerDragResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1804,7 +1932,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerDragResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1822,7 +1950,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.execute_action(
             id="id",
         )
-        assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1865,7 +1993,7 @@ class TestAsyncComputers:
                 "y2": 0,
             },
         )
-        assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1877,7 +2005,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1889,7 +2017,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerExecuteActionResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1994,7 +2122,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.get_html(
             id="id",
         )
-        assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2004,7 +2132,7 @@ class TestAsyncComputers:
             auto_detect_encoding=True,
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2016,7 +2144,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2028,7 +2156,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerGetHTMLResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2088,7 +2216,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.key_down(
             id="id",
         )
-        assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2098,7 +2226,7 @@ class TestAsyncComputers:
             key="key",
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2110,7 +2238,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2122,7 +2250,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerKeyDownResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2140,7 +2268,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.key_up(
             id="id",
         )
-        assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2150,7 +2278,7 @@ class TestAsyncComputers:
             key="key",
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2162,7 +2290,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2174,7 +2302,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerKeyUpResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2192,7 +2320,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.mouse_down(
             id="id",
         )
-        assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2203,7 +2331,7 @@ class TestAsyncComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2215,7 +2343,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2227,7 +2355,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerMouseDownResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2245,7 +2373,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.mouse_up(
             id="id",
         )
-        assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2256,7 +2384,7 @@ class TestAsyncComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2268,7 +2396,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2280,7 +2408,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerMouseUpResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2298,7 +2426,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.navigate(
             id="id",
         )
-        assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2308,7 +2436,7 @@ class TestAsyncComputers:
             tab_id="tab_id",
             url="url",
         )
-        assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2320,7 +2448,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2332,7 +2460,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerNavigateResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2350,7 +2478,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.press_hotkey(
             id="id",
         )
-        assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2360,7 +2488,7 @@ class TestAsyncComputers:
             keys=["string"],
             tab_id="tab_id",
         )
-        assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2372,7 +2500,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2384,7 +2512,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerPressHotkeyResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2398,11 +2526,53 @@ class TestAsyncComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_retrieve_status(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.retrieve_status(
+            "id",
+        )
+        assert_matches_type(ComputerRetrieveStatusResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve_status(self, async_client: AsyncComputer) -> None:
+        response = await async_client.computers.with_raw_response.retrieve_status(
+            "id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        computer = await response.parse()
+        assert_matches_type(ComputerRetrieveStatusResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve_status(self, async_client: AsyncComputer) -> None:
+        async with async_client.computers.with_streaming_response.retrieve_status(
+            "id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            computer = await response.parse()
+            assert_matches_type(ComputerRetrieveStatusResponse, computer, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve_status(self, async_client: AsyncComputer) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.computers.with_raw_response.retrieve_status(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_right_click(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.right_click(
             id="id",
         )
-        assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2413,7 +2583,7 @@ class TestAsyncComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2425,7 +2595,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2437,7 +2607,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerRightClickResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2455,7 +2625,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.scroll_viewport(
             id="id",
         )
-        assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2468,7 +2638,7 @@ class TestAsyncComputers:
             x=0,
             y=0,
         )
-        assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2480,7 +2650,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2492,7 +2662,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerScrollViewportResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2510,7 +2680,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.set_viewport(
             id="id",
         )
-        assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2522,7 +2692,7 @@ class TestAsyncComputers:
             tab_id="tab_id",
             width=0,
         )
-        assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2534,7 +2704,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2546,7 +2716,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerSetViewportResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2690,7 +2860,7 @@ class TestAsyncComputers:
         computer = await async_client.computers.type_text(
             id="id",
         )
-        assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2700,7 +2870,7 @@ class TestAsyncComputers:
             tab_id="tab_id",
             text="text",
         )
-        assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2712,7 +2882,7 @@ class TestAsyncComputers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         computer = await response.parse()
-        assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+        assert_matches_type(ActionResult, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -2724,7 +2894,7 @@ class TestAsyncComputers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             computer = await response.parse()
-            assert_matches_type(ComputerTypeTextResponse, computer, path=["response"])
+            assert_matches_type(ActionResult, computer, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
