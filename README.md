@@ -32,10 +32,10 @@ client = Computer(
     api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
-computer = client.computers.create(
+computer_response = client.computers.create(
     kind="browser",
 )
-print(computer.id)
+print(computer_response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -58,10 +58,10 @@ client = AsyncComputer(
 
 
 async def main() -> None:
-    computer = await client.computers.create(
+    computer_response = await client.computers.create(
         kind="browser",
     )
-    print(computer.id)
+    print(computer_response.id)
 
 
 asyncio.run(main())
@@ -94,10 +94,10 @@ async def main() -> None:
         api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        computer = await client.computers.create(
+        computer_response = await client.computers.create(
             kind="browser",
         )
-        print(computer.id)
+        print(computer_response.id)
 
 
 asyncio.run(main())
@@ -121,10 +121,10 @@ from tzafon import Computer
 
 client = Computer()
 
-computer = client.computers.create(
+computer_response = client.computers.create(
     display={},
 )
-print(computer.display)
+print(computer_response.display)
 ```
 
 ## Handling errors

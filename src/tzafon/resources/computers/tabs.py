@@ -16,10 +16,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.computers import tab_create_params
-from ...types.computers.tab_list_response import TabListResponse
-from ...types.computers.tab_create_response import TabCreateResponse
-from ...types.computers.tab_delete_response import TabDeleteResponse
-from ...types.computers.tab_switch_response import TabSwitchResponse
+from ...types.action_result import ActionResult
 
 __all__ = ["TabsResource", "AsyncTabsResource"]
 
@@ -55,7 +52,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabCreateResponse:
+    ) -> ActionResult:
         """Create a new tab, optionally navigating to a URL.
 
         The new tab becomes the main
@@ -78,7 +75,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabCreateResponse,
+            cast_to=ActionResult,
         )
 
     def list(
@@ -91,7 +88,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabListResponse:
+    ) -> ActionResult:
         """
         Get a list of open tabs with IDs, URLs, titles, and main tab status (browser
         sessions only). Includes external CDP pages (e.g., Playwright). Excludes
@@ -114,7 +111,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabListResponse,
+            cast_to=ActionResult,
         )
 
     def delete(
@@ -128,7 +125,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabDeleteResponse:
+    ) -> ActionResult:
         """Close a specific tab by ID.
 
         Cannot close the last remaining tab (browser
@@ -152,7 +149,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabDeleteResponse,
+            cast_to=ActionResult,
         )
 
     def switch(
@@ -166,7 +163,7 @@ class TabsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabSwitchResponse:
+    ) -> ActionResult:
         """Switch the main/active tab to a different tab by ID (browser sessions only).
 
         Tab
@@ -190,7 +187,7 @@ class TabsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabSwitchResponse,
+            cast_to=ActionResult,
         )
 
 
@@ -225,7 +222,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabCreateResponse:
+    ) -> ActionResult:
         """Create a new tab, optionally navigating to a URL.
 
         The new tab becomes the main
@@ -248,7 +245,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabCreateResponse,
+            cast_to=ActionResult,
         )
 
     async def list(
@@ -261,7 +258,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabListResponse:
+    ) -> ActionResult:
         """
         Get a list of open tabs with IDs, URLs, titles, and main tab status (browser
         sessions only). Includes external CDP pages (e.g., Playwright). Excludes
@@ -284,7 +281,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabListResponse,
+            cast_to=ActionResult,
         )
 
     async def delete(
@@ -298,7 +295,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabDeleteResponse:
+    ) -> ActionResult:
         """Close a specific tab by ID.
 
         Cannot close the last remaining tab (browser
@@ -322,7 +319,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabDeleteResponse,
+            cast_to=ActionResult,
         )
 
     async def switch(
@@ -336,7 +333,7 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TabSwitchResponse:
+    ) -> ActionResult:
         """Switch the main/active tab to a different tab by ID (browser sessions only).
 
         Tab
@@ -360,7 +357,7 @@ class AsyncTabsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TabSwitchResponse,
+            cast_to=ActionResult,
         )
 
 

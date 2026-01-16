@@ -1,13 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["ComputerTypeTextResponse", "PageContext"]
+__all__ = ["V2GoBackendInternalTypesPageContext"]
 
 
-class PageContext(BaseModel):
+class V2GoBackendInternalTypesPageContext(BaseModel):
     device_scale_factor: Optional[float] = None
 
     is_main_tab: Optional[bool] = None
@@ -29,19 +29,3 @@ class PageContext(BaseModel):
     viewport_height: Optional[int] = None
 
     viewport_width: Optional[int] = None
-
-
-class ComputerTypeTextResponse(BaseModel):
-    error_message: Optional[str] = None
-
-    executed_tab_id: Optional[str] = None
-
-    page_context: Optional[PageContext] = None
-
-    request_id: Optional[str] = None
-
-    result: Optional[Dict[str, object]] = None
-
-    status: Optional[str] = None
-
-    timestamp: Optional[str] = None

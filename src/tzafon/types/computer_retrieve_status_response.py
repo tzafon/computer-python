@@ -1,28 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["ComputerCreateResponse"]
+__all__ = ["ComputerRetrieveStatusResponse"]
 
 
-class ComputerCreateResponse(BaseModel):
+class ComputerRetrieveStatusResponse(BaseModel):
     id: Optional[str] = None
 
     auto_kill: Optional[bool] = None
 
     created_at: Optional[str] = None
 
-    endpoints: Optional[Dict[str, str]] = None
-
     expires_at: Optional[str] = None
 
     idle_expires_at: Optional[str] = None
 
     inactivity_timeout_seconds: Optional[int] = None
-
-    kind: Optional[str] = None
 
     last_activity_at: Optional[str] = None
 
