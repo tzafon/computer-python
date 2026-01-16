@@ -1,18 +1,40 @@
-# Tzafon Python SDK
+# Computer Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/tzafon.svg)](https://pypi.org/project/tzafon/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/tzafon.svg?label=pypi%20(stable))](https://pypi.org/project/tzafon/)
 
-Remote browser and desktop automation. Control browsers and desktops programmatically through a simple Python API.
+The Computer Python library provides convenient access to the Computer REST API from any Python 3.9+
+application. The library includes type definitions for all request params and response fields,
+and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+
+It is generated with [Stainless](https://www.stainless.com/).
+
+## MCP Server
+
+Use the Computer MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=tzafon-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsInR6YWZvbi1tY3AiXX0)
+[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22tzafon-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22tzafon-mcp%22%5D%7D)
+
+> Note: You may need to set environment variables in your MCP client.
+
+## Documentation
+
+The REST API documentation can be found on [docs.tzafon.ai](http://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
-```bash
+```sh
+# install from PyPI
 pip install tzafon
 ```
 
-## Quick Start
+## Usage
+
+The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from tzafon import Computer
 
 client = Computer(
@@ -43,251 +65,340 @@ client = AsyncComputer(
     api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
-# Create and control a browser instance
-with client.create(kind="browser") as computer:
-    computer.navigate("https://wikipedia.com")
 
-    result = computer.screenshot()
-    url = computer.get_screenshot_url(result)
-    print(f"Screenshot: {url}")
+async def main() -> None:
+    computer_response = await client.computers.create(
+        kind="browser",
+    )
+    print(computer_response.id)
 
-    computer.click(100, 200)
-    computer.type("Hello, world!")
 
-    # Automatically terminates when exiting context
+asyncio.run(main())
 ```
 
-Set your API key:
-```bash
-export TZAFON_API_KEY="your-api-key"
+Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install tzafon[aiohttp]
 ```
 
-Or use a `.env` file with [python-dotenv](https://pypi.org/project/python-dotenv/).
-
-## Features
-
-**Session Management**
-- Context manager support for automatic cleanup
-- Manual session control when needed
-- Browser and desktop environments
-
-**Browser Actions**
-- Navigation: `navigate(url)`
-- Mouse: `click()`, `double_click()`, `right_click()`, `drag()`
-- Keyboard: `type()`, `hotkey()`
-- Viewport: `scroll()`, `set_viewport()`
-- Capture: `screenshot()`, `html()`
-- Debug: Execute shell commands with `debug()`
-
-**Advanced Features**
-- Multi-tab management
-- Batch action execution
-- Low-level input control (key_down/key_up, mouse_down/mouse_up)
-- Proxy configuration
-- Real-time streaming (events, screencast)
-
-**Type Safety**
-- Full type annotations for IDE autocomplete
-- Pydantic models for responses
-- TypedDict for request parameters
-- Helper methods for result extraction
-
-## Examples
-
-### Browser Automation
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-with client.create(kind="browser") as computer:
-    # Navigate and interact
-    computer.navigate("https://github.com/login")
-    computer.click(300, 400)
-    computer.type("username")
-    computer.hotkey("Control", "a")  # Select all
-
-    # Wait for page loads
-    computer.wait(2)
-
-    # Capture state
-    html_result = computer.html()
-    html = computer.get_html_content(html_result)
-
-    # Execute commands
-    debug_result = computer.debug("ls -la")
-    output = computer.get_debug_response(debug_result)
-```
-
-### Manual Session Management
-
-```python
-computer = client.create(kind="browser")
-try:
-    computer.navigate("https://example.com")
-    screenshot = computer.screenshot()
-finally:
-    computer.terminate()
-```
-
-### Batch Actions
-
-```python
-# Execute multiple actions in one request
-result = client.computers.execute_batch(computer.id, actions=[
-    {"type": "go_to_url", "url": "https://example.com"},
-    {"type": "wait", "ms": 2000},
-    {"type": "click", "x": 100, "y": 200},
-    {"type": "type", "text": "search query"},
-    {"type": "screenshot"}
-])
-```
-
-### Low-Level Input Control
-
-```python
-# Shift-click selection
-computer.execute_action({"type": "key_down", "key": "Shift"})
-computer.click(100, 200)
-computer.click(100, 400)
-computer.execute_action({"type": "key_up", "key": "Shift"})
-```
-
-### Proxy Configuration
-
-```python
-# Set proxy for the browser session
-computer.execute_action({
-    "type": "change_proxy",
-    "proxy_url": "http://user:pass@proxy:port"
-})
-```
-
-### Multi-Tab Management
-
-```python
-# Create new tab
-result = computer.execute_action({
-    "type": "new_tab",
-    "url": "https://example.com"
-})
-tab_id = result.executed_tab_id
-
-# List all tabs
-tabs = computer.execute_action({"type": "list_tabs"})
-
-# Switch to tab
-computer.execute_action({"type": "switch_tab", "tab_id": tab_id})
-
-# Close tab
-computer.execute_action({"type": "close_tab", "tab_id": tab_id})
-```
-
-### Async Support
-
-```python
+import os
+import asyncio
+from tzafon import DefaultAioHttpClient
 from tzafon import AsyncComputer
 
-async with AsyncComputer() as client:
-    computer = await client.computers.create(kind="browser")
-    await client.computers.navigate(computer.id, url="https://example.com")
-    await client.computers.terminate(computer.id)
+
+async def main() -> None:
+    async with AsyncComputer(
+        api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        computer_response = await client.computers.create(
+            kind="browser",
+        )
+        print(computer_response.id)
+
+
+asyncio.run(main())
 ```
 
-## Advanced Usage
+## Using types
 
-### Raw SDK Access
+Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
 
-The simplified wrapper uses the generated SDK under the hood. You can access it directly:
+- Serializing back into JSON, `model.to_json()`
+- Converting to a dictionary, `model.to_dict()`
 
-```python
+Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Nested params
 
-# Low-level API
-response = client.computers.create(kind="browser")
-client.computers.navigate(response.id, url="https://example.com")
-result = client.computers.capture_screenshot(response.id)
-client.computers.terminate(response.id)
-```
-
-### Error Handling
-
-```python
-import tzafon
-
-try:
-    with client.create(kind="browser") as computer:
-        computer.navigate("https://example.com")
-except tzafon.RateLimitError:
-    print("Rate limit exceeded, back off")
-except tzafon.AuthenticationError:
-    print("Invalid API key")
-except tzafon.APIError as e:
-    print(f"API error: {e}")
-```
-
-### Configuration
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
 from tzafon import Computer
 
+client = Computer()
+
+computer_response = client.computers.create(
+    display={},
+)
+print(computer_response.display)
+```
+
+## Handling errors
+
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `tzafon.APIConnectionError` is raised.
+
+When the API returns a non-success status code (that is, 4xx or 5xx
+response), a subclass of `tzafon.APIStatusError` is raised, containing `status_code` and `response` properties.
+
+All errors inherit from `tzafon.APIError`.
+
+```python
+import tzafon
+from tzafon import Computer
+
+client = Computer()
+
+try:
+    client.computers.create(
+        kind="browser",
+    )
+except tzafon.APIConnectionError as e:
+    print("The server could not be reached")
+    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
+except tzafon.RateLimitError as e:
+    print("A 429 status code was received; we should back off a bit.")
+except tzafon.APIStatusError as e:
+    print("Another non-200-range status code was received")
+    print(e.status_code)
+    print(e.response)
+```
+
+Error codes are as follows:
+
+| Status Code | Error Type                 |
+| ----------- | -------------------------- |
+| 400         | `BadRequestError`          |
+| 401         | `AuthenticationError`      |
+| 403         | `PermissionDeniedError`    |
+| 404         | `NotFoundError`            |
+| 422         | `UnprocessableEntityError` |
+| 429         | `RateLimitError`           |
+| >=500       | `InternalServerError`      |
+| N/A         | `APIConnectionError`       |
+
+### Retries
+
+Certain errors are automatically retried 2 times by default, with a short exponential backoff.
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
+429 Rate Limit, and >=500 Internal errors are all retried by default.
+
+You can use the `max_retries` option to configure or disable retry settings:
+
+```python
+from tzafon import Computer
+
+# Configure the default for all requests:
 client = Computer(
-    api_key="your-api-key",       # Or use TZAFON_API_KEY env var
-    base_url="https://...",        # Optional: custom endpoint
-    timeout=120.0,                 # Request timeout in seconds
-    max_retries=2,                 # Retry failed requests
+    # default is 2
+    max_retries=0,
+)
+
+# Or, configure per-request:
+client.with_options(max_retries=5).computers.create(
+    kind="browser",
 )
 ```
 
-## API Reference
+### Timeouts
 
-**Session Methods**
-- `navigate(url)` - Navigate to URL
-- `click(x, y)` - Click at coordinates
-- `double_click(x, y)` - Double-click
-- `right_click(x, y)` - Right-click
-- `drag(x1, y1, x2, y2)` - Click and drag
-- `type(text)` - Type text
-- `hotkey(*keys)` - Press key combination
-- `scroll(dx, dy, x, y)` - Scroll viewport with starting coordinates
-- `screenshot(base64=False)` - Capture screenshot
-- `html(auto_detect_encoding=False)` - Get page HTML
-- `debug(command, timeout_seconds=120, max_output_length=65536)` - Run shell command
-- `set_viewport(width, height, scale_factor=1.0)` - Set viewport size
-- `wait(seconds)` - Wait for duration
-- `execute_action(action)` - Execute any action
-- `terminate()` - End session
+By default requests time out after 1 minute. You can configure this with a `timeout` option,
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
-**Helper Methods**
-- `get_screenshot_url(result)` - Extract screenshot URL from result
-- `get_html_content(result)` - Extract HTML from result
-- `get_debug_response(result)` - Extract command output from result
+```python
+from tzafon import Computer
 
-**Low-Level Actions** (via `execute_action`)
-- `key_down`, `key_up` - Hold/release keyboard keys
-- `mouse_down`, `mouse_up` - Hold/release mouse button
-- `change_proxy` - Set browser proxy
-- `new_tab`, `switch_tab`, `close_tab`, `list_tabs` - Tab management
+# Configure the default for all requests:
+client = Computer(
+    # 20 seconds (default is 1 minute)
+    timeout=20.0,
+)
 
-## Error Codes
+# More granular control:
+client = Computer(
+    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+)
 
-| Status | Error Type |
-|--------|------------|
-| 400 | `BadRequestError` |
-| 401 | `AuthenticationError` |
-| 403 | `PermissionDeniedError` |
-| 404 | `NotFoundError` |
-| 422 | `UnprocessableEntityError` |
-| 429 | `RateLimitError` |
-| >=500 | `InternalServerError` |
+# Override per-request:
+client.with_options(timeout=5.0).computers.create(
+    kind="browser",
+)
+```
 
-## Documentation
+On timeout, an `APITimeoutError` is thrown.
 
-- REST API: [docs.tzafon.ai](https://docs.tzafon.ai)
-- Full API Reference: [api.md](api.md)
-- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+Note that requests that time out are [retried twice by default](#retries).
+
+## Advanced
+
+### Logging
+
+We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
+
+You can enable logging by setting the environment variable `COMPUTER_LOG` to `info`.
+
+```shell
+$ export COMPUTER_LOG=info
+```
+
+Or to `debug` for more verbose logging.
+
+### How to tell whether `None` means `null` or missing
+
+In an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:
+
+```py
+if response.my_field is None:
+  if 'my_field' not in response.model_fields_set:
+    print('Got json like {}, without a "my_field" key present at all.')
+  else:
+    print('Got json like {"my_field": null}.')
+```
+
+### Accessing raw response data (e.g. headers)
+
+The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
+
+```py
+from tzafon import Computer
+
+client = Computer()
+response = client.computers.with_raw_response.create(
+    kind="browser",
+)
+print(response.headers.get('X-My-Header'))
+
+computer = response.parse()  # get the object that `computers.create()` would have returned
+print(computer.id)
+```
+
+These methods return an [`APIResponse`](https://github.com/tzafon/computer-python/tree/main/src/tzafon/_response.py) object.
+
+The async client returns an [`AsyncAPIResponse`](https://github.com/tzafon/computer-python/tree/main/src/tzafon/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+
+#### `.with_streaming_response`
+
+The above interface eagerly reads the full response body when you make the request, which may not always be what you want.
+
+To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
+
+```python
+with client.computers.with_streaming_response.create(
+    kind="browser",
+) as response:
+    print(response.headers.get("X-My-Header"))
+
+    for line in response.iter_lines():
+        print(line)
+```
+
+The context manager is required so that the response will reliably be closed.
+
+### Making custom/undocumented requests
+
+This library is typed for convenient access to the documented API.
+
+If you need to access undocumented endpoints, params, or response properties, the library can still be used.
+
+#### Undocumented endpoints
+
+To make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other
+http verbs. Options on the client will be respected (such as retries) when making this request.
+
+```py
+import httpx
+
+response = client.post(
+    "/foo",
+    cast_to=httpx.Response,
+    body={"my_param": True},
+)
+
+print(response.headers.get("x-foo"))
+```
+
+#### Undocumented request params
+
+If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request
+options.
+
+#### Undocumented response properties
+
+To access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You
+can also get all the extra fields on the Pydantic model as a dict with
+[`response.model_extra`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_extra).
+
+### Configuring the HTTP client
+
+You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:
+
+- Support for [proxies](https://www.python-httpx.org/advanced/proxies/)
+- Custom [transports](https://www.python-httpx.org/advanced/transports/)
+- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
+
+```python
+import httpx
+from tzafon import Computer, DefaultHttpxClient
+
+client = Computer(
+    # Or use the `COMPUTER_BASE_URL` env var
+    base_url="http://my.test.server.example.com:8083",
+    http_client=DefaultHttpxClient(
+        proxy="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
+)
+```
+
+You can also customize the client on a per-request basis by using `with_options()`:
+
+```python
+client.with_options(http_client=DefaultHttpxClient(...))
+```
+
+### Managing HTTP resources
+
+By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
+
+```py
+from tzafon import Computer
+
+with Computer() as client:
+  # make requests here
+  ...
+
+# HTTP client is now closed
+```
+
+## Versioning
+
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+
+1. Changes that only affect static types, without breaking runtime behavior.
+2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
+3. Changes that we do not expect to impact the vast majority of users in practice.
+
+We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
+
+We are keen for your feedback; please open an [issue](https://www.github.com/tzafon/computer-python/issues) with questions, bugs, or suggestions.
+
+### Determining the installed version
+
+If you've upgraded to the latest version but aren't seeing any new features you were expecting then your python environment is likely still using an older version.
+
+You can determine the version that is being used at runtime with:
+
+```py
+import tzafon
+print(tzafon.__version__)
+```
 
 ## Requirements
 
-Python 3.9+
+Python 3.9 or higher.
 
-## License
+## Contributing
 
-See [LICENSE](LICENSE)
+See [the contributing documentation](./CONTRIBUTING.md).
