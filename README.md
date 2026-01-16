@@ -41,10 +41,7 @@ client = Computer(
     api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
-computer_response = client.computers.create(
-    kind="browser",
-)
-print(computer_response.id)
+computer_responses = client.computers.list()
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -67,10 +64,7 @@ client = AsyncComputer(
 
 
 async def main() -> None:
-    computer_response = await client.computers.create(
-        kind="browser",
-    )
-    print(computer_response.id)
+    computer_responses = await client.computers.list()
 
 
 asyncio.run(main())
@@ -103,10 +97,7 @@ async def main() -> None:
         api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        computer_response = await client.computers.create(
-            kind="browser",
-        )
-        print(computer_response.id)
+        computer_responses = await client.computers.list()
 
 
 asyncio.run(main())
@@ -152,9 +143,7 @@ from tzafon import Computer
 client = Computer()
 
 try:
-    client.computers.create(
-        kind="browser",
-    )
+    client.computers.list()
 except tzafon.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -197,9 +186,7 @@ client = Computer(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).computers.create(
-    kind="browser",
-)
+client.with_options(max_retries=5).computers.list()
 ```
 
 ### Timeouts
@@ -222,9 +209,7 @@ client = Computer(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).computers.create(
-    kind="browser",
-)
+client.with_options(timeout=5.0).computers.list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -265,13 +250,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from tzafon import Computer
 
 client = Computer()
-response = client.computers.with_raw_response.create(
-    kind="browser",
-)
+response = client.computers.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
-computer = response.parse()  # get the object that `computers.create()` would have returned
-print(computer.id)
+computer = response.parse()  # get the object that `computers.list()` would have returned
+print(computer)
 ```
 
 These methods return an [`APIResponse`](https://github.com/tzafon/computer-python/tree/main/src/tzafon/_response.py) object.
@@ -285,9 +268,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.computers.with_streaming_response.create(
-    kind="browser",
-) as response:
+with client.computers.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
