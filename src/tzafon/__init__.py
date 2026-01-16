@@ -88,16 +88,6 @@ if not _t.TYPE_CHECKING:
 
 _setup_logging()
 
-# Add convenience wrapper to Computer client
-from .lib.wrapper import ComputerSession
-
-def _create_wrapper(self: Computer, kind: str = "browser", **kwargs) -> ComputerSession:
-    """Create a computer and return a session wrapper with cleaner API."""
-    response = self.computers.create(kind=kind, **kwargs)
-    return ComputerSession(self, response.id)
-
-Computer.create = _create_wrapper  # type: ignore
-
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.

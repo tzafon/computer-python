@@ -4,10 +4,10 @@ from typing import Dict, Optional
 
 from .._models import BaseModel
 
-__all__ = ["ComputerRetrieveResponse"]
+__all__ = ["ComputerResponse"]
 
 
-class ComputerRetrieveResponse(BaseModel):
+class ComputerResponse(BaseModel):
     id: Optional[str] = None
 
     auto_kill: Optional[bool] = None
