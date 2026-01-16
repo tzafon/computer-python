@@ -15,6 +15,9 @@ class ComputerCreateParams(TypedDict, total=False):
 
     display: Display
 
+    inactivity_timeout_seconds: int
+    """Idle timeout before auto-kill"""
+
     kind: str
     """\"browser" (default) or "desktop" """
 
