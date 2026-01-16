@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import TypedDict
 
 from .._types import SequenceNotStr
@@ -16,7 +17,15 @@ class ComputerExecuteActionParams(TypedDict, total=False):
 class ActionDebug(TypedDict, total=False):
     command: str
 
+    cwd: str
+
+    env: Dict[str, str]
+
     max_output_length: int
+
+    request_id: str
+
+    stream: bool
 
     timeout_seconds: int
 
@@ -50,6 +59,12 @@ class Action(TypedDict, total=False):
     ms: int
 
     proxy_url: str
+
+    request_id: str
+    """
+    RequestId is used for correlating streaming output to the originating request.
+    Set on ActionRequest, not individual action types.
+    """
 
     scale_factor: float
 

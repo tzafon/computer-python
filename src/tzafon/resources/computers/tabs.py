@@ -56,8 +56,10 @@ class TabsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TabCreateResponse:
-        """
-        Create a new tab, optionally navigating to a URL (browser sessions only)
+        """Create a new tab, optionally navigating to a URL.
+
+        The new tab becomes the main
+        tab (browser sessions only).
 
         Args:
           extra_headers: Send extra headers
@@ -91,8 +93,10 @@ class TabsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TabListResponse:
         """
-        Get a list of all open tabs with their IDs, URLs, titles, and main tab status
-        (browser sessions only)
+        Get a list of open tabs with IDs, URLs, titles, and main tab status (browser
+        sessions only). Includes external CDP pages (e.g., Playwright). Excludes
+        devtools:// and chrome:// tabs. Results may be eventually consistent for newly
+        created tabs.
 
         Args:
           extra_headers: Send extra headers
@@ -128,7 +132,7 @@ class TabsResource(SyncAPIResource):
         """Close a specific tab by ID.
 
         Cannot close the last remaining tab (browser
-        sessions only)
+        sessions only). Tab IDs come from ListTabs.
 
         Args:
           extra_headers: Send extra headers
@@ -163,8 +167,10 @@ class TabsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TabSwitchResponse:
-        """
-        Switch the main/active tab to a different tab by ID (browser sessions only)
+        """Switch the main/active tab to a different tab by ID (browser sessions only).
+
+        Tab
+        IDs come from ListTabs.
 
         Args:
           extra_headers: Send extra headers
@@ -220,8 +226,10 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TabCreateResponse:
-        """
-        Create a new tab, optionally navigating to a URL (browser sessions only)
+        """Create a new tab, optionally navigating to a URL.
+
+        The new tab becomes the main
+        tab (browser sessions only).
 
         Args:
           extra_headers: Send extra headers
@@ -255,8 +263,10 @@ class AsyncTabsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TabListResponse:
         """
-        Get a list of all open tabs with their IDs, URLs, titles, and main tab status
-        (browser sessions only)
+        Get a list of open tabs with IDs, URLs, titles, and main tab status (browser
+        sessions only). Includes external CDP pages (e.g., Playwright). Excludes
+        devtools:// and chrome:// tabs. Results may be eventually consistent for newly
+        created tabs.
 
         Args:
           extra_headers: Send extra headers
@@ -292,7 +302,7 @@ class AsyncTabsResource(AsyncAPIResource):
         """Close a specific tab by ID.
 
         Cannot close the last remaining tab (browser
-        sessions only)
+        sessions only). Tab IDs come from ListTabs.
 
         Args:
           extra_headers: Send extra headers
@@ -327,8 +337,10 @@ class AsyncTabsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TabSwitchResponse:
-        """
-        Switch the main/active tab to a different tab by ID (browser sessions only)
+        """Switch the main/active tab to a different tab by ID (browser sessions only).
+
+        Tab
+        IDs come from ListTabs.
 
         Args:
           extra_headers: Send extra headers
