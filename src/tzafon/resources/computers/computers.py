@@ -102,6 +102,7 @@ class ComputersResource(SyncAPIResource):
         auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
+        inactivity_timeout_seconds: int | Omit = omit,
         kind: str | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
@@ -116,9 +117,14 @@ class ComputersResource(SyncAPIResource):
 
         Set kind to "browser" for web automation or
         "desktop" for OS-level automation. Defaults to "browser" if not specified.
+        timeout_seconds controls max lifetime, inactivity_timeout_seconds controls idle
+        timeout, and auto_kill disables only the idle timeout (max lifetime still
+        applies).
 
         Args:
           auto_kill: If true (default), kill session after inactivity
+
+          inactivity_timeout_seconds: Idle timeout before auto-kill
 
           kind: "browser" (default) or "desktop"
 
@@ -137,6 +143,7 @@ class ComputersResource(SyncAPIResource):
                     "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
+                    "inactivity_timeout_seconds": inactivity_timeout_seconds,
                     "kind": kind,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
@@ -1209,6 +1216,7 @@ class AsyncComputersResource(AsyncAPIResource):
         auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
+        inactivity_timeout_seconds: int | Omit = omit,
         kind: str | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
@@ -1223,9 +1231,14 @@ class AsyncComputersResource(AsyncAPIResource):
 
         Set kind to "browser" for web automation or
         "desktop" for OS-level automation. Defaults to "browser" if not specified.
+        timeout_seconds controls max lifetime, inactivity_timeout_seconds controls idle
+        timeout, and auto_kill disables only the idle timeout (max lifetime still
+        applies).
 
         Args:
           auto_kill: If true (default), kill session after inactivity
+
+          inactivity_timeout_seconds: Idle timeout before auto-kill
 
           kind: "browser" (default) or "desktop"
 
@@ -1244,6 +1257,7 @@ class AsyncComputersResource(AsyncAPIResource):
                     "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
+                    "inactivity_timeout_seconds": inactivity_timeout_seconds,
                     "kind": kind,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
