@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.15.0 (2026-01-18)
+
+Full Changelog: [v2.14.0...v2.15.0](https://github.com/tzafon/computer-python/compare/v2.14.0...v2.15.0)
+
+### Features
+
+* **api:** manual updates ([47abcc9](https://github.com/tzafon/computer-python/commit/47abcc9591fde99df93a13c92725ad426c37ef31))
+
 ## 2.14.0 (2026-01-18)
 
 Full Changelog: [v2.13.0...v2.14.0](https://github.com/tzafon/computer-python/compare/v2.13.0...v2.14.0)
