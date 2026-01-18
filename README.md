@@ -20,7 +20,7 @@ Use the Computer MCP Server to enable AI assistants to interact with this API, a
 
 ## Documentation
 
-The REST API documentation can be found on [docs.tzafon.ai](http://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.tzafon.ai](https://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
