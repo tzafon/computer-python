@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.15.1 (2026-01-18)
+
+Full Changelog: [v2.15.0...v2.15.1](https://github.com/tzafon/computer-python/compare/v2.15.0...v2.15.1)
+
+### Bug Fixes
+
+* add type annotations for pyright ([a50bd26](https://github.com/tzafon/computer-python/commit/a50bd267542d04d434e3daa44610ae465340e84e))
+
+
+### Styles
+
+* fix import sorting ([20f9211](https://github.com/tzafon/computer-python/commit/20f92119c44efe0740141a1225a2fdf983c209d2))
+
 ## 2.15.0 (2026-01-18)
 
 Full Changelog: [v2.14.0...v2.15.0](https://github.com/tzafon/computer-python/compare/v2.14.0...v2.15.0)
