@@ -34,6 +34,25 @@ if TYPE_CHECKING:
     from .resources import computers
     from .resources.computers.computers import ComputersResource, AsyncComputersResource
 
+
+def _load_env_file(filepath: str = ".env") -> None:
+    """Load environment variables from a .env file."""
+    try:
+        with open(filepath) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, value = line.split("=", 1)
+                    key = key.strip()
+                    value = value.strip()
+                    # Strip quotes if present
+                    if len(value) >= 2 and value[0] == value[-1] and value[0] in ('"', "'"):
+                        value = value[1:-1]
+                    os.environ.setdefault(key, value)
+    except FileNotFoundError:
+        pass
+
+
 __all__ = [
     "Timeout",
     "Transport",
@@ -79,6 +98,12 @@ class Computer(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("TZAFON_API_KEY")
+
+        # Try to load from .env file if still not found
+        if api_key is None:
+            _load_env_file()
+            api_key = os.environ.get("TZAFON_API_KEY")
+
         if api_key is None:
             raise ComputerError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the TZAFON_API_KEY environment variable"
@@ -253,6 +278,12 @@ class AsyncComputer(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("TZAFON_API_KEY")
+
+        # Try to load from .env file if still not found
+        if api_key is None:
+            _load_env_file()
+            api_key = os.environ.get("TZAFON_API_KEY")
+
         if api_key is None:
             raise ComputerError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the TZAFON_API_KEY environment variable"
