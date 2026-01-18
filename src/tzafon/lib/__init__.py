@@ -2,12 +2,12 @@
 
 from .wrapper import ComputerSession
 from .result_types import (
-    ScreenshotResult,
     HTMLResult,
     DebugResult,
-    get_screenshot_url,
+    ScreenshotResult,
     get_html_content,
     get_debug_response,
+    get_screenshot_url,
 )
 
 __all__ = [

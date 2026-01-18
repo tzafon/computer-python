@@ -92,9 +92,10 @@ _setup_logging()
 from .lib.wrapper import ComputerSession
 
 
-def _create_wrapper(self: Computer, kind: str = "browser", **kwargs) -> ComputerSession:
+def _create_wrapper(self: Computer, kind: str = "browser", **kwargs: _t.Any) -> ComputerSession:
     """Create a computer and return a session wrapper with cleaner API."""
     response = self.computers.create(kind=kind, **kwargs)
+    assert response.id is not None
     return ComputerSession(self, response.id)
 
 

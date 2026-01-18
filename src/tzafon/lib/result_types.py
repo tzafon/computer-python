@@ -19,16 +19,19 @@ __all__ = [
 
 class ScreenshotResult(TypedDict, total=False):
     """Result from screenshot action containing the image URL."""
+
     screenshot_url: str
 
 
 class HTMLResult(TypedDict, total=False):
     """Result from html() action containing the page HTML."""
+
     html_content: str
 
 
 class DebugResult(TypedDict, total=False):
     """Result from debug command containing command output."""
+
     debug_response: str
 
 
