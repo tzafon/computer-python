@@ -195,9 +195,9 @@ class ComputerSession:
 
         Example:
             ```python
-            result = computer.wait(1)      # Wait 1 second
-            result = computer.wait(0.5)    # Wait 500 milliseconds
-            result = computer.wait(2.5)    # Wait 2.5 seconds
+            result = computer.wait(1)  # Wait 1 second
+            result = computer.wait(0.5)  # Wait 500 milliseconds
+            result = computer.wait(2.5)  # Wait 2.5 seconds
             ```
         """
         ms = int(seconds * 1000)
@@ -242,10 +242,7 @@ class ComputerSession:
             ```
         """
         return self._client.computers.debug(
-            self.id,
-            command=command,
-            timeout_seconds=timeout_seconds,
-            max_output_length=max_output_length
+            self.id, command=command, timeout_seconds=timeout_seconds, max_output_length=max_output_length
         )
 
     def set_viewport(self, width: int, height: int, scale_factor: float = 1.0) -> ActionResult:
@@ -260,12 +257,7 @@ class ComputerSession:
         Returns:
             ActionResult with status and timestamp
         """
-        return self._client.computers.set_viewport(
-            self.id,
-            width=width,
-            height=height,
-            scale_factor=scale_factor
-        )
+        return self._client.computers.set_viewport(self.id, width=width, height=height, scale_factor=scale_factor)
 
     # Typed helper methods for extracting results
 
