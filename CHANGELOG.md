@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.15.2 (2026-01-18)
+
+Full Changelog: [v2.15.1...v2.15.2](https://github.com/tzafon/computer-python/compare/v2.15.1...v2.15.2)
+
+### Documentation
+
+* update README ([e40d731](https://github.com/tzafon/computer-python/commit/e40d7318d26dcbab3badccabca19d2cf0cf87973))
+
 ## 2.15.1 (2026-01-18)
 
 Full Changelog: [v2.15.0...v2.15.1](https://github.com/tzafon/computer-python/compare/v2.15.0...v2.15.1)
