@@ -1,37 +1,159 @@
-# Computer Python API library
+# Tzafon Python SDK
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/tzafon.svg?label=pypi%20(stable))](https://pypi.org/project/tzafon/)
 
-The Computer Python library provides convenient access to the Computer REST API from any Python 3.9+
-application. The library includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+The Tzafon Python SDK enables programmatic control of Chromium browsers and Linux desktop environments. Build automation workflows with full stealth capabilities, multi-tab management, and an OpenAI-compatible Chat Completions API.
 
-It is generated with [Stainless](https://www.stainless.com/).
+## Features
 
-## MCP Server
-
-Use the Computer MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.
-
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=tzafon-mcp&config=eyJuYW1lIjoidHphZm9uLW1jcCIsInRyYW5zcG9ydCI6InNzZSIsInVybCI6Imh0dHBzOi8vY29tcHV0ZXIuc3RsbWNwLmNvbS9zc2UifQ)
-[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22tzafon-mcp%22%2C%22type%22%3A%22sse%22%2C%22url%22%3A%22https%3A%2F%2Fcomputer.stlmcp.com%2Fsse%22%7D)
-
-> Note: You may need to set environment variables in your MCP client.
+- **Browser Automation**: Control Chromium browsers with navigation, clicking, typing, scrolling, and screenshots
+- **Desktop Automation**: Automate Linux desktop environments with GUI interactions
+- **Multi-Tab Support**: Control multiple browser tabs within a single session
+- **Page Context API**: Get detailed page state including viewport, scroll position, URL, and title
+- **Full Stealth**: Built-in stealth mode for web automation
+- **Sync & Async**: Both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx)
 
 ## Documentation
 
-The REST API documentation can be found on [docs.tzafon.ai](https://docs.tzafon.ai). The full API of this library can be found in [api.md](api.md).
+Full documentation available at [docs.tzafon.ai](https://docs.tzafon.ai). API reference in [api.md](api.md).
 
 ## Installation
 
 ```sh
-# install from PyPI
 pip install tzafon
 ```
 
-## Usage
+## Quick Start
 
-The full API of this library can be found in [api.md](api.md).
+Get your API key from [tzafon.ai](https://tzafon.ai) and set it as an environment variable:
+
+```sh
+export TZAFON_API_KEY=sk_your_api_key_here
+```
+
+### Browser Automation
+
+```python
+from tzafon import Computer
+
+client = Computer()
+
+with client.create(kind="browser") as computer:
+    # Navigate to a webpage
+    computer.navigate("https://wikipedia.org")
+    computer.wait(2)
+
+    # Take a screenshot
+    result = computer.screenshot()
+    url = computer.get_screenshot_url(result)
+    print(f"Screenshot: {url}")
+
+    # Interact with the page
+    computer.click(400, 300)
+    computer.type("Ada Lovelace")
+    computer.hotkey("Return")
+```
+
+### Desktop Automation
+
+```python
+from tzafon import Computer
+
+client = Computer()
+
+with client.create(kind="desktop") as computer:
+    computer.click(500, 300)
+    computer.type("Hello Desktop")
+    computer.hotkey("ctrl", "s")
+    computer.screenshot()
+```
+
+### Session Configuration
+
+```python
+computer = client.create(
+    kind="browser",                      # "browser" or "desktop"
+    timeout_seconds=3600,                # Maximum session lifetime
+    inactivity_timeout_seconds=120,      # Auto-terminate after idle
+    display={"width": 1280, "height": 720, "scale": 1.0},
+    context_id="my-session",             # Optional identifier
+    auto_kill=True,                      # End session on inactivity
+)
+```
+
+## Available Actions
+
+### Navigation
+- `navigate(url)` - Navigate to a URL (browser only)
+
+### Mouse
+- `click(x, y)` - Click at coordinates
+- `double_click(x, y)` - Double-click at coordinates
+- `right_click(x, y)` - Right-click for context menus
+- `drag(from_x, from_y, to_x, to_y)` - Drag between positions
+- `mouse_down(x, y)` / `mouse_up(x, y)` - Press/release mouse button
+
+### Keyboard
+- `type(text)` - Type text at cursor
+- `hotkey(*keys)` - Send keyboard shortcuts (e.g., `hotkey("ctrl", "c")`)
+- `key_down(key)` / `key_up(key)` - Press/release keys
+
+### Other
+- `scroll(dx, dy)` - Scroll viewport
+- `screenshot()` - Capture screen
+- `html()` - Get page HTML content
+- `wait(seconds)` - Pause execution
+- `set_viewport(width, height)` - Change viewport size
+- `batch(actions)` - Execute multiple actions in one API call
+
+## Page Context API
+
+Get detailed page state with your actions:
+
+```python
+result = computer.execute_action("screenshot", include_context=True)
+context = result.page_context
+
+print(f"URL: {context.url}")
+print(f"Title: {context.title}")
+print(f"Viewport: {context.viewport_width}x{context.viewport_height}")
+print(f"Scroll position: ({context.scroll_x}, {context.scroll_y})")
+```
+
+## Chat Completions API
+
+OpenAI-compatible API for AI-powered workflows:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="your_tzafon_api_key",
+    base_url="https://api.tzafon.ai/v1"
+)
+
+response = client.chat.completions.create(
+    model="tzafon.northstar.cua.sft",  # Optimized for computer-use automation
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What should I click to search?"}
+    ]
+)
+```
+
+Available models:
+- `tzafon.sm-1` - Fast, lightweight model for general tasks
+- `tzafon.northstar.cua.sft` - Optimized for browser/desktop automation
+
+## MCP Server
+
+Enable AI assistants to interact with the API:
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=tzafon-mcp&config=eyJuYW1lIjoidHphZm9uLW1jcCIsInRyYW5zcG9ydCI6InNzZSIsInVybCI6Imh0dHBzOi8vY29tcHV0ZXIuc3RsbWNwLmNvbS9zc2UifQ)
+[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22tzafon-mcp%22%2C%22type%22%3A%22sse%22%2C%22url%22%3A%22https%3A%2F%2Fcomputer.stlmcp.com%2Fsse%22%7D)
+
+## Basic Usage
 
 ```python
 import os
@@ -41,13 +163,11 @@ client = Computer(
     api_key=os.environ.get("TZAFON_API_KEY"),  # This is the default and can be omitted
 )
 
+# List existing sessions
 computer_responses = client.computers.list()
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `TZAFON_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
+We recommend using [python-dotenv](https://pypi.org/project/python-dotenv/) to add `TZAFON_API_KEY="My API Key"` to your `.env` file so that your API key is not stored in source control.
 
 ## Async usage
 
