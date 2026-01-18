@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.14.0 (2026-01-18)
+
+Full Changelog: [v2.13.0...v2.14.0](https://github.com/tzafon/computer-python/compare/v2.13.0...v2.14.0)
+
+### Features
+
+* add convenience wrapper ([b6edbf2](https://github.com/tzafon/computer-python/commit/b6edbf29050157482a3ba74fa302ce321650003b))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([be1138a](https://github.com/tzafon/computer-python/commit/be1138ad6ec9dacfeef23e6496864aadee79e101))
+
 ## 2.13.0 (2026-01-16)
 
 Full Changelog: [v2.12.0...v2.13.0](https://github.com/tzafon/computer-python/compare/v2.12.0...v2.13.0)
