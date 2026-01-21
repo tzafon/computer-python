@@ -1,6 +1,6 @@
 [project]
 name = "tzafon"
-version = "2.15.2"
+version = "2.16.0"
 description = "The official Python library for the computer API"
 dynamic = ["readme"]
 license = "MIT"
@@ -37,8 +37,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/tzafon/computer-python"
-Repository = "https://github.com/tzafon/computer-python"
+Homepage = "https://github.com/tzafon/lightcone"
+Repository = "https://github.com/tzafon/lightcone"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
@@ -126,7 +126,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/tzafon/computer-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/tzafon/lightcone/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

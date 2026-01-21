@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Type, Optional, cast
 
 if TYPE_CHECKING:
     from .._client import Computer as TzafonClient
@@ -142,7 +142,7 @@ class ComputerSession:
         """
         return self._client.computers.drag(self.id, x1=x1, y1=y1, x2=x2, y2=y2)
 
-    def hotkey(self, *keys: str) -> ActionResult:
+    def hotkey(self, *keys: str | list[str] | tuple[str, ...]) -> ActionResult:
         """
         Press a keyboard shortcut combination.
 
@@ -161,10 +161,11 @@ class ComputerSession:
             ```
         """
         # Handle both hotkey("a", "b") and hotkey(["a", "b"]) calling styles
+        keys_list: list[str]
         if len(keys) == 1 and isinstance(keys[0], (list, tuple)):
             keys_list = list(keys[0])
         else:
-            keys_list = list(keys)
+            keys_list = cast(list[str], list(keys))
 
         return self._client.computers.execute_action(self.id, action={"type": "keypress", "keys": keys_list})
 
@@ -317,7 +318,7 @@ class ComputerSession:
 
     def __exit__(
         self,
-        exc_type: type[BaseException] | None,
+        exc_type: Type[BaseException] | None,
         exc_val: BaseException | None,
         exc_tb: object,
     ) -> None:
