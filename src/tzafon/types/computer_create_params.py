@@ -15,11 +15,16 @@ class ComputerCreateParams(TypedDict, total=False):
 
     display: Display
 
+    environment_id: str
+
     inactivity_timeout_seconds: int
     """Idle timeout before auto-kill"""
 
     kind: str
     """\"browser" (default) or "desktop" """
+
+    persistent: bool
+    """Persist cookies/storage state to DB on session teardown only if true"""
 
     stealth: object
 

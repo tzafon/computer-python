@@ -99,8 +99,10 @@ class ComputersResource(SyncAPIResource):
         auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
+        environment_id: str | Omit = omit,
         inactivity_timeout_seconds: int | Omit = omit,
         kind: str | Omit = omit,
+        persistent: bool | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -125,6 +127,8 @@ class ComputersResource(SyncAPIResource):
 
           kind: "browser" (default) or "desktop"
 
+          persistent: Persist cookies/storage state to DB on session teardown only if true
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -140,8 +144,10 @@ class ComputersResource(SyncAPIResource):
                     "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
+                    "environment_id": environment_id,
                     "inactivity_timeout_seconds": inactivity_timeout_seconds,
                     "kind": kind,
+                    "persistent": persistent,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
@@ -1308,8 +1314,10 @@ class AsyncComputersResource(AsyncAPIResource):
         auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
+        environment_id: str | Omit = omit,
         inactivity_timeout_seconds: int | Omit = omit,
         kind: str | Omit = omit,
+        persistent: bool | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1334,6 +1342,8 @@ class AsyncComputersResource(AsyncAPIResource):
 
           kind: "browser" (default) or "desktop"
 
+          persistent: Persist cookies/storage state to DB on session teardown only if true
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1349,8 +1359,10 @@ class AsyncComputersResource(AsyncAPIResource):
                     "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
+                    "environment_id": environment_id,
                     "inactivity_timeout_seconds": inactivity_timeout_seconds,
                     "kind": kind,
+                    "persistent": persistent,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
