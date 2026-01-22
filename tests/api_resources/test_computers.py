@@ -41,8 +41,10 @@ class TestComputers:
                 "scale": 0,
                 "width": 0,
             },
+            environment_id="environment_id",
             inactivity_timeout_seconds=0,
             kind="kind",
+            persistent=True,
             stealth={},
             timeout_seconds=0,
         )
@@ -1485,8 +1487,10 @@ class TestAsyncComputers:
                 "scale": 0,
                 "width": 0,
             },
+            environment_id="environment_id",
             inactivity_timeout_seconds=0,
             kind="kind",
+            persistent=True,
             stealth={},
             timeout_seconds=0,
         )
