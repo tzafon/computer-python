@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Type, Optional, cast
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Type, cast
 
 if TYPE_CHECKING:
     from .._client import Computer as TzafonClient
     from ..types.action_result import ActionResult
+    from ..types.computer_response import ComputerResponse
+    from ..types.computer_keep_alive_response import ComputerKeepAliveResponse
+    from ..types.computer_execute_batch_response import ComputerExecuteBatchResponse
 
 __all__ = ["ComputerSession"]
 
@@ -303,6 +306,177 @@ class ComputerSession:
         if result.result:
             return result.result.get("debug_response")  # type: ignore
         return None
+
+
+    def execute(self, action: Dict[str, Any]) -> ActionResult:
+        """
+        Execute a single action using the generic execute endpoint.
+
+        This is useful for actions not exposed as dedicated methods, or when you need
+        to pass advanced parameters like `tab_id` or `include_context`.
+
+        Args:
+            action: Action dictionary with 'type' and action-specific parameters.
+                   Example: {"type": "click", "x": 100, "y": 200, "tab_id": "..."}
+
+        Returns:
+            ActionResult with status and action-specific results
+
+        Example:
+            ```python
+            # Key down/up for shift-click
+            computer.execute({"type": "key_down", "key": "Shift"})
+            computer.click(100, 200)
+            computer.execute({"type": "key_up", "key": "Shift"})
+
+            # Mouse down/up for fine-grained drag control
+            computer.execute({"type": "mouse_down", "x": 100, "y": 100})
+            computer.execute({"type": "mouse_up", "x": 200, "y": 200})
+
+            # Tab operations
+            computer.execute({"type": "list_tabs"})
+            computer.execute({"type": "new_tab", "url": "https://example.com"})
+            computer.execute({"type": "switch_tab", "tab_id": "tab_123"})
+            computer.execute({"type": "close_tab", "tab_id": "tab_123"})
+            ```
+        """
+        return self._client.computers.execute_action(self.id, action=action)
+
+    def batch(self, actions: List[Dict[str, Any]]) -> ComputerExecuteBatchResponse:
+        """
+        Execute multiple actions in sequence with a single API call.
+
+        Actions are executed in order and the batch stops on the first error.
+        This reduces network round-trips and improves performance for multi-step workflows.
+
+        Args:
+            actions: List of action dictionaries to execute sequentially.
+                    Each action should have a 'type' and action-specific parameters.
+
+        Returns:
+            ComputerExecuteBatchResponse with results for all executed actions
+
+        Example:
+            ```python
+            result = computer.batch([
+                {"type": "go_to_url", "url": "https://example.com"},
+                {"type": "wait", "ms": 2000},
+                {"type": "click", "x": 100, "y": 200},
+                {"type": "type", "text": "search query"},
+                {"type": "keypress", "keys": ["enter"]},
+                {"type": "screenshot"}
+            ])
+            ```
+        """
+        return self._client.computers.execute_batch(self.id, actions=actions)
+
+    def keep_alive(self) -> ComputerKeepAliveResponse:
+        """
+        Extend the session timeout and verify it is still running.
+
+        Call this periodically (e.g., every 30 seconds) for sessions that may have
+        long idle periods between actions to prevent automatic termination.
+
+        Returns:
+            ComputerKeepAliveResponse with session status
+
+        Example:
+            ```python
+            # In a long-running automation
+            result = computer.keep_alive()
+            print(f"Session still active: {result}")
+            ```
+        """
+        return self._client.computers.keep_alive(self.id)
+
+    def retrieve(self) -> ComputerResponse:
+        """
+        Get the current session status and metadata.
+
+        Returns:
+            ComputerResponse with session details including:
+            - id, kind, status
+            - created_at, expires_at, last_activity_at
+            - timeout settings
+
+        Example:
+            ```python
+            info = computer.retrieve()
+            print(f"Session {info.id} expires at {info.expires_at}")
+            ```
+        """
+        return self._client.computers.retrieve(self.id)
+
+    def stream_events(self) -> None:
+        """
+        Stream real-time events from the session using Server-Sent Events (SSE).
+
+        Note: This is a low-level method. For most use cases, use the direct API
+        with a streaming HTTP client like `requests` or `httpx`.
+
+        Example:
+            ```python
+            import requests
+
+            url = f"https://api.tzafon.ai/computers/{computer.id}/events"
+            headers = {"Authorization": f"Bearer {api_key}"}
+
+            with requests.get(url, headers=headers, stream=True) as response:
+                for line in response.iter_lines():
+                    if line:
+                        print(line.decode('utf-8'))
+            ```
+        """
+        return self._client.computers.stream_events(self.id)
+
+    def stream_screencast(self) -> None:
+        """
+        Stream live screencast frames from the session using Server-Sent Events (SSE).
+
+        Frames are delivered as base64-encoded JPEG images.
+
+        Note: This is a low-level method. For most use cases, use the direct API
+        with a streaming HTTP client.
+
+        Example:
+            ```python
+            import json
+            import requests
+            import base64
+
+            url = f"https://api.tzafon.ai/computers/{computer.id}/screencast"
+            headers = {"Authorization": f"Bearer {api_key}"}
+
+            with requests.get(url, headers=headers, stream=True) as response:
+                for line in response.iter_lines():
+                    if line:
+                        data = line.decode('utf-8')
+                        if data.startswith('data:'):
+                            frame_json = json.loads(data[5:].strip())
+                            image_bytes = base64.b64decode(frame_json['frame'])
+            ```
+        """
+        return self._client.computers.stream_screencast(self.id)
+
+    def connect_websocket(self) -> None:
+        """
+        Establish a WebSocket connection for bidirectional real-time communication.
+
+        Note: This is a low-level method. For WebSocket connections, use the
+        WebSocket URL directly with a WebSocket client library.
+
+        Example:
+            ```python
+            import websockets
+
+            ws_url = f"wss://api.tzafon.ai/computers/{computer.id}/ws?token={api_key}"
+
+            async with websockets.connect(ws_url) as ws:
+                async for message in ws:
+                    print(f"Received: {message}")
+            ```
+        """
+        return self._client.computers.connect_websocket(self.id)
 
     def terminate(self) -> None:
         """
