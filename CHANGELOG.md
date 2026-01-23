@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.18.0 (2026-01-23)
+
+Full Changelog: [v2.17.0...v2.18.0](https://github.com/tzafon/computer-python/compare/v2.17.0...v2.18.0)
+
+### Features
+
+* add utility methods ([8a5d8d8](https://github.com/tzafon/computer-python/commit/8a5d8d8cf536048c19b3775bf90a8931636db2ff))
+* **api:** api update ([d6723a0](https://github.com/tzafon/computer-python/commit/d6723a0d9aa5225b01c684118711e98e6d3dbb3d))
+* **api:** api update ([82a14b4](https://github.com/tzafon/computer-python/commit/82a14b46705018297af93a87852a5c97fbe15c10))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([0bc1a35](https://github.com/tzafon/computer-python/commit/0bc1a35b5857ddc467535a63ec1455e52f5c0f04))
+
 ## 2.17.0 (2026-01-21)
 
 Full Changelog: [v2.16.0...v2.17.0](https://github.com/tzafon/computer-python/compare/v2.16.0...v2.17.0)

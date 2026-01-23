@@ -9,5 +9,7 @@ __all__ = ["ComputerKeyUpParams"]
 
 class ComputerKeyUpParams(TypedDict, total=False):
     key: str
+    """Key name to release. Case-insensitive. Examples: "shift", "ctrl", "a", "Enter" """
 
     tab_id: str
+    """Optional tab ID for browser sessions (ignored for desktop sessions)"""

@@ -41,8 +41,10 @@ class TestComputers:
                 "scale": 0,
                 "width": 0,
             },
+            environment_id="environment_id",
             inactivity_timeout_seconds=0,
             kind="kind",
+            persistent=True,
             stealth={},
             timeout_seconds=0,
         )
@@ -779,7 +781,7 @@ class TestComputers:
     def test_method_key_down_with_all_params(self, client: Computer) -> None:
         computer = client.computers.key_down(
             id="id",
-            key="key",
+            key="shift",
             tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -831,7 +833,7 @@ class TestComputers:
     def test_method_key_up_with_all_params(self, client: Computer) -> None:
         computer = client.computers.key_up(
             id="id",
-            key="key",
+            key="shift",
             tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -1485,8 +1487,10 @@ class TestAsyncComputers:
                 "scale": 0,
                 "width": 0,
             },
+            environment_id="environment_id",
             inactivity_timeout_seconds=0,
             kind="kind",
+            persistent=True,
             stealth={},
             timeout_seconds=0,
         )
@@ -2223,7 +2227,7 @@ class TestAsyncComputers:
     async def test_method_key_down_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.key_down(
             id="id",
-            key="key",
+            key="shift",
             tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])
@@ -2275,7 +2279,7 @@ class TestAsyncComputers:
     async def test_method_key_up_with_all_params(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.key_up(
             id="id",
-            key="key",
+            key="shift",
             tab_id="tab_id",
         )
         assert_matches_type(ActionResult, computer, path=["response"])

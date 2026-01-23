@@ -99,8 +99,10 @@ class ComputersResource(SyncAPIResource):
         auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
+        environment_id: str | Omit = omit,
         inactivity_timeout_seconds: int | Omit = omit,
         kind: str | Omit = omit,
+        persistent: bool | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -125,6 +127,8 @@ class ComputersResource(SyncAPIResource):
 
           kind: "browser" (default) or "desktop"
 
+          persistent: Persist cookies/storage state to DB on session teardown only if true
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -140,8 +144,10 @@ class ComputersResource(SyncAPIResource):
                     "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
+                    "environment_id": environment_id,
                     "inactivity_timeout_seconds": inactivity_timeout_seconds,
                     "kind": kind,
+                    "persistent": persistent,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
@@ -672,10 +678,24 @@ class ComputersResource(SyncAPIResource):
     ) -> ActionResult:
         """Press and hold a keyboard key.
 
-        Use with key_up for complex interactions.
-        Optionally specify tab_id (browser sessions only)
+        Use with key_up to release. Supports modifier
+        keys (shift, ctrl, alt, meta) for complex interactions like Shift+Click.
+
+        **Supported keys:** Modifier keys (shift, ctrl, alt, meta), special keys (enter,
+        escape, tab, backspace, delete, space), arrow keys (arrowup, arrowdown,
+        arrowleft, arrowright), navigation (home, end, pageup, pagedown), function keys
+        (f1-f24), and any single character (a-z, 0-9).
+
+        **Key names are case-insensitive:** "shift", "Shift", and "SHIFT" all work.
+
+        **Example Shift+Click:** 1) key_down "shift", 2) click at coordinates, 3) key_up
+        "shift"
 
         Args:
+          key: Key name to press. Case-insensitive. Examples: "shift", "ctrl", "a", "Enter"
+
+          tab_id: Optional tab ID for browser sessions (ignored for desktop sessions)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -716,10 +736,19 @@ class ComputersResource(SyncAPIResource):
     ) -> ActionResult:
         """Release a keyboard key that was previously pressed with key_down.
 
-        Optionally
-        specify tab_id (browser sessions only)
+        The key name
+        should match the corresponding key_down call.
+
+        **Key names are case-insensitive:** "shift", "Shift", and "SHIFT" all work.
+
+        **Important:** Always release modifier keys after use to prevent them from
+        affecting subsequent actions.
 
         Args:
+          key: Key name to release. Case-insensitive. Examples: "shift", "ctrl", "a", "Enter"
+
+          tab_id: Optional tab ID for browser sessions (ignored for desktop sessions)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1285,8 +1314,10 @@ class AsyncComputersResource(AsyncAPIResource):
         auto_kill: bool | Omit = omit,
         context_id: str | Omit = omit,
         display: computer_create_params.Display | Omit = omit,
+        environment_id: str | Omit = omit,
         inactivity_timeout_seconds: int | Omit = omit,
         kind: str | Omit = omit,
+        persistent: bool | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1311,6 +1342,8 @@ class AsyncComputersResource(AsyncAPIResource):
 
           kind: "browser" (default) or "desktop"
 
+          persistent: Persist cookies/storage state to DB on session teardown only if true
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1326,8 +1359,10 @@ class AsyncComputersResource(AsyncAPIResource):
                     "auto_kill": auto_kill,
                     "context_id": context_id,
                     "display": display,
+                    "environment_id": environment_id,
                     "inactivity_timeout_seconds": inactivity_timeout_seconds,
                     "kind": kind,
+                    "persistent": persistent,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
                 },
@@ -1864,10 +1899,24 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ActionResult:
         """Press and hold a keyboard key.
 
-        Use with key_up for complex interactions.
-        Optionally specify tab_id (browser sessions only)
+        Use with key_up to release. Supports modifier
+        keys (shift, ctrl, alt, meta) for complex interactions like Shift+Click.
+
+        **Supported keys:** Modifier keys (shift, ctrl, alt, meta), special keys (enter,
+        escape, tab, backspace, delete, space), arrow keys (arrowup, arrowdown,
+        arrowleft, arrowright), navigation (home, end, pageup, pagedown), function keys
+        (f1-f24), and any single character (a-z, 0-9).
+
+        **Key names are case-insensitive:** "shift", "Shift", and "SHIFT" all work.
+
+        **Example Shift+Click:** 1) key_down "shift", 2) click at coordinates, 3) key_up
+        "shift"
 
         Args:
+          key: Key name to press. Case-insensitive. Examples: "shift", "ctrl", "a", "Enter"
+
+          tab_id: Optional tab ID for browser sessions (ignored for desktop sessions)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1908,10 +1957,19 @@ class AsyncComputersResource(AsyncAPIResource):
     ) -> ActionResult:
         """Release a keyboard key that was previously pressed with key_down.
 
-        Optionally
-        specify tab_id (browser sessions only)
+        The key name
+        should match the corresponding key_down call.
+
+        **Key names are case-insensitive:** "shift", "Shift", and "SHIFT" all work.
+
+        **Important:** Always release modifier keys after use to prevent them from
+        affecting subsequent actions.
 
         Args:
+          key: Key name to release. Case-insensitive. Examples: "shift", "ctrl", "a", "Enter"
+
+          tab_id: Optional tab ID for browser sessions (ignored for desktop sessions)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request

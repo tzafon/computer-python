@@ -9,5 +9,7 @@ __all__ = ["ComputerKeyDownParams"]
 
 class ComputerKeyDownParams(TypedDict, total=False):
     key: str
+    """Key name to press. Case-insensitive. Examples: "shift", "ctrl", "a", "Enter" """
 
     tab_id: str
+    """Optional tab ID for browser sessions (ignored for desktop sessions)"""
