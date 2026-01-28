@@ -30,6 +30,9 @@ class ComputerCreateParams(TypedDict, total=False):
 
     timeout_seconds: int
 
+    use_advanced_proxy: bool
+    """If true (browser sessions), use ADVANCED_PROXY_URL on session start"""
+
 
 class Display(TypedDict, total=False):
     height: int

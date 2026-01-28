@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.19.0 (2026-01-28)
+
+Full Changelog: [v2.18.0...v2.19.0](https://github.com/tzafon/computer-python/compare/v2.18.0...v2.19.0)
+
+### Features
+
+* **api:** api update ([d9af593](https://github.com/tzafon/computer-python/commit/d9af593ae17881d7e3cde4e925876364ad40a81f))
+
 ## 2.18.0 (2026-01-23)
 
 Full Changelog: [v2.17.0...v2.18.0](https://github.com/tzafon/computer-python/compare/v2.17.0...v2.18.0)
