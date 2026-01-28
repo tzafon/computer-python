@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.19.1 (2026-01-28)
+
+Full Changelog: [v2.19.0...v2.19.1](https://github.com/tzafon/computer-python/compare/v2.19.0...v2.19.1)
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([6bd7e48](https://github.com/tzafon/computer-python/commit/6bd7e486edb07292b671eedf883f0be3486d26a5))
+
 ## 2.19.0 (2026-01-28)
 
 Full Changelog: [v2.18.0...v2.19.0](https://github.com/tzafon/computer-python/compare/v2.18.0...v2.19.0)
