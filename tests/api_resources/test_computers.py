@@ -47,6 +47,7 @@ class TestComputers:
             persistent=True,
             stealth={},
             timeout_seconds=0,
+            use_advanced_proxy=True,
         )
         assert_matches_type(ComputerResponse, computer, path=["response"])
 
@@ -1493,6 +1494,7 @@ class TestAsyncComputers:
             persistent=True,
             stealth={},
             timeout_seconds=0,
+            use_advanced_proxy=True,
         )
         assert_matches_type(ComputerResponse, computer, path=["response"])
 

@@ -105,6 +105,7 @@ class ComputersResource(SyncAPIResource):
         persistent: bool | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
+        use_advanced_proxy: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,6 +130,8 @@ class ComputersResource(SyncAPIResource):
 
           persistent: Persist cookies/storage state to DB on session teardown only if true
 
+          use_advanced_proxy: If true (browser sessions), use ADVANCED_PROXY_URL on session start
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -150,6 +153,7 @@ class ComputersResource(SyncAPIResource):
                     "persistent": persistent,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
+                    "use_advanced_proxy": use_advanced_proxy,
                 },
                 computer_create_params.ComputerCreateParams,
             ),
@@ -1320,6 +1324,7 @@ class AsyncComputersResource(AsyncAPIResource):
         persistent: bool | Omit = omit,
         stealth: object | Omit = omit,
         timeout_seconds: int | Omit = omit,
+        use_advanced_proxy: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1344,6 +1349,8 @@ class AsyncComputersResource(AsyncAPIResource):
 
           persistent: Persist cookies/storage state to DB on session teardown only if true
 
+          use_advanced_proxy: If true (browser sessions), use ADVANCED_PROXY_URL on session start
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1365,6 +1372,7 @@ class AsyncComputersResource(AsyncAPIResource):
                     "persistent": persistent,
                     "stealth": stealth,
                     "timeout_seconds": timeout_seconds,
+                    "use_advanced_proxy": use_advanced_proxy,
                 },
                 computer_create_params.ComputerCreateParams,
             ),
