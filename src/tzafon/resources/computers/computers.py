@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
+from typing_extensions import Literal
 
 import httpx
 
@@ -24,6 +25,7 @@ from .tabs import (
 )
 from ...types import (
     computer_drag_params,
+    computer_list_params,
     computer_click_params,
     computer_debug_params,
     computer_create_params,
@@ -199,6 +201,7 @@ class ComputersResource(SyncAPIResource):
     def list(
         self,
         *,
+        type: Literal["live", "persistent"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -206,11 +209,30 @@ class ComputersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerListResponse:
-        """List all active computers for the user's organization"""
+        """List all active computers for the user's organization.
+
+        Use type=persistent to
+        list persistent sessions instead.
+
+        Args:
+          type: Session type filter
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._get(
             "/computers",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"type": type}, computer_list_params.ComputerListParams),
             ),
             cast_to=ComputerListResponse,
         )
@@ -1418,6 +1440,7 @@ class AsyncComputersResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        type: Literal["live", "persistent"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1425,11 +1448,30 @@ class AsyncComputersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ComputerListResponse:
-        """List all active computers for the user's organization"""
+        """List all active computers for the user's organization.
+
+        Use type=persistent to
+        list persistent sessions instead.
+
+        Args:
+          type: Session type filter
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._get(
             "/computers",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"type": type}, computer_list_params.ComputerListParams),
             ),
             cast_to=ComputerListResponse,
         )
