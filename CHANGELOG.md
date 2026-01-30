@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.20.0 (2026-01-30)
+
+Full Changelog: [v2.19.0...v2.20.0](https://github.com/tzafon/computer-python/compare/v2.19.0...v2.20.0)
+
+### Features
+
+* **api:** api update ([e2e2a3d](https://github.com/tzafon/computer-python/commit/e2e2a3d1b1b0e23e377524ec696bbf1c82eeb635))
+* **client:** add custom JSON encoder for extended type support ([7e43465](https://github.com/tzafon/computer-python/commit/7e43465589229a0b3e4b8e7f0453d9200c1e841c))
+
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([6bd7e48](https://github.com/tzafon/computer-python/commit/6bd7e486edb07292b671eedf883f0be3486d26a5))
+
 ## 2.19.0 (2026-01-28)
 
 Full Changelog: [v2.18.0...v2.19.0](https://github.com/tzafon/computer-python/compare/v2.18.0...v2.19.0)
