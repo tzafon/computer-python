@@ -5,6 +5,7 @@ from __future__ import annotations
 from .action_result import ActionResult as ActionResult
 from .computer_response import ComputerResponse as ComputerResponse
 from .computer_drag_params import ComputerDragParams as ComputerDragParams
+from .computer_list_params import ComputerListParams as ComputerListParams
 from .computer_click_params import ComputerClickParams as ComputerClickParams
 from .computer_debug_params import ComputerDebugParams as ComputerDebugParams
 from .computer_create_params import ComputerCreateParams as ComputerCreateParams

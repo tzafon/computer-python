@@ -123,6 +123,14 @@ class TestComputers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_list_with_all_params(self, client: Computer) -> None:
+        computer = client.computers.list(
+            type="live",
+        )
+        assert_matches_type(ComputerListResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_raw_response_list(self, client: Computer) -> None:
         response = client.computers.with_raw_response.list()
 
@@ -1566,6 +1574,14 @@ class TestAsyncComputers:
     @parametrize
     async def test_method_list(self, async_client: AsyncComputer) -> None:
         computer = await async_client.computers.list()
+        assert_matches_type(ComputerListResponse, computer, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncComputer) -> None:
+        computer = await async_client.computers.list(
+            type="live",
+        )
         assert_matches_type(ComputerListResponse, computer, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
